@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { of } from "rxjs";
+
+import { CookieService } from 'ngx-cookie-service';
+import { PasswordHandlerService } from '../password-handler.service';
 import { Router } from "@angular/router"
 
 @Component({
@@ -9,27 +11,27 @@ import { Router } from "@angular/router"
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  username: String = ""
   firstName: String = ""
   lastName: String = ""
   emailOrPhone: String = ""
   password: String = ""
   conformPassword: String =""
+  fieldsDisabled: boolean = false;
 
   passwordType: String = "password"
   pass_check: Boolean = false
 
   userDetails: {}[] = []
 
-  constructor(private http: HttpClient, private router: Router){
+  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService,
+    private passwordHandlerService: PasswordHandlerService){
 
   }
 
-  getDetails(un: String, fn: String, ln: String, e: String, p: String, cp: String){
+  getDetails(fn: String, ln: String, e: String, p: String, cp: String){
 
     const password_check: string[] = ["!","@","#","$","%","^","&","*","(",")",".",",","/","\",","{","}","|","~","`"]
 
-    if(un.length > 5){
       if(e.length >= 10){
         if(p.length > 8 && p.length < 12 && cp.length > 8 && cp.length < 12){
           for(const char of password_check){
@@ -39,7 +41,6 @@ export class SignupComponent {
             }
           }
           if(this.pass_check){
-            this.username = un;
             this.firstName = fn;
             this.lastName = ln;
             this.emailOrPhone = e;
@@ -60,19 +61,25 @@ export class SignupComponent {
         alert("Enter valid email or phone number")
         return
       }
-    }
-    else{
-      alert("No of characters in the username must be greater than 5")
-      return
-    }
 
 
-    if(this.username && this.firstName && this.lastName && this.emailOrPhone && this.password && this.conformPassword){
+    if(this.firstName && this.lastName && this.emailOrPhone && this.password && this.conformPassword){
+      this.cookieService.set("email/phone", this.emailOrPhone.toString());
+      this.cookieService.set("fname", this.firstName.toString())
+      this.cookieService.set("lname", this.lastName.toString())
       if(this.password === this.conformPassword){
-        this.http.post("http://127.0.0.1:8000/api/signup/", {email: this.emailOrPhone, username: this.username, first_name: this.firstName, last_name: this.lastName, password: this.password}).subscribe({
+        this.fieldsDisabled = true;
+        this.passwordHandlerService.setPassword(this.password.toString());
+        this.http.post("http://127.0.0.1:8000/auth/signup/", {
+          "fname": this.firstName,
+          "email/phone": this.emailOrPhone,
+          "lname": this.lastName,
+          "password": this.password
+        }).subscribe({
           next: (response: any)=>{
             console.log(response)
-            if(response["status"] == "Success"){
+            if(response["authAPISignUp-response"] == "OTP Verification Required") {
+              console.log(this.emailOrPhone);
               this.router.navigate(['/otp'])
             }
           },
@@ -82,13 +89,6 @@ export class SignupComponent {
           }
         }
         )
-        this.userDetails.push({key: this.username, value: [this.firstName, this.lastName, this.emailOrPhone, this.password, this.conformPassword]})
-        this.username = "";
-        this.firstName = "";
-        this.lastName = "";
-        this.emailOrPhone = "";
-        this.password = "";
-        this.conformPassword = "";
       }
       else{
         alert("Conform password and password must me same")
@@ -99,14 +99,8 @@ export class SignupComponent {
       alert("Fill all the information")
       return
     }
-
-    console.log(this.userDetails)
-
   }
 
-  getUsername(value: String){
-    this.username = value
-  }
   getPassword(value: String){
     this.password = value
   }

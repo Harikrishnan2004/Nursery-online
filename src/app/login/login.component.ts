@@ -2,105 +2,107 @@ import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { of } from "rxjs";
 import { Router } from "@angular/router"
+import { OnInit } from '@angular/core'
+import { GetCsrfService } from '../get-csrf.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  username: String = ""
+export class LoginComponent implements OnInit {
   emailOrPhone: String = ""
   password: String = ""
+  fieldsDisabled: boolean = false;
 
   passwordType: String = "password"
   pass_check: Boolean = false
 
-  userDetails: {}[] = []
+  ngOnInit(): void {
+      if (this.cookieService.get('authToken') != '') {
+        this.csrfService.getNewCsrf().subscribe({
+          next: (response: any) => {
+            this.tokenLogin(response["csrf"], this.cookieService.get('authToken'));
+          },
+          error: (error: any) => {
+            console.log(error);
+          }
+        })
+      }
+  }
 
-  constructor(private http: HttpClient, private router: Router){
+  constructor(private http: HttpClient, private router: Router, private csrfService: GetCsrfService,
+    private cookieService: CookieService){
 
   }
 
-  getDetails(un: String, e: String, p: String){
+  getDetails(e: String, p: String){
 
     const password_check: string[] = ["!","@","#","$","%","^","&","*","(",")",".",",","/","\",","{","}","|","~","`"]
+    this.emailOrPhone = e;
+    this.password = p;
 
-    if(un.length > 5){
-      if(e.length > 10){
-        if(p.length > 8 && p.length < 12){
-          for(const char of password_check){
-            if(p.includes(char)){
-              this.pass_check = true
-              break
-            }
-          }
-          if(this.pass_check){
-            this.username = un;
-            this.emailOrPhone = e;
-            this.password = p;
-          }
-          else{
-            alert("Password must contain ateast one special character")
-            return
-          }
-        }
-        else{
-          alert("Password length must be less than 12 and greater than 8")
-          return
-        }
-      }
-      else{
-        alert("Enter valid email or phone number")
-        return
-      }
-    }
-    else{
-      alert("No of characters in the username must be greater than 5")
-      return
-    }
-
-
-    if(this.username && this.emailOrPhone && this.password){
+    if(this.emailOrPhone && this.password){
+      this.fieldsDisabled = true;
       if(this.password){
-        this.http.post("http://127.0.0.1:8000/api/signup/", {email: this.emailOrPhone, username: this.username, password: this.password}).subscribe({
-          next: (response: any)=>{
-            console.log(response)
-            if(response["Status"] == "Success"){
-
-            }
-            else{
-              alert("Invalid login credentials")
-              return
-            }
+        this.csrfService.getNewCsrf().subscribe({
+          next: (response: any) => {
+            this.emailLogin(response["csrf"]);
           },
-          error: (err)=>{
-            alert("Invalid email or phone number");
-            return
+          error: (error: any) => {
+            console.log(error);
           }
-        }
-        )
-        this.username = "";
-        this.emailOrPhone = "";
-        this.password = "";
-      }
-      else{
-        alert("Conform password and password must me same")
-        return
+        })
       }
     }
     else{
       alert("Fill all the information")
       return
     }
+  }
 
-    console.log(this.userDetails)
+  emailLogin(csrf: string) {
+    this.http.post("http://127.0.0.1:8000/auth/login/", {
+      "email/phone": this.emailOrPhone,
+      "password": this.password,
+      "csrf": csrf
+    }).subscribe({
+      next: (response: any)=>{
+        if (response["authAPILogin-response"] == "Success") {
+          if (response["authToken"] != "") {
+            this.cookieService.set("authToken", response["authToken"]);
+          }
+          this.router.navigate(['/dash']);
+        }
+      },
+      error: (err)=>{
+        alert("Login Failed");
+      }
+    })
+  }
+
+  tokenLogin(csrf: string, authToken: string) {
+    this.http.post("http://127.0.0.1:8000/auth/login/", {
+      "email/phone": this.cookieService.get("email/phone"),
+      "authToken": authToken,
+      "csrf": csrf
+    }).subscribe({
+      next: (response: any)=>{
+        if (response["authAPILogin-response"] == "Success") {
+          if (response["authToken"] != "") {
+            this.cookieService.set("authToken", response["authToken"]);
+          }
+          this.router.navigate(['/dash']);
+        }
+      },
+      error: (err)=>{
+        alert("Login Failed");
+      }
+    })
 
   }
 
-  getUsername(value: String){
-    this.username = value
-  }
   getPassword(value: String){
     this.password = value
   }
