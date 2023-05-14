@@ -1,0 +1,11 @@
+<div class="super-container">
+  <div class="container">
+     <div><h1>OTP verification</h1></div>
+     <div><p>Enter the OTP sent to your Mail/Phone </p></div>
+     <span><input class="input-box" #box1 maxlength="1" (keyup)="move($event, '', box1, box2)"></span>
+     <span><input class="input-box" #box2 maxlength="1" (keyup)="move($event, box1, box2, box3)"></span>
+     <span><input class="input-box" #box3 maxlength="1" (keyup)="move($event, box2, box3, box4)"></span>
+     <span><input class="input-box" #box4 maxlength="1" (keyup)="move($event, box3, box4, '')"></span>
+     <div><button class="verify-button" (click)="verify(box1.value, box2.value, box3.value, box4.value)">Verify</button></div>
+   </div>
+ </div>

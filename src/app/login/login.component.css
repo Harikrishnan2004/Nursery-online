@@ -1,0 +1,151 @@
+@media(max-width: 1000px){
+  #img-div{
+    display: none;
+
+  }
+  .signup-container{
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+    border-width: 0.2em;
+    border-style: solid;
+    border: rgb(11, 198, 11);
+  }
+}
+
+.overall-container{
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+}
+.container{
+  text-align: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-repeat: repeat;
+  background-image: url("/assets/images/v986-bg-10.jpg");
+  background-size: cover;
+}
+
+#img-div{
+  margin-top: 5%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 10%;
+  border-top-left-radius: 2em;
+  border-bottom-left-radius: 2em;
+}
+img{
+  border-top-left-radius: 2em;
+  border-bottom-left-radius: 2em;
+  position: relative;
+  size: 50%
+
+}
+
+.heading{
+  color: rgb(16, 18, 16);
+}
+
+.signup-container{
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(255,255,255,0.7);
+  margin-top: 5%;
+  margin-bottom: 10%;
+  border-style: solid;
+  border-color:  rgb(228, 237, 228);
+  justify-content: center;
+  position: relative;
+  padding: 2%;
+  border-top-right-radius: 2em;
+  border-bottom-right-radius: 2em;
+}
+
+.form-container{
+  padding: 2em;
+}
+
+input{
+  text-align: center;
+  padding:0.2em;
+  border: none;
+  border-bottom: 0.1em solid #000;
+  background: transparent;
+  margin: 0.3em;
+  margin-bottom: 1.5em;
+
+}
+
+input:hover{
+  text-align: center;
+  padding:0.2em;
+  border: none;
+  border-bottom: 0.1em solid #09f037;
+  background: transparent;
+  margin: 0.3em;
+  margin-bottom: 1.5em;
+}
+
+input:focus-visible{
+  outline: none;
+}
+
+input::placeholder{
+  color: #00000086;
+  font-weight: 500;
+}
+
+
+#submit-button{
+  background-color: rgb(10, 10, 10);
+  color: white;
+  border-radius: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  outline: none;
+}
+
+#submit-button:hover{
+  padding-left: 1em;
+  padding-right: 1em;
+  background-color: rgb(245, 241, 241);
+  color: rgb(8, 233, 68);
+  border-radius: 0.5em;
+  font-weight: 500;
+  outline: none;
+}
+
+#show-password-label{
+  color:rgb(2, 4, 8)
+}
+
+.new-user-div{
+  margin-top: 1.5em;
+  text-align: left;
+  font-style: italic;
+}
+
+#newuser_tag{
+  text-decoration: none;
+}
+
+#forgot_password_tag{
+  text-decoration: none;
+}
+
+.forgot-password-div{
+  margin-top: 0.5em;
+  text-align: left;
+  font-style: italic;
+  text-decoration: none;
+}
+
+
+
+
+
+
