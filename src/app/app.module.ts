@@ -11,6 +11,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { PasswordHandlerService } from './password-handler.service';
 import { GetCsrfService } from './get-csrf.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { GoogleSignInComponent } from './google-sign-in/google-sign-in.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RecaptchaModule } from 'ng-recaptcha';
 
@@ -22,6 +23,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
     LoginComponent,
     HomepageComponent,
     DashboardComponent,
+    GoogleSignInComponent,
     ForgotPasswordComponent
   ],
   imports: [
