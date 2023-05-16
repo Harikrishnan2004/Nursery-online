@@ -5,6 +5,23 @@
   <title>HelloWorld</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <script>
+    function handleCredentialResponse(response) {
+      const responsePayLoad = decodeJwtResponse(response.credential);
+      console.log("ID: " + responsePayLoad.sub);
+      console.log("Full Name: " + responsePayLoad.name);
+      console.log("Given Name: " + responsePayLoad.given_name);
+      console.log("Family Name: " + responsePayLoad.family_name);
+      console.log("Image URL: " + responsePayLoad.picture);
+      console.log("Email: " + responsePayLoad.email);
+  }
+  
+  function decodeJwtResponse(data) {
+      var tokens = data.split(".");
+      return JSON.parse(atob(tokens[1]))
+  }  
+  </script>
 </head>
 <body>
   <script src="https://accounts.google.com/gsi/client" async defer></script>

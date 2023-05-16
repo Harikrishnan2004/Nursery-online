@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   emailOrPhone: String = ""
   password: String = ""
   fieldsDisabled: boolean = false;
+  invalidCred: boolean = false;
 
   passwordType: String = "password"
   pass_check: Boolean = false
@@ -43,13 +44,13 @@ export class LoginComponent implements OnInit {
   }
 
   getDetails(e: String, p: String){
-
     const password_check: string[] = ["!","@","#","$","%","^","&","*","(",")",".",",","/","\",","{","}","|","~","`"]
     this.emailOrPhone = e;
     this.password = p;
 
     if(this.emailOrPhone && this.password){
       this.fieldsDisabled = true;
+      this.invalidCred = false;
       if(this.password){
         this.csrfService.getNewCsrf().subscribe({
           next: (response: any) => {
@@ -62,8 +63,7 @@ export class LoginComponent implements OnInit {
       }
     }
     else{
-      alert("Fill all the information")
-      return
+      this.invalidCred = true;
     }
   }
 
@@ -80,10 +80,13 @@ export class LoginComponent implements OnInit {
             this.cookieService.set("authToken", response["authToken"]);
           }
           this.router.navigate(['/dash']);
+        } else {
+          this.invalidCred = true;
+          this.fieldsDisabled = false;
         }
       },
       error: (err)=>{
-        alert("Login Failed");
+        console.error(err);
       }
     })
   }
@@ -104,7 +107,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (err)=>{
-        alert("Login Failed");
+        console.error("Login Failed");
       }
     })
 
@@ -118,7 +121,6 @@ export class LoginComponent implements OnInit {
   }
 
   changeType(){
-    console.log("clicked");
     if(this.passwordType == "password"){
       this.passwordType = "text"
     }

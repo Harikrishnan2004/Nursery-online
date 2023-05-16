@@ -18,6 +18,7 @@
   text-align: center;
   justify-content: center;
 }
+
 .container{
   text-align: center;
   justify-content: center;
@@ -50,6 +51,16 @@ img{
   color: rgb(16, 18, 16);
 }
 
+.new-user-div{
+  margin-top: 1.5em;
+  text-align: left;
+  font-style: italic;
+}
+
+#newuser_tag{
+  text-decoration: none;
+}
+
 .signup-container{
 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -66,8 +77,41 @@ img{
 }
 
 .form-container{
-  padding: 2em;
+  padding: 1em;
 }
+
+.alert {
+  --bs-alert-bg: transparent;
+  --bs-alert-padding-x: 1rem;
+  --bs-alert-padding-y: 1rem;
+  --bs-alert-margin-bottom: 1rem;
+  --bs-alert-color: inherit;
+  --bs-alert-border-color: transparent;
+  --bs-alert-border: 1px solid var(--bs-alert-border-color);
+  --bs-alert-border-radius: 0.375rem;
+  position: relative;
+  padding: var(--bs-alert-padding-y) var(--bs-alert-padding-x);
+  margin-bottom: var(--bs-alert-margin-bottom);
+  color: var(--bs-alert-color);
+  background-color: var(--bs-alert-bg);
+  border: var(--bs-alert-border);
+  border-radius: var(--bs-alert-border-radius);
+}
+
+.alert-success {
+  --bs-alert-color: #0f5132;
+  --bs-alert-bg: #d1e7dd;
+  --bs-alert-border-color: #badbcc;
+  color: #0c4128;
+}
+
+.alert-danger {
+  --bs-alert-color: #842029;
+  --bs-alert-bg: #f8d7da;
+  --bs-alert-border-color: #f5c2c7;
+  color: #6a1a21;
+}
+
 
 input{
   text-align: center;
@@ -99,6 +143,12 @@ input::placeholder{
   font-weight: 500;
 }
 
+.alert-secondary {
+  --bs-alert-color: #41464b;
+  --bs-alert-bg: #e2e3e5;
+  --bs-alert-border-color: #d3d6d8;
+  color: #34383c;
+}
 
 #submit-button{
   background-color: rgb(10, 10, 10);
