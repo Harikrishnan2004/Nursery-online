@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
   }
 
   emailLogin(csrf: string) {
+    this.cookieService.set("email/phone", this.emailOrPhone.toString());
     this.http.post("http://127.0.0.1:8000/auth/login/", {
       "email/phone": this.emailOrPhone,
       "password": this.password,
@@ -94,6 +95,7 @@ export class LoginComponent implements OnInit {
       "csrf": csrf
     }).subscribe({
       next: (response: any)=>{
+        console.log(response);
         if (response["authAPILogin-response"] == "Success") {
           if (response["authToken"] != "") {
             this.cookieService.set("authToken", response["authToken"]);
