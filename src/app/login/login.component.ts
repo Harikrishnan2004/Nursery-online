@@ -12,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+[x: string]: any;
   emailOrPhone: String = ""
   password: String = ""
   fieldsDisabled: boolean = false;
@@ -34,6 +35,10 @@ export class LoginComponent implements OnInit {
 
   constructor(private http: HttpClient, private router: Router, private csrfService: GetCsrfService,
     private cookieService: CookieService){
+
+  }
+
+  handleCredentialResponse(response: any){
 
   }
 

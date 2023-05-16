@@ -11,6 +11,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { PasswordHandlerService } from './password-handler.service';
 import { GetCsrfService } from './get-csrf.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { GoogleSignInComponent } from './google-sign-in/google-sign-in.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +20,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     OtpComponent,
     LoginComponent,
     HomepageComponent,
-    DashboardComponent
+    DashboardComponent,
+    GoogleSignInComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     CookieService,
