@@ -12,6 +12,11 @@
   }
 }
 
+.google-login{
+  margin-top: 1.5em;
+  border-radius: 2em;
+}
+
 .overall-container{
   display: flex;
   flex-wrap: wrap;
@@ -143,6 +148,7 @@ input::placeholder{
   font-style: italic;
   text-decoration: none;
 }
+
 
 
 
