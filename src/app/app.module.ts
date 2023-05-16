@@ -12,6 +12,8 @@ import { PasswordHandlerService } from './password-handler.service';
 import { GetCsrfService } from './get-csrf.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GoogleSignInComponent } from './google-sign-in/google-sign-in.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -22,11 +24,13 @@ import { GoogleSignInComponent } from './google-sign-in/google-sign-in.component
     HomepageComponent,
     DashboardComponent,
     GoogleSignInComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    RecaptchaModule
   ],
   providers: [
     CookieService,

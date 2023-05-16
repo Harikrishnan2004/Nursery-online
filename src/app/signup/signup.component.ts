@@ -12,11 +12,14 @@ import { Router } from "@angular/router"
 })
 export class SignupComponent {
   firstName: String = ""
-  lastName: String = ""
+  lastName: string = ""
   emailOrPhone: String = ""
   password: String = ""
   conformPassword: String =""
   fieldsDisabled: boolean = false;
+
+  invalidCred: boolean = false;
+  invalidCredText: string = "";
 
   passwordType: String = "password"
   pass_check: Boolean = false
@@ -28,12 +31,11 @@ export class SignupComponent {
 
   }
 
-  getDetails(fn: String, ln: String, e: String, p: String, cp: String){
-
+  getDetails(fn: String, e: String, p: String, cp: String){
+    this.invalidCred = false;
     const password_check: string[] = ["!","@","#","$","%","^","&","*","(",")",".",",","/","\",","{","}","|","~","`"]
 
-      if(e.length >= 10){
-        if(p.length > 8 && p.length < 12 && cp.length > 8 && cp.length < 12){
+      if(e.length >= 5){
           for(const char of password_check){
             if(p.includes(char)){
               this.pass_check = true
@@ -42,28 +44,26 @@ export class SignupComponent {
           }
           if(this.pass_check){
             this.firstName = fn;
-            this.lastName = ln;
             this.emailOrPhone = e;
             this.password = p;
             this.conformPassword = cp;
           }
           else{
-            alert("Password must contain ateast one special character")
+            this.invalidCredText = "Password must contain ateast one special character";
+            this.invalidCred = true;
             return
           }
         }
-        else{
-          alert("Password length must be less than 12 and greater than 8")
-          return
-        }
-      }
       else{
-        alert("Enter valid email or phone number")
+        this.invalidCredText = "Enter valid email or phone number";
+        this.invalidCred = true;
         return
       }
 
 
-    if(this.firstName && this.lastName && this.emailOrPhone && this.password && this.conformPassword){
+    if(this.firstName && this.emailOrPhone && this.password && this.conformPassword) {
+      this.invalidCred = false;
+      this.lastName = this.firstName.split(" ")[this.firstName.split(" ").length - 1]
       this.cookieService.set("email/phone", this.emailOrPhone.toString());
       this.cookieService.set("fname", this.firstName.toString())
       this.cookieService.set("lname", this.lastName.toString())
@@ -79,24 +79,29 @@ export class SignupComponent {
           next: (response: any)=>{
             console.log(response)
             if(response["authAPISignUp-response"] == "OTP Verification Required") {
-              console.log(this.emailOrPhone);
-              this.router.navigate(['/otp'])
+              this.router.navigate(['/otp']);
+            } else if (response["authAPISignUp-response"] == "Failed") {
+              this.invalidCredText = "User Already exists, Try Logging in";
+              this.invalidCred = true;
+              this.fieldsDisabled = false;
             }
           },
           error: (err)=>{
-            alert("Invalid email or phone number");
+            console.error("Invalid email or phone number");
             return
           }
         }
         )
       }
       else{
-        alert("Conform password and password must me same")
+        this.invalidCredText = "Passwords must match"
+        this.invalidCred = true;
         return
       }
     }
     else{
-      alert("Fill all the information")
+      this.invalidCredText = "Fill all the information";
+      this.invalidCred = true;
       return
     }
   }
@@ -106,9 +111,6 @@ export class SignupComponent {
   }
   getFirstname(value: String){
     this.firstName = value
-  }
-  getLastname(value: String){
-    this.lastName = value
   }
   getCpassword(value: String){
     this.conformPassword = value

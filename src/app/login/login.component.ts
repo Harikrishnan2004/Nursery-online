@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   emailOrPhone: String = ""
   password: String = ""
   fieldsDisabled: boolean = false;
+  invalidCred: boolean = false;
 
   passwordType: String = "password"
   pass_check: Boolean = false
@@ -43,13 +44,13 @@ export class LoginComponent implements OnInit {
   }
 
   getDetails(e: String, p: String){
-
     const password_check: string[] = ["!","@","#","$","%","^","&","*","(",")",".",",","/","\",","{","}","|","~","`"]
     this.emailOrPhone = e;
     this.password = p;
 
     if(this.emailOrPhone && this.password){
       this.fieldsDisabled = true;
+      this.invalidCred = false;
       if(this.password){
         this.csrfService.getNewCsrf().subscribe({
           next: (response: any) => {
@@ -62,12 +63,12 @@ export class LoginComponent implements OnInit {
       }
     }
     else{
-      alert("Fill all the information")
-      return
+      this.invalidCred = true;
     }
   }
 
   emailLogin(csrf: string) {
+    this.cookieService.set("email/phone", this.emailOrPhone.toString());
     this.http.post("http://127.0.0.1:8000/auth/login/", {
       "email/phone": this.emailOrPhone,
       "password": this.password,
@@ -79,10 +80,13 @@ export class LoginComponent implements OnInit {
             this.cookieService.set("authToken", response["authToken"]);
           }
           this.router.navigate(['/dash']);
+        } else {
+          this.invalidCred = true;
+          this.fieldsDisabled = false;
         }
       },
       error: (err)=>{
-        alert("Login Failed");
+        console.error(err);
       }
     })
   }
@@ -94,6 +98,7 @@ export class LoginComponent implements OnInit {
       "csrf": csrf
     }).subscribe({
       next: (response: any)=>{
+        console.log(response);
         if (response["authAPILogin-response"] == "Success") {
           if (response["authToken"] != "") {
             this.cookieService.set("authToken", response["authToken"]);
@@ -102,7 +107,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (err)=>{
-        alert("Login Failed");
+        console.error("Login Failed");
       }
     })
 
@@ -116,7 +121,6 @@ export class LoginComponent implements OnInit {
   }
 
   changeType(){
-    console.log("clicked");
     if(this.passwordType == "password"){
       this.passwordType = "text"
     }
