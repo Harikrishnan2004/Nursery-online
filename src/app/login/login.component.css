@@ -13,6 +13,7 @@
 }
 
 .google-login{
+  padding: 1.5em;
   margin-top: 1.5em;
   border-radius: 2em;
 }
@@ -172,6 +173,8 @@ input::placeholder{
   font-style: italic;
   text-decoration: none;
 }
+
+
 
 
 
