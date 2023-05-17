@@ -1,4 +1,4 @@
-@media(max-width: 640px){
+@media(max-width: 1000px){
   .header{
     height: 2em;
     text-align: left;
@@ -228,12 +228,106 @@ span:nth-child(18) {
   padding-top:5em;
 }
 
+.bottom-card{
+  text-align: center;
+  background-color: #f1f1f1;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.add-to-cart-button{
+  width: 5em;
+  height: 2.5em;
+  border-radius: 1em;
+  border: solid;
+  border-color:rgb(5, 232, 66);
+  background-color: transparent;
+  font-size: 1em;
+}
+
+.drop-down{
+  text-align: right;
+  padding-right: 1em;
+  margin-right: 1em;
+  margin-top: 2em;
+}
+
+#planting-options{
+  width: 10em;
+  padding: 0.2em;
+  height: 2em;
+  background-color: rgb(255, 255, 255, 0.5);
+  font-size: small;
+  text-align: center;
+}
+
+#planting-options::placeholder{
+  color: black;
+}
+
+.remove-button{
+  width: 5em;
+  height: 2.5em;
+  margin: 1em;
+  border-radius: 1em;
+  border: solid;
+  border-color:rgb(249, 57, 39);
+  background-color: transparent;
+  font-size: 1em
+}
+
+.add-to-cart-button:hover{
+  border: none;
+  background-color:rgb(80, 241, 55);
+  color: white;
+  font-weight: 600;
+}
+
+.remove-button:hover{
+  border: none;
+  background-color: rgb(254, 75, 75);
+  color: white;
+  font-weight: 600;
+}
+
+.view-button{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  width: 15em;
+  height: 2.5em;
+  border-radius: 2em;
+  border: none;
+  background-color: rgb(255, 253, 253);
+  font-size: 1em;
+  color: rgb(7, 7, 7);
+}
+
+.view-button:hover{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  width: 15em;
+  height: 2.5em;
+  border-radius: 2em;
+  border: none;
+  background-color: rgb(255, 253, 253);
+  font-size: 1em;
+  color: rgb(7, 7, 7);
+}
+
+.name{
+  font-size: large;
+  padding: 0.5em;
+  font-family:'Times New Roman', Times, serif;
+  font-style: oblique;
+}
+
 .quote{
   font-size: 4em;
   text-align: center;
-  color: aliceblue;
+  color: rgb(237, 243, 238);
   background-color: rgb(255,255,255,0.2);
   padding: 1em;
+  padding-right: 2.5em;
+  justify-content: center;
 }
 
 
@@ -241,8 +335,8 @@ span:nth-child(18) {
 
 .flip-card {
   background-color: transparent;
-  width: 17em;
-  height: 17em;
+  width: 19em;
+  height: 30em;
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
   padding: 3em;
   padding-bottom: 2em;
@@ -250,12 +344,15 @@ span:nth-child(18) {
 
 /* This container is needed to position the front and back side */
 .flip-card-inner {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 62.5%;
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
+  border-top-right-radius: 1em;
+  border-top-left-radius: 1em
 }
 
 /* Do an horizontal flip when you move the mouse over the flip box container */
@@ -276,13 +373,16 @@ span:nth-child(18) {
 .flip-card-front {
   background-color: #bbb;
   color: black;
+  border-top-right-radius: 1em;
+  border-top-left-radius: 1em
 }
 
 /* Style the back side */
 .flip-card-back {
-  background-color: dodgerblue;
+  background-color: rgb(71, 245, 83);
   color: white;
   transform: rotateY(180deg);
+  margin-bottom: 1em;
 }
 
 .products{
@@ -292,4 +392,53 @@ span:nth-child(18) {
   justify-content: center;
 }
 
+/* button */
+
+
+.fill-button{
+transform: translate(0%,0%);
+}
+
+.btn {
+border: none;
+font-family: inherit;
+font-size: inherit;
+color: inherit;
+background: none;
+cursor: pointer;
+padding: 10px 80px;
+display: inline-block;
+margin: 15px 30px;
+text-transform: uppercase;
+letter-spacing: 1px;
+font-weight: 700;
+outline: none;
+position: relative;
+-webkit-transition: all 1s;
+-moz-transition: all 1s;
+transition: all 1s;
+box-shadow: rgba(118, 215, 243, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+.btn:hover {
+color: #fff;
+}
+.btn::after {
+content: '';
+position: absolute;
+z-index: -1;
+-webkit-transition: all 1s;
+-moz-transition: all 1s;
+transition: all 1s;
+}
+.btn:after {
+width: 0%;
+height: 100%;
+top: 0;
+left: 0;
+background: rgb(41, 155, 248);
+}
+.btn:hover:after, .btn:active:after {
+width: 100%;
+}
 
