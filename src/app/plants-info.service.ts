@@ -11,15 +11,49 @@ export class PlantsInfoService {
       type: "plant",
       Name: "Snake Plant",
       Properties: "Tolerant of low light conditions, making it suitable for shady areas in your home. \nRequires infrequent watering, as it is drought-tolerant. \nActs as an air purifier, removing toxins like formaldehyde and benzene.",
-      Price: "200₹"
+      Price: "200₹",
+      Scientific_Name: "Sansevieria"
+    },
+
+    {
+      type: "plant",
+      Name: "Spider Plant",
+      Properties: "Tolerant of low light conditions, making it suitable for shady areas in your home. \nRequires infrequent watering, as it is drought-tolerant. \nActs as an air purifier, removing toxins like formaldehyde and benzene.",
+      Price: "150₹",
+      Scientific_Name: "Chlorophytum comosum"
+    },
+
+    {
+      type: "plant",
+      Name: "Aloe Vera",
+      Properties: "Tolerant of low light conditions, making it suitable for shady areas in your home. \nRequires infrequent watering, as it is drought-tolerant. \nActs as an air purifier, removing toxins like formaldehyde and benzene.",
+      Price: "150₹",
+      Scientific_Name: "Aloe barbadensis"
     },
 
     {
       type: "seed",
       Name: "Mango",
       Properties: "Tolerant of low light conditions, making it suitable for shady areas in your home. \nRequires infrequent watering, as it is drought-tolerant. \nActs as an air purifier, removing toxins like formaldehyde and benzene.",
-      Price: "150₹"
+      Price: "150₹",
+      Scientific_Name: "Chlorophytum comosum"
     },
+
+    {
+      type: "seed",
+      Name: "Lemon",
+      Properties: "Tolerant of low light conditions, making it suitable for shady areas in your home. \nRequires infrequent watering, as it is drought-tolerant. \nActs as an air purifier, removing toxins like formaldehyde and benzene.",
+      Price: "150₹",
+      Scientific_Name: "Chlorophytum comosum"
+    },
+
+    {
+      type: "seed",
+      Name: "Orange",
+      Properties: "Tolerant of low light conditions, making it suitable for shady areas in your home. \nRequires infrequent watering, as it is drought-tolerant. \nActs as an air purifier, removing toxins like formaldehyde and benzene.",
+      Price: "150₹",
+      Scientific_Name: "Chlorophytum comosum"
+    }
 
   ]
 
