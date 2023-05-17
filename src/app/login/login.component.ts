@@ -39,9 +39,6 @@ export class LoginComponent implements OnInit {
 
   }
 
-  handleCredentialResponse(response: any){
-
-  }
 
   getDetails(e: String, p: String){
     const password_check: string[] = ["!","@","#","$","%","^","&","*","(",")",".",",","/","\",","{","}","|","~","`"]
