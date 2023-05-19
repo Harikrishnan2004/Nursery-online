@@ -21,4 +21,8 @@ export class HomepageComponent {
   moveToAbout(){
 
   }
+
+  moveToDash(){
+    this.router.navigate(['/dash'])
+  }
 }
