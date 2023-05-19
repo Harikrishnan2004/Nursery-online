@@ -19,7 +19,9 @@ export class PlantsInfoService {
       ],
       Price: "200₹",
       Scientific_Name: "Sansevieria",
-      Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg"
+      Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
+      Initial_quantity: 1,
+      Quantity: 1
     },
 
     {
@@ -33,6 +35,8 @@ export class PlantsInfoService {
       Price: "150₹",
       Scientific_Name: "Chlorophytum comosum",
       Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
+      Initial_quantity: 1,
+      Quantity: 1
     },
 
     {
@@ -46,6 +50,9 @@ export class PlantsInfoService {
       Price: "150₹",
       Scientific_Name: "Aloe barbadensis",
       Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
+      Initial_quantity: 1,
+      Quantity: 1
+
     },
 
     {
@@ -59,6 +66,8 @@ export class PlantsInfoService {
       Price: "150₹",
       Scientific_Name: "Chlorophytum comosum",
       Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
+      Initial_quantity: 3,
+      Quantity: 3
     },
 
     {
@@ -72,6 +81,8 @@ export class PlantsInfoService {
       Price: "150₹",
       Scientific_Name: "Chlorophytum comosum",
       Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
+      Initial_quantity: 3,
+      Quantity: 3
     },
 
     {
@@ -85,6 +96,8 @@ export class PlantsInfoService {
       Price: "150₹",
       Scientific_Name: "Chlorophytum comosum",
       Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
+      Initial_quantity: 3,
+      Quantity: 3
     }
 
   ]
@@ -137,6 +150,25 @@ export class PlantsInfoService {
       plantList = this.plant_details;
     }
     return {plant_List: plantList, no_Results_found: NoResultsFound}
+  }
+
+  quantityInc(name: String){
+    for(let plant of this.plant_details){
+      if(plant.Name == name){
+        console.log()
+        plant.Quantity = plant.Quantity + 1
+        break
+      }
+    }
+  }
+
+  quantityDec(name: String){
+    for(let plant of this.plant_details){
+      if(plant.Name == name && plant.Quantity != 1){
+        plant.Quantity = plant.Quantity - 1
+        break
+      }
+    }
   }
 
 }

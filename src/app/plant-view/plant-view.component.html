@@ -3,13 +3,15 @@
     <img src="assets/images/istockphoto-1018703724-612x612.jpg">
   </div>
   <div id="plant-info-div">
-    <h1 [innerHTML]="selectedPlant"></h1>
-    <h3 [innerHTML]="plantType"></h3>
-    <h3 [innerHTML]="plantScientificName"></h3>
-    <ul>
+    <h1 id="name" [innerHTML]="selectedPlant"></h1>
+    <h3 id="scientific-name"[innerHTML]="plantScientificName"></h3>
+    <h3 id="type">Type: {{plantType}}</h3>
+    <ul id="properties">
       <div *ngFor="let property of plantProperties">
-        <li [innerHTML]="property"></li>
+        <li class="property" [innerHTML]="property"></li>
       </div>
     </ul>
+    <h3>Initial Quantity: {{plantQuantity}}</h3>
+    <span><h2 id="price">Price: {{plantRate}}</h2></span>
   </div>
 </div>

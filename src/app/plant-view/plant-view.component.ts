@@ -1,32 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PlantsInfoService } from '../plants-info.service';
-import { DashboardComponent } from '../dashboard/dashboard.component';
+import { ActivatedRoute } from '@angular/router';
+import { isNgTemplate } from '@angular/compiler';
 
 @Component({
   selector: 'app-plant-view',
   templateUrl: './plant-view.component.html',
   styleUrls: ['./plant-view.component.css']
 })
-export class PlantViewComponent {
+export class PlantViewComponent implements OnInit{
 
   plantService: any
   selectedPlant = ""
   dashboard: any
+  plantQuantity = ""
 
   plantScientificName = ""
   plantProperties = []
   plantRate = ""
   plantType = ""
 
-  constructor(p: PlantsInfoService, d: DashboardComponent){
+  constructor(p: PlantsInfoService, private route: ActivatedRoute){
     this.plantService = p;
-    this.dashboard = d;
   }
 
-  ngAfterViewInit() {
-    this.selectedPlant = this.dashboard.getSelectedPlant()
-    console.log(this.selectedPlant)
-    this.getDetails();
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.selectedPlant = params['selectedPlant']
+      this.getDetails()
+    })
   }
 
   getDetails(){
@@ -36,6 +38,7 @@ export class PlantViewComponent {
         this.plantProperties = plant.Properties
         this.plantRate = plant.Price
         this.plantType = plant.type
+        this.plantQuantity = plant.Quantity
       }
     }
 

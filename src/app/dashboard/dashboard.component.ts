@@ -54,10 +54,20 @@ export class DashboardComponent {
 
   setSelectedPlant(name: string){
     this.selectedPlant = name
-    this.router.navigate(["/plant-view"])
+    this.router.navigate(["/plant-view"], { queryParams: {selectedPlant : name}}  );
   }
 
-  getSelectedPlant(){
-    return this.selectedPlant
+  valueInc(name: string){
+    this.plant_service_obj.quantityInc(name)
+    console.log("inc")
+  }
+
+  valueDec(name: string){
+    this.plant_service_obj.quantityDec(name)
+    console.log("dec")
+  }
+
+  moveToHome(){
+    this.router.navigate(['/home'])
   }
 }
