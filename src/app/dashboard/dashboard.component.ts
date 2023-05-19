@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PlantsInfoService } from '../plants-info.service';
+import { Router } from "@angular/router"
 
 @Component({
   selector: 'app-dashboard',
@@ -10,10 +11,13 @@ export class DashboardComponent {
   plant_details: any
   plant_service_obj: any
   cartNumber = 0
+  no_results_found = false
+  selectedPlant = ""
 
-  constructor(plant_service: PlantsInfoService){
+  constructor(private router: Router, plant_service: PlantsInfoService){
     this.plant_details = plant_service.getDetails();
     this.plant_service_obj = plant_service;
+
   }
 
   dropDownSelect(value: string){
@@ -37,5 +41,23 @@ export class DashboardComponent {
     if(this.cartNumber != 0){
       this.cartNumber = this.cartNumber - 1
     }
+  }
+
+  handleEntryKey(event: any, value: string){
+    let plantDet: any
+    if (event.key === "Enter") {
+      plantDet = this.plant_service_obj.getSearchDetails(value.toLowerCase());
+      this.plant_details = plantDet.plant_List
+      this.no_results_found = plantDet.no_Results_found
+    }
+  }
+
+  setSelectedPlant(name: string){
+    this.selectedPlant = name
+    this.router.navigate(["/plant-view"])
+  }
+
+  getSelectedPlant(){
+    return this.selectedPlant
   }
 }

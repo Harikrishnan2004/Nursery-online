@@ -1,0 +1,15 @@
+<div id="container">
+  <div id="plant-img-div">
+    <img src="assets/images/istockphoto-1018703724-612x612.jpg">
+  </div>
+  <div id="plant-info-div">
+    <h1 [innerHTML]="selectedPlant"></h1>
+    <h3 [innerHTML]="plantType"></h3>
+    <h3 [innerHTML]="plantScientificName"></h3>
+    <ul>
+      <div *ngFor="let property of plantProperties">
+        <li [innerHTML]="property"></li>
+      </div>
+    </ul>
+  </div>
+</div>

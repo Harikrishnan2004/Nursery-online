@@ -14,6 +14,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { GoogleSignInComponent } from './google-sign-in/google-sign-in.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RecaptchaModule } from 'ng-recaptcha';
+import { PlantViewComponent } from './plant-view/plant-view.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { RecaptchaModule } from 'ng-recaptcha';
     HomepageComponent,
     DashboardComponent,
     GoogleSignInComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    PlantViewComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,9 @@ import { RecaptchaModule } from 'ng-recaptcha';
   providers: [
     CookieService,
     PasswordHandlerService,
-    GetCsrfService
+    GetCsrfService,
+    DashboardComponent,
+    PlantViewComponent
   ],
   bootstrap: [AppComponent]
 })

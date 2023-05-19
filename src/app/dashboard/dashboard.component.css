@@ -188,18 +188,11 @@ span:nth-child(18) {
 
 #heading{
   float: left;
-  color: rgb(255, 255, 255);
-  font-weight: 800;
-  background-color: rgb(5, 232, 66);
-  padding: 0.6em;
-  border-radius: 0.5em;
 }
 
 .header{
   height: 2em;
-  padding: 0.7em;
   padding-right: 2em;
-  padding-left: 2em;
   text-align: right;
   padding-bottom: 1em;
 }
@@ -330,6 +323,33 @@ span:nth-child(18) {
   justify-content: center;
 }
 
+#NRF-div{
+  width: 30em;
+  margin-top: 2%;
+  text-align: center;
+  background-color: rgb(246, 248, 248, 0.5);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 2em;
+}
+
+#NRF{
+  padding: 1em;
+  font-family:monospace;
+  font-style: oblique;
+  color: red;
+}
+
+#no_result_message{
+  padding: 1em;
+  font-size: medium;
+  color: rgb(5, 222, 5);
+}
+
+#octopus{
+  width: 20em;
+  border-radius: 2em;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 
 
 

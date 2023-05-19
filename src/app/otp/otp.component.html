@@ -1,11 +1,11 @@
 <div class="super-container">
-  <div class="container">
+  <div class="container" id="container">
      <div><h1>OTP verification</h1></div>
-     <div [hidden]="showLoading"><p>Enter the OTP sent to your Mail/Phone </p></div>
-     <span><input [hidden]="showLoading" class="input-box" #box1 maxlength="1" (keyup)="move($event, '', box1, box2)"></span>
-     <span><input [hidden]="showLoading" class="input-box" #box2 maxlength="1" (keyup)="move($event, box1, box2, box3)"></span>
-     <span><input [hidden]="showLoading" class="input-box" #box3 maxlength="1" (keyup)="move($event, box2, box3, box4)"></span>
-     <span><input [hidden]="showLoading" class="input-box" #box4 maxlength="1" (keyup)="move($event, box3, box4, '')"></span>
+     <div [hidden]="showLoading"><p id="heading">Enter the OTP sent to your Mail/Phone </p></div>
+     <input [hidden]="showLoading" class="input-box" id="box1" #box1 maxlength="1" (keyup)="move($event, '', box1, box2)">
+     <input [hidden]="showLoading" class="input-box" id="box2" #box2 maxlength="1" (keyup)="move($event, box1, box2, box3)">
+     <input [hidden]="showLoading" class="input-box" id="box3" #box3 maxlength="1" (keyup)="move($event, box2, box3, box4)">
+     <input [hidden]="showLoading" class="input-box" id="box4" #box4 maxlength="1" (keyup)="move($event, box3, box4, '')">
      <div><button [hidden]="showLoading" class="verify-button" (click)="verify(box1.value, box2.value, box3.value, box4.value)">Verify</button></div>
      <img src="assets/images/Hourglass.gif" [hidden]="!showLoading">
    </div>
