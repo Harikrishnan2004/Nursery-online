@@ -7,6 +7,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { PlantViewComponent } from './plant-view/plant-view.component';
+import { CartViewComponent } from './cart-view/cart-view.component';
 
 const routes: Routes = [
   {path: "otp", component: OtpComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: "home", component: HomepageComponent},
   {path: "dash", component: DashboardComponent},
   {path: "forgotpassword", component: ForgotPasswordComponent},
-  {path: "plant-view", component: PlantViewComponent}
+  {path: "plant-view", component: PlantViewComponent},
+  {path: "cart-view", component: CartViewComponent}
 ];
 
 @NgModule({

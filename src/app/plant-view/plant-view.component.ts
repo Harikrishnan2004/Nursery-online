@@ -38,7 +38,7 @@ export class PlantViewComponent implements OnInit{
         this.plantProperties = plant.Properties
         this.plantRate = plant.Price
         this.plantType = plant.type
-        this.plantQuantity = plant.Quantity
+        this.plantQuantity = plant.Initial_quantity
       }
     }
 

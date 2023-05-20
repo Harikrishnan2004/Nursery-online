@@ -1,0 +1,89 @@
+#container{
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5%;
+}
+
+#plant-img-div{
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  padding: 0.5em
+}
+
+#plant-info-div{
+  align-items: center;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  padding: 1em;
+}
+
+.property{
+  text-align: left;
+}
+
+#name{
+  background-color: rgb(51, 247, 51);
+  color: white;
+  padding: 0.5em;
+  font-style: oblique;
+}
+
+#scientific-name{
+  font-size:x-large;
+  color: rgb(5, 240, 5);
+}
+
+#properties{
+  font-size: large;
+  padding: 1em;
+  padding-left: 2em;
+}
+
+#price{
+  background-color: black;
+  color: rgb(248, 248, 248);
+  padding: 0.5em;
+  margin-left: 8em;
+  margin-right: 8em;
+  border-radius: 1em;
+}
+
+#header{
+  background-color: rgb(46, 243, 46);
+  color: rgb(12, 12, 12);
+  padding: 0.2em;
+  text-align: center;
+  border-radius: 2em;
+}
+
+#overall-calculation{
+  margin-top: 2em;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  padding: 1em;
+  margin: 5em;
+  margin-right: 25em;
+  margin-left: 25em;
+  padding-bottom: 2em;
+  border-color: rgb(3, 238, 3);
+  border-style: dotted
+}
+
+#grand-total-div{
+  margin-top: 1em;
+}
+
+#text{
+  font-weight: 800;
+}
+
+#grand-total{
+  font-weight: 800;
+}
+
+
+
+
+
+
+
+

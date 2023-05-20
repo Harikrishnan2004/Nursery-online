@@ -3,11 +3,14 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+
 export class PlantsInfoService {
 
   constructor() { }
 
-  plant_selected = ""
+  plant_selected = "";
+  cartDetails: {}[] = []
+  cartNumber = 0;
   plant_details : any = [
     {
       type: "plant",
@@ -17,11 +20,12 @@ export class PlantsInfoService {
         "Requires infrequent watering, as it is drought-tolerant.",
         "Acts as an air purifier, removing toxins like formaldehyde and benzene."
       ],
-      Price: "200₹",
+      Price: 200,
       Scientific_Name: "Sansevieria",
       Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
       Initial_quantity: 1,
-      Quantity: 1
+      Quantity: 1,
+      Add_to_cart: "Add"
     },
 
     {
@@ -32,11 +36,12 @@ export class PlantsInfoService {
         "Requires infrequent watering, as it is drought-tolerant.",
         "Acts as an air purifier, removing toxins like formaldehyde and benzene."
       ],
-      Price: "150₹",
+      Price: 150,
       Scientific_Name: "Chlorophytum comosum",
       Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
       Initial_quantity: 1,
-      Quantity: 1
+      Quantity: 1,
+      Add_to_cart: "Add"
     },
 
     {
@@ -47,11 +52,12 @@ export class PlantsInfoService {
         "Requires infrequent watering, as it is drought-tolerant.",
         "Acts as an air purifier, removing toxins like formaldehyde and benzene."
       ],
-      Price: "150₹",
+      Price: 150,
       Scientific_Name: "Aloe barbadensis",
       Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
       Initial_quantity: 1,
-      Quantity: 1
+      Quantity: 1,
+      Add_to_cart: "Add"
 
     },
 
@@ -63,11 +69,12 @@ export class PlantsInfoService {
         "Requires infrequent watering, as it is drought-tolerant.",
         "Acts as an air purifier, removing toxins like formaldehyde and benzene."
       ],
-      Price: "150₹",
+      Price: 150,
       Scientific_Name: "Chlorophytum comosum",
       Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
-      Initial_quantity: 3,
-      Quantity: 3
+      Initial_quantity: 1,
+      Quantity: 1,
+      Add_to_cart: "Add"
     },
 
     {
@@ -78,11 +85,12 @@ export class PlantsInfoService {
         "Requires infrequent watering, as it is drought-tolerant.",
         "Acts as an air purifier, removing toxins like formaldehyde and benzene."
       ],
-      Price: "150₹",
+      Price: 150,
       Scientific_Name: "Chlorophytum comosum",
       Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
-      Initial_quantity: 3,
-      Quantity: 3
+      Initial_quantity: 1,
+      Quantity: 1,
+      Add_to_cart: "Add"
     },
 
     {
@@ -93,11 +101,12 @@ export class PlantsInfoService {
         "Requires infrequent watering, as it is drought-tolerant.",
         "Acts as an air purifier, removing toxins like formaldehyde and benzene."
       ],
-      Price: "150₹",
+      Price: 150,
       Scientific_Name: "Chlorophytum comosum",
       Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
-      Initial_quantity: 3,
-      Quantity: 3
+      Initial_quantity: 1,
+      Quantity: 1,
+      Add_to_cart: "Add"
     }
 
   ]
@@ -135,7 +144,11 @@ export class PlantsInfoService {
     if(value){
       for(let plant of this.plant_details){
         plantList = []
-        if(plant.Name.toLowerCase() == searchName){
+        const plantName = plant.Name.toLowerCase()
+        if(plantName == searchName ||
+        searchName.split(" ").includes(plantName) ||
+        plantName.split(" ").includes(searchName))
+        {
           plantList = [plant]
           NoResultsFound = false
           break
@@ -171,4 +184,46 @@ export class PlantsInfoService {
     }
   }
 
+  setAddCart(name: string){
+    for(let plant of this.plant_details){
+      if(plant.Name == name){
+        if(plant.Add_to_cart == "Add"){
+          console.log("add to added")
+          plant.Add_to_cart = "Added"
+        }
+        else{
+          plant.Add_to_cart = "Add"
+          console.log("added to add")
+        }
+        break
+      }
+    }
+  }
+
+  setCartDetails(details: {}[]){
+    this.cartDetails = details
+  }
+
+  getCartDetails(){
+    return this.cartDetails
+  }
+
+  setCartNumber(value: number){
+    this.cartNumber = value
+  }
+  getCartNumber(){
+    return this.cartNumber
+  }
+}
+
+export interface Plant {
+  type: string;
+  Name: string;
+  Properties: string[];
+  Price: number;
+  Scientific_Name: string;
+  Img_path: string;
+  Initial_quantity: number;
+  Quantity: number;
+  Add_to_cart: string;
 }
