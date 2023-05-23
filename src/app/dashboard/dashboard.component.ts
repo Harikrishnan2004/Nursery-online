@@ -20,9 +20,6 @@ export class DashboardComponent {
 
   constructor(private router: Router, plant_service: PlantsInfoService){
     this.plant_service_obj = plant_service;
-    this.plant_details = this.plant_service_obj.getDetails();
-    console.log(this.plant_details)
-
   }
 
   ngOnInit(){
