@@ -76,13 +76,11 @@ export class DashboardComponent {
     }
   }
 
-  handleEntryKey(event: any, value: string){
+  handleEntryKey(value: string){
     let plantDet: any
-    if (event.key === "Enter") {
-      plantDet = this.plant_service_obj.getSearchDetails(value.toLowerCase());
-      this.plant_details = plantDet.plant_List
-      this.no_results_found = plantDet.no_Results_found
-    }
+    plantDet = this.plant_service_obj.getSearchDetails(value.toLowerCase());
+    this.plant_details = plantDet.plant_List
+    this.no_results_found = plantDet.no_Results_found
   }
 
   moveToCart(){

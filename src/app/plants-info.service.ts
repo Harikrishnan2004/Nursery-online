@@ -108,7 +108,6 @@ export class PlantsInfoService {
       Quantity: 1,
       Add_to_cart: "Add"
     }
-
   ]
 
   getDetails(){
@@ -145,9 +144,7 @@ export class PlantsInfoService {
       for(let plant of this.plant_details){
         plantList = []
         const plantName = plant.Name.toLowerCase()
-        if(plantName == searchName ||
-        searchName.split(" ").includes(plantName) ||
-        plantName.split(" ").includes(searchName))
+        if(plantName.startsWith(searchName))
         {
           plantList = [plant]
           NoResultsFound = false

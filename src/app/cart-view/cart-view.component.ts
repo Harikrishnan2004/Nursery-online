@@ -21,6 +21,14 @@ export class CartViewComponent {
     this.cart_details = this.plant_info_obj.getCartDetails()
   }
 
+  calcTotalQuantity(){
+    let total = 0;
+    for(let plant of this.cart_details){
+      total = total + plant.Quantity
+    }
+    return total
+  }
+
   calcTotal(name: string){
     let total = 0;
     for(let plant of this.cart_details){
@@ -52,4 +60,5 @@ export class CartViewComponent {
   calcInvoiceTotal(){
     return Math.round(this.calcGrandTotal())
   }
+
 }

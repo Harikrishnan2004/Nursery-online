@@ -15,39 +15,41 @@
       <div><h1 id="name">{{ plant.Name }}</h1></div>
       <div><h3 id="scientific-name">{{ plant.Scientific_Name }}</h3></div>
       <div><h3 id="type">Type: {{ plant.type }}</h3></div>
-      <div><ul id="properties">
-        <div id="plant-property-div" *ngFor="let property of plant.Properties">
-          <li class="property" [innerHTML]="property"></li>
-        </div>
-      </ul>
-      </div>
       <div><h3>Quantity: {{ plant.Quantity }}</h3></div>
-      <div><h2 id="price">Price: {{ plant.Price }} ₹</h2></div>
+      <div><h2 id="price">Price:  ₹{{ plant.Price }}</h2></div>
     </div>
 
   </div>
 </div>
 
 <div id="overall-calculation">
-  <h1>Payment</h1>
+  <h1 style="font-style: oblique; font-family: Georgia, 'Times New Roman', Times, serif;">Payment</h1>
   <div *ngFor="let plant of cart_details">
     <div class="details-div">
       <span class="plant-name">{{ plant.Name }}</span>
-      <span style="float: right" class="plant-total"> {{ calcTotal(plant.Name) }} ₹</span>
-      <span style="float: right" class="plant-calc">{{ plant.Quantity }} x {{ plant.Price }} = </span>
+      <span style="float: right" class="plant-total"> ₹{{ calcTotal(plant.Name) }} </span>
+      <span style="float: right;  margin-right: 10px" class="plant-calc">{{ plant.Quantity }} x {{ plant.Price }} = </span>
     </div>
   </div>
-  <div>
-    <span id="GST-text">GST 5%</span>
-    <span style="float: right" id="GST-value">{{ calcGST() }} ₹</span>
+
+  <div class="total-quantity-div" style="margin-top: 0.5em;">
+    <span id="total-quantity-text">Total Quantity</span>
+    <span style="float: right;" id="total-quantity"> {{ calcTotalQuantity() }}</span>
   </div>
+
+  <div style="margin-top: 0.5em;">
+    <span id="GST-text" style="font-weight: 600">GST 5%</span>
+    <span style="float: right; font-weight: 600;" id="GST-value"> ₹{{ calcGST() }}</span>
+  </div>
+
   <div id="grand-total-div">
     <span id="text">Grand Total</span>
-    <span style="float: right;" id="grand-total">{{calcGrandTotal()}}₹</span>
+    <span style="float: right;" id="grand-total"> ₹{{calcGrandTotal()}}</span>
   </div>
+
 
   <div id="invoice-div">
     <span id="invoice-text">Invoice Amount</span>
-    <span style="float: right;" id="invoice-total">{{ calcInvoiceTotal() }}₹</span>
+    <span style="float: right;" id="invoice-total"> ₹{{ calcInvoiceTotal() }}</span>
   </div>
 </div>

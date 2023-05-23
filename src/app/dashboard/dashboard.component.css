@@ -211,6 +211,7 @@ span:nth-child(18) {
   outline: none;
   text-align: center;
   border-color: rgb(39, 247, 7);
+  margin-right: 2em;
 }
 
 .search-icon{
@@ -281,7 +282,7 @@ span:nth-child(18) {
 
 .add-to-cart-button:hover{
   border: none;
-  background-color:rgb(80, 241, 55);
+  background-color:rgb(40, 226, 12);
   color: white;
   font-weight: 600;
 }
@@ -418,7 +419,7 @@ span:nth-child(18) {
 
 /* Style the back side */
 .flip-card-back {
-  background-color: rgb(71, 245, 83);
+  background-color: rgb(106, 132, 107);
   color: white;
   transform: rotateY(180deg);
   margin-bottom: 1em;
