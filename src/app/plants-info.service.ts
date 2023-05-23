@@ -229,7 +229,6 @@ export class PlantsInfoService {
       Add_to_cart: "Add"
     }
     this.plant_details.push(plantDetails)
-    console.log(this.plant_details)
   }
 }
 

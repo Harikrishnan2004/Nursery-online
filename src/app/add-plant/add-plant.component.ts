@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PlantsInfoService } from '../plants-info.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-plant',
@@ -21,7 +22,7 @@ export class AddPlantComponent {
   PlantServiceObj: any
 
 
-  constructor(plant_service: PlantsInfoService){
+  constructor(plant_service: PlantsInfoService, private router: Router){
     this.PlantServiceObj = plant_service
   }
 
@@ -51,8 +52,21 @@ export class AddPlantComponent {
       this.Properties = properties
       this.Type = type
 
+      const plantDetails = {
+        type: type,
+        Name: name,
+        Properties: properties,
+        Price: Number(price),
+        Scientific_Name: sname,
+        Img_path: this.ImageBase64,
+        Initial_quantity: Number(initialQ),
+        Quantity: 1,
+        Add_to_cart: "Add"
+      }
+
       console.log(type, name, properties, price, initialQ, sname)
       this.PlantServiceObj.setPlantDetails(this.Type, this.Name, this.ScientificName, this.Price, this.Properties, this.InitialQuantity, this.ImageBase64)
+      this.router.navigate(["/dash"])
 
       this.InitialQuantity = ""
       this.Name = ""
