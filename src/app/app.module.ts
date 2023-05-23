@@ -16,6 +16,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { RecaptchaModule } from 'ng-recaptcha';
 import { PlantViewComponent } from './plant-view/plant-view.component';
 import { CartViewComponent } from './cart-view/cart-view.component';
+import { AddPlantComponent } from './add-plant/add-plant.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CartViewComponent } from './cart-view/cart-view.component';
     GoogleSignInComponent,
     ForgotPasswordComponent,
     PlantViewComponent,
-    CartViewComponent
+    CartViewComponent,
+    AddPlantComponent
   ],
   imports: [
     BrowserModule,

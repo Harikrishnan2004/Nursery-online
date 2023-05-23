@@ -19,6 +19,7 @@ export class PlantViewComponent implements OnInit{
   plantProperties = []
   plantRate = ""
   plantType = ""
+  plantImg = ""
 
   constructor(p: PlantsInfoService, private route: ActivatedRoute){
     this.plantService = p;
@@ -39,6 +40,8 @@ export class PlantViewComponent implements OnInit{
         this.plantRate = plant.Price
         this.plantType = plant.type
         this.plantQuantity = plant.Initial_quantity
+        this.plantImg = plant.Img_path
+        console.log(this.plantImg)
       }
     }
 

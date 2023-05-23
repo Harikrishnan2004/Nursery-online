@@ -1,14 +1,40 @@
+@media( max-width: 640px ){
+  #plant-info-div{
+      width: 30em;
+      justify-content: center;
+  }
+
+  #plant-property-div{
+    width: 80%;
+    padding: 1em;
+    padding-right: 2em;
+    padding-left: 2em;
+  }
+
+  #price{
+    font-size: medium;
+  }
+}
+
+#plant-view-div{
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+}
+
 #container{
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
   margin-top: 5%;
+  background-color: rgb(222, 247, 228);
 }
 
 #plant-img-div{
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   padding: 0.5em
 }
+
 
 #plant-info-div{
   align-items: center;
@@ -39,6 +65,11 @@
   padding-left: 2em;
 }
 
+#plant-img{
+  width: 30em;
+  height: 100%
+}
+
 #price{
   background-color: black;
   color: rgb(248, 248, 248);
@@ -48,21 +79,35 @@
   border-radius: 1em;
 }
 
+
+#invoice-text{
+  color:rgb(4, 151, 4);
+  font-weight: 600
+}
+#invoice-div{
+  margin-top: 1em;
+}
+
+#invoice-total{
+  font-weight: 600;
+  color: rgb(4,151,4);
+}
+
 #header{
   background-color: rgb(46, 243, 46);
   color: rgb(12, 12, 12);
   padding: 0.2em;
   text-align: center;
-  border-radius: 2em;
+  border-bottom-left-radius: 10em;
+  border-bottom-right-radius: 10em;
 }
 
 #overall-calculation{
   margin-top: 2em;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   padding: 1em;
-  margin: 5em;
-  margin-right: 25em;
-  margin-left: 25em;
+  margin: 1em;
+  margin-top: 2em;
   padding-bottom: 2em;
   border-color: rgb(3, 238, 3);
   border-style: dotted

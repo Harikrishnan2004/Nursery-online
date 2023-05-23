@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Plant } from '../plants-info.service';
+import { PlantsInfoService } from '../plants-info.service';
 
 @Component({
   selector: 'app-cart-view',
@@ -9,15 +10,15 @@ import { Plant } from '../plants-info.service';
 })
 export class CartViewComponent {
 
-  constructor(private route: ActivatedRoute){}
+  constructor(private route: ActivatedRoute, plant_service: PlantsInfoService){
+    this.plant_info_obj = plant_service
+  }
 
   cart_details: Plant[] = []
+  plant_info_obj: any
 
   ngOnInit(){
-    this.route.queryParams.subscribe(params => {
-      this.cart_details = JSON.parse(JSON.parse(params["cartDetails"]))
-      console.log(this.cart_details)
-    })
+    this.cart_details = this.plant_info_obj.getCartDetails()
   }
 
   calcTotal(name: string){
@@ -25,7 +26,6 @@ export class CartViewComponent {
     for(let plant of this.cart_details){
       if(plant.Name == name){
         total = plant.Quantity * plant.Price
-        console.log(total)
         return total
       }
     }
@@ -37,6 +37,19 @@ export class CartViewComponent {
     for(let plant of this.cart_details){
       total = total + Number(plant.Price) * Number(plant.Quantity)
     }
-    return total
+    return total + this.calcGST()
+  }
+
+  calcGST(){
+    let total = 0;
+    let GST_Percent = 0.05
+    for(let plant of this.cart_details){
+      total = total + Number(plant.Price) * Number(plant.Quantity)
+    }
+    return total * GST_Percent
+  }
+
+  calcInvoiceTotal(){
+    return Math.round(this.calcGrandTotal())
   }
 }

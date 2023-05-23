@@ -19,9 +19,15 @@ export class DashboardComponent {
   selectedPlant = ""
 
   constructor(private router: Router, plant_service: PlantsInfoService){
-    this.plant_details = plant_service.getDetails();
     this.plant_service_obj = plant_service;
+    this.plant_details = this.plant_service_obj.getDetails();
+    console.log(this.plant_details)
 
+  }
+
+  ngOnInit(){
+    this.plant_details = this.plant_service_obj.getDetails();
+    console.log(this.plant_details)
   }
 
   dropDownSelect(value: string){
@@ -38,6 +44,8 @@ export class DashboardComponent {
   }
 
   addToCart(name: string){
+    this.cart_details = this.plant_service_obj.getCartDetails()
+    this.cartNumber = this.plant_service_obj.getCartNumber()
     for(let plant of this.plant_details){
       if(plant.Name == name && !this.cart_details.includes(plant)){
         this.cartNumber = this.cartNumber + 1
@@ -65,7 +73,6 @@ export class DashboardComponent {
           this.cart_details = this.cart_details.filter((plant) => plant.Name != name);
           this.plant_service_obj.setCartDetails(this.cart_details)
           this.plant_service_obj.setCartNumber(this.cartNumber)
-          console.log(this.cart_details)
           return
         }
       }

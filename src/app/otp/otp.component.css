@@ -1,7 +1,7 @@
 @media(max-width: 1000px){
   #box1, #box2, #box3, #box4{
-    width: 5em;
-    height: 5em;
+    width: 4em;
+    height: 4em;
     border-radius: 1em;
     border-color: rgb(86, 240, 86);
     text-align: center;

@@ -22,7 +22,7 @@ export class PlantsInfoService {
       ],
       Price: 200,
       Scientific_Name: "Sansevieria",
-      Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
+      Img_path: "/assets/images/plant-photos/snake_plant.jpg",
       Initial_quantity: 1,
       Quantity: 1,
       Add_to_cart: "Add"
@@ -38,7 +38,7 @@ export class PlantsInfoService {
       ],
       Price: 150,
       Scientific_Name: "Chlorophytum comosum",
-      Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
+      Img_path: "/assets/images/plant-photos/spider_plant.jpg",
       Initial_quantity: 1,
       Quantity: 1,
       Add_to_cart: "Add"
@@ -54,7 +54,7 @@ export class PlantsInfoService {
       ],
       Price: 150,
       Scientific_Name: "Aloe barbadensis",
-      Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
+      Img_path: "/assets/images/plant-photos/aloe_vera.jpg",
       Initial_quantity: 1,
       Quantity: 1,
       Add_to_cart: "Add"
@@ -71,7 +71,7 @@ export class PlantsInfoService {
       ],
       Price: 150,
       Scientific_Name: "Chlorophytum comosum",
-      Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
+      Img_path: "/assets/images/plant-photos/mango.jpg",
       Initial_quantity: 1,
       Quantity: 1,
       Add_to_cart: "Add"
@@ -87,7 +87,7 @@ export class PlantsInfoService {
       ],
       Price: 150,
       Scientific_Name: "Chlorophytum comosum",
-      Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
+      Img_path: "/assets/images/plant-photos/lemon.jpg",
       Initial_quantity: 1,
       Quantity: 1,
       Add_to_cart: "Add"
@@ -103,7 +103,7 @@ export class PlantsInfoService {
       ],
       Price: 150,
       Scientific_Name: "Chlorophytum comosum",
-      Img_path: "/assets/images/istockphoto-1018703724-612x612.jpg",
+      Img_path: "/assets/images/plant-photos/orange.jpg",
       Initial_quantity: 1,
       Quantity: 1,
       Add_to_cart: "Add"
@@ -202,6 +202,7 @@ export class PlantsInfoService {
 
   setCartDetails(details: {}[]){
     this.cartDetails = details
+    console.log(this.cartDetails)
   }
 
   getCartDetails(){
@@ -213,6 +214,22 @@ export class PlantsInfoService {
   }
   getCartNumber(){
     return this.cartNumber
+  }
+
+  setPlantDetails(type: string, name: string, sname: string, price:string, properties:string, initialQ: string, img: string){
+    const plantDetails = {
+      type: type,
+      Name: name,
+      Properties: properties,
+      Price: Number(price),
+      Scientific_Name: sname,
+      Img_path: img,
+      Initial_quantity: Number(initialQ),
+      Quantity: 1,
+      Add_to_cart: "Add"
+    }
+    this.plant_details.push(plantDetails)
+    console.log(this.plant_details)
   }
 }
 
