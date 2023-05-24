@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PlantsInfoService } from '../plants-info.service';
 import { Router } from '@angular/router';
+import { HttpClient } from "@angular/common/http"
 
 @Component({
   selector: 'app-add-plant',
@@ -22,7 +23,7 @@ export class AddPlantComponent {
   PlantServiceObj: any
 
 
-  constructor(plant_service: PlantsInfoService, private router: Router){
+  constructor(plant_service: PlantsInfoService, private router: Router, private http: HttpClient){
     this.PlantServiceObj = plant_service
   }
 
@@ -65,7 +66,24 @@ export class AddPlantComponent {
       }
 
       console.log(type, name, properties, price, initialQ, sname)
-      this.PlantServiceObj.setPlantDetails(this.Type, this.Name, this.ScientificName, this.Price, this.Properties, this.InitialQuantity, this.ImageBase64)
+      this.http.post("http://127.0.0.1:8000/details/setDetails/", {
+        "type": this.Type,
+        "name": this.Name,
+        "sname": this.ScientificName,
+        "price": this.Price,
+        "properties": this.Properties,
+        "quantity": this.Quantity,
+        "initialQuantity": this.InitialQuantity,
+        "img": this.ImageBase64,
+        "addToCart": this.AddToCart
+      }).subscribe({
+        next: (response: any) => {
+          console.log(response)
+        },
+        error: (err) => {
+          console.log(err)
+        }
+      })
       this.router.navigate(["/dash"])
 
       this.InitialQuantity = ""

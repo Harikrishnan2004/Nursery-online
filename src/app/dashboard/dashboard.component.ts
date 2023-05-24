@@ -22,9 +22,14 @@ export class DashboardComponent {
     this.plant_service_obj = plant_service;
   }
 
-  ngOnInit(){
-    this.plant_details = this.plant_service_obj.getDetails();
-    console.log(this.plant_details)
+  async ngOnInit(): Promise<void>{
+    try {
+      this.plant_details = await this.plant_service_obj.getDetails();
+      console.log(this.plant_details);
+      // Use plantDetails here
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   dropDownSelect(value: string){
