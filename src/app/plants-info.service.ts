@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root'
@@ -6,112 +7,27 @@ import { Injectable } from '@angular/core';
 
 export class PlantsInfoService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   plant_selected = "";
   cartDetails: {}[] = []
   cartNumber = 0;
-  plant_details : any = [
-    {
-      type: "plant",
-      Name: "Snake Plant",
-      Properties: [
-        "Tolerant of low light conditions, making it suitable for shady areas in your home.",
-        "Requires infrequent watering, as it is drought-tolerant.",
-        "Acts as an air purifier, removing toxins like formaldehyde and benzene."
-      ],
-      Price: 200,
-      Scientific_Name: "Sansevieria",
-      Img_path: "/assets/images/plant-photos/snake_plant.jpg",
-      Initial_quantity: 1,
-      Quantity: 1,
-      Add_to_cart: "Add"
-    },
+  plant_details : any
 
-    {
-      type: "plant",
-      Name: "Spider Plant",
-      Properties: [
-        "Tolerant of low light conditions, making it suitable for shady areas in your home.",
-        "Requires infrequent watering, as it is drought-tolerant.",
-        "Acts as an air purifier, removing toxins like formaldehyde and benzene."
-      ],
-      Price: 150,
-      Scientific_Name: "Chlorophytum comosum",
-      Img_path: "/assets/images/plant-photos/spider_plant.jpg",
-      Initial_quantity: 1,
-      Quantity: 1,
-      Add_to_cart: "Add"
-    },
-
-    {
-      type: "plant",
-      Name: "Aloe Vera",
-      Properties: [
-        "Tolerant of low light conditions, making it suitable for shady areas in your home.",
-        "Requires infrequent watering, as it is drought-tolerant.",
-        "Acts as an air purifier, removing toxins like formaldehyde and benzene."
-      ],
-      Price: 150,
-      Scientific_Name: "Aloe barbadensis",
-      Img_path: "/assets/images/plant-photos/aloe_vera.jpg",
-      Initial_quantity: 1,
-      Quantity: 1,
-      Add_to_cart: "Add"
-
-    },
-
-    {
-      type: "seed",
-      Name: "Mango",
-      Properties: [
-        "Tolerant of low light conditions, making it suitable for shady areas in your home.",
-        "Requires infrequent watering, as it is drought-tolerant.",
-        "Acts as an air purifier, removing toxins like formaldehyde and benzene."
-      ],
-      Price: 150,
-      Scientific_Name: "Chlorophytum comosum",
-      Img_path: "/assets/images/plant-photos/mango.jpg",
-      Initial_quantity: 1,
-      Quantity: 1,
-      Add_to_cart: "Add"
-    },
-
-    {
-      type: "seed",
-      Name: "Lemon",
-      Properties: [
-        "Tolerant of low light conditions, making it suitable for shady areas in your home.",
-        "Requires infrequent watering, as it is drought-tolerant.",
-        "Acts as an air purifier, removing toxins like formaldehyde and benzene."
-      ],
-      Price: 150,
-      Scientific_Name: "Chlorophytum comosum",
-      Img_path: "/assets/images/plant-photos/lemon.jpg",
-      Initial_quantity: 1,
-      Quantity: 1,
-      Add_to_cart: "Add"
-    },
-
-    {
-      type: "seed",
-      Name: "Orange",
-      Properties: [
-        "Tolerant of low light conditions, making it suitable for shady areas in your home.",
-        "Requires infrequent watering, as it is drought-tolerant.",
-        "Acts as an air purifier, removing toxins like formaldehyde and benzene."
-      ],
-      Price: 150,
-      Scientific_Name: "Chlorophytum comosum",
-      Img_path: "/assets/images/plant-photos/orange.jpg",
-      Initial_quantity: 1,
-      Quantity: 1,
-      Add_to_cart: "Add"
-    }
-  ]
-
-  getDetails(){
-    return this.plant_details
+  getDetails(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.http.post("http://127.0.0.1:8000/details/getDetails/", {
+        message: "send"
+      }).subscribe({
+        next: (response: any) => {
+          this.plant_details = response["plantDetails"];
+          resolve(this.plant_details); // Resolve the promise with plant_details
+        },
+        error: (error: any) => {
+          reject(error); // Reject the promise with the error
+        }
+      });
+    });
   }
 
   getPlantDetails(){
@@ -213,23 +129,10 @@ export class PlantsInfoService {
     return this.cartNumber
   }
 
-  setPlantDetails(type: string, name: string, sname: string, price:string, properties:string, initialQ: string, img: string){
-    const plantDetails = {
-      type: type,
-      Name: name,
-      Properties: properties,
-      Price: Number(price),
-      Scientific_Name: sname,
-      Img_path: img,
-      Initial_quantity: Number(initialQ),
-      Quantity: 1,
-      Add_to_cart: "Add"
-    }
-    this.plant_details.push(plantDetails)
-  }
 }
 
 export interface Plant {
+  id: number;
   type: string;
   Name: string;
   Properties: string[];
