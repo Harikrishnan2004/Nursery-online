@@ -30,6 +30,7 @@ export class DashboardComponent {
     } catch (error) {
       console.error(error);
     }
+    this.cartNumber = this.plant_service_obj.getCartNumber()
   }
 
   dropDownSelect(value: string){
@@ -45,16 +46,17 @@ export class DashboardComponent {
     }
   }
 
-  addToCart(name: string){
+  async addToCart(name: string, id: number){
     this.cart_details = this.plant_service_obj.getCartDetails()
     this.cartNumber = this.plant_service_obj.getCartNumber()
     for(let plant of this.plant_details){
       if(plant.Name == name && !this.cart_details.includes(plant)){
         this.cartNumber = this.cartNumber + 1
         this.cart_details.push(plant)
-        this.plant_service_obj.setAddCart(name)
+        this.plant_service_obj.setAddCart(name, id)
         this.plant_service_obj.setCartDetails(this.cart_details)
         this.plant_service_obj.setCartNumber(this.cartNumber)
+        this.plant_details = await this.plant_service_obj.getDetails()
         return
       }
     }
@@ -64,28 +66,35 @@ export class DashboardComponent {
     return this.plant_service_obj.getCartNumber()
   }
 
-  remove(name: string){
+  async remove(name: string, id: number){
     this.cart_details = this.plant_service_obj.getCartDetails()
     this.cartNumber = this.plant_service_obj.getCartNumber()
     for(let plant of this.cart_details){
       if(plant.Name == name){
         if(this.cartNumber != 0){
           this.cartNumber = this.cartNumber - 1
-          this.plant_service_obj.setAddCart(name)
+          this.plant_service_obj.setAddCart(name, id)
           this.cart_details = this.cart_details.filter((plant) => plant.Name != name);
           this.plant_service_obj.setCartDetails(this.cart_details)
           this.plant_service_obj.setCartNumber(this.cartNumber)
+          this.plant_details = await this.plant_service_obj.getDetails()
           return
         }
       }
     }
   }
 
-  handleEntryKey(value: string){
+  async handleEntryKey(value: string){
     let plantDet: any
-    plantDet = this.plant_service_obj.getSearchDetails(value.toLowerCase());
-    this.plant_details = plantDet.plant_List
-    this.no_results_found = plantDet.no_Results_found
+    try{
+      plantDet = await this.plant_service_obj.getSearchDetails(value.toLowerCase());
+    }
+    catch (error){
+      console.log(error)
+    }
+    this.plant_details = plantDet.plant_list
+    this.no_results_found = plantDet.no_Results_Found
+    console.log(plantDet.no_results_found)
   }
 
   moveToCart(){
