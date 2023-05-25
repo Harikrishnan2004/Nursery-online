@@ -12,15 +12,19 @@ export class PlantsInfoService {
   plant_selected = "";
   cartDetails: {}[] = []
   cartNumber = 0;
+  PlantDatabase: any
   plant_details : any
+  dataFetched = false
 
-  getDetails(): Promise<any> {
+  getDatabaseDetails(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.http.post("http://127.0.0.1:8000/details/getDetails/", {
         message: "send"
       }).subscribe({
         next: (response: any) => {
-          this.plant_details = response["plantDetails"];
+          this.PlantDatabase = response["plantDetails"];
+          this.plant_details = this.PlantDatabase
+          this.dataFetched = true
           resolve(this.plant_details); // Resolve the promise with plant_details
         },
         error: (error: any) => {
@@ -30,19 +34,17 @@ export class PlantsInfoService {
     });
   }
 
-  setAddCart(name: string, Id: number){
-    this.http.post("http://127.0.0.1:8000/details/addCartUpdate/", {id: Id}).subscribe({
-      next: (response)=>{
-        console.log(response)
-      },
-      error: (error)=>{
-        console.log(error)
-      }
-    })
+  getDataFetched(){
+    return this.dataFetched
   }
 
-  async getPlantDetails(){
-    let plantDetails = await this.getDetails()
+  getDetails(){
+    console.log(this.plant_details)
+    return this.plant_details
+  }
+
+  getPlantDetails(){
+    let plantDetails = this.plant_details
     let plantList: any[] = []
     for(let plant of plantDetails){
       if(plant.type.toLowerCase() == "plant"){
@@ -52,8 +54,8 @@ export class PlantsInfoService {
     return plantList
   }
 
-  async getSeedDetails(){
-    let plantDetails = await this.getDetails()
+  getSeedDetails(){
+    let plantDetails = this.plant_details
     let plantList: any[] = []
     for(let plant of plantDetails){
       if(plant.type == "seed"){
@@ -63,10 +65,8 @@ export class PlantsInfoService {
     return plantList
   }
 
-  async getSearchDetails(value: string){
+  getSearchDetails(value: string){
 
-
-    this.plant_details = await this.getDetails()
     let plantList: any[] = []
     let searchName = value.toLowerCase()
     let NoResultsFound = false
@@ -108,6 +108,22 @@ export class PlantsInfoService {
     for(let plant of this.plant_details){
       if(plant.Name == name && plant.Quantity != 1){
         plant.Quantity = plant.Quantity - 1
+        break
+      }
+    }
+  }
+
+  setAddCart(name: string){
+    for(let plant of this.plant_details){
+      if(plant.Name == name){
+        if(plant.Add_to_cart == "Add"){
+          console.log("add to added")
+          plant.Add_to_cart = "Added"
+        }
+        else{
+          plant.Add_to_cart = "Add"
+          console.log("added to add")
+        }
         break
       }
     }

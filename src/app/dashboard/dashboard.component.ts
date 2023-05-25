@@ -22,14 +22,12 @@ export class DashboardComponent {
     this.plant_service_obj = plant_service;
   }
 
-  async ngOnInit(): Promise<void>{
-    try {
-      this.plant_details = await this.plant_service_obj.getDetails();
-      console.log(this.plant_details);
-      // Use plantDetails here
-    } catch (error) {
-      console.error(error);
+  async ngOnInit(){
+    if(!this.plant_service_obj.getDataFetched()){
+      await this.plant_service_obj.getDatabaseDetails()
     }
+    this.plant_details = this.plant_service_obj.getDetails();
+    console.log(this.plant_details)
     this.cartNumber = this.plant_service_obj.getCartNumber()
   }
 
@@ -46,7 +44,7 @@ export class DashboardComponent {
     }
   }
 
-  async addToCart(name: string, id: number){
+  addToCart(name: string, id: number){
     this.cart_details = this.plant_service_obj.getCartDetails()
     this.cartNumber = this.plant_service_obj.getCartNumber()
     for(let plant of this.plant_details){
@@ -56,7 +54,6 @@ export class DashboardComponent {
         this.plant_service_obj.setAddCart(name, id)
         this.plant_service_obj.setCartDetails(this.cart_details)
         this.plant_service_obj.setCartNumber(this.cartNumber)
-        this.plant_details = await this.plant_service_obj.getDetails()
         return
       }
     }
@@ -77,7 +74,6 @@ export class DashboardComponent {
           this.cart_details = this.cart_details.filter((plant) => plant.Name != name);
           this.plant_service_obj.setCartDetails(this.cart_details)
           this.plant_service_obj.setCartNumber(this.cartNumber)
-          this.plant_details = await this.plant_service_obj.getDetails()
           return
         }
       }
@@ -109,12 +105,10 @@ export class DashboardComponent {
 
   valueInc(name: string){
     this.plant_service_obj.quantityInc(name)
-    console.log("inc")
   }
 
   valueDec(name: string){
     this.plant_service_obj.quantityDec(name)
-    console.log("dec")
   }
 
   moveToHome(){
