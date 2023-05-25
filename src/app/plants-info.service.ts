@@ -58,7 +58,7 @@ export class PlantsInfoService {
     let plantDetails = this.plant_details
     let plantList: any[] = []
     for(let plant of plantDetails){
-      if(plant.type == "seed"){
+      if(plant.type.toLowerCase() == "seed"){
         plantList.push(plant)
       }
     }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Plant } from '../plants-info.service';
 import { PlantsInfoService } from '../plants-info.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-cart-view',
@@ -10,7 +11,7 @@ import { PlantsInfoService } from '../plants-info.service';
 })
 export class CartViewComponent {
 
-  constructor(private route: ActivatedRoute, plant_service: PlantsInfoService){
+  constructor(private route: ActivatedRoute, plant_service: PlantsInfoService, private router: Router){
     this.plant_info_obj = plant_service
   }
 
@@ -27,6 +28,10 @@ export class CartViewComponent {
       total = total + plant.Quantity
     }
     return total
+  }
+
+  goToDash(){
+    this.router.navigate(['\dash'])
   }
 
   calcTotal(name: string){

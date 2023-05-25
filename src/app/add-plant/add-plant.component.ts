@@ -84,6 +84,7 @@ export class AddPlantComponent {
           console.log(err)
         }
       })
+      this.PlantServiceObj.getDatabaseDetails()
       this.router.navigate(["/dash"])
 
       this.InitialQuantity = ""

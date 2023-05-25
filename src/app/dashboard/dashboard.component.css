@@ -31,6 +31,11 @@
     margin-top: .5em;
   }
 
+  #cart-icon{
+    margin-left: 1em;
+    margin-top: 0.5em
+  }
+
   #cart-no{
     text-align: center;
     font-size: 1.5em;
@@ -45,6 +50,15 @@
     height: 20em;
     perspective: 1000px; /* Remove this if you don't want the 3D effect */
     padding-bottom: 2em;
+  }
+
+  #account{
+    background-color: rgb(16, 197, 16);
+    margin-left: 10em;
+    padding-right: 1em;
+    padding-left: 0.3em;
+    border-radius: 1em;
+    color: #f1f1f1;
   }
 }
 
@@ -66,6 +80,21 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#cart-icon{
+  margin-top: 0.5em;
+}
+
+#cart-icon:hover{
+  cursor:pointer
+}
+#home-icon{
+  margin-top: 0.5em;
+}
+
+#home-icon:hover{
+  cursor: pointer;
 }
 
 .quote{
@@ -197,14 +226,25 @@ span:nth-child(18) {
   text-align: center;
   border-color: rgb(39, 247, 7);
   margin-right: 2em;
+  float: left;
+  margin-top: 0.5em;
 }
 
 .search-icon{
+  margin-top: 0.5em;
+  float: left;
   margin-right: 0.5em;
 }
 
+#search-div{
+  float: left
+}
+
+
+
 .header-item{
   padding-right: 2em;
+  float: left
 
 }
 
