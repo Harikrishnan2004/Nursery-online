@@ -30,19 +30,32 @@ export class PlantsInfoService {
     });
   }
 
-  getPlantDetails(){
+  setAddCart(name: string, Id: number){
+    this.http.post("http://127.0.0.1:8000/details/addCartUpdate/", {id: Id}).subscribe({
+      next: (response)=>{
+        console.log(response)
+      },
+      error: (error)=>{
+        console.log(error)
+      }
+    })
+  }
+
+  async getPlantDetails(){
+    let plantDetails = await this.getDetails()
     let plantList: any[] = []
-    for(let plant of this.plant_details){
-      if(plant.type == "plant"){
+    for(let plant of plantDetails){
+      if(plant.type.toLowerCase() == "plant"){
         plantList.push(plant)
       }
     }
     return plantList
   }
 
-  getSeedDetails(){
+  async getSeedDetails(){
+    let plantDetails = await this.getDetails()
     let plantList: any[] = []
-    for(let plant of this.plant_details){
+    for(let plant of plantDetails){
       if(plant.type == "seed"){
         plantList.push(plant)
       }
@@ -50,8 +63,10 @@ export class PlantsInfoService {
     return plantList
   }
 
-  getSearchDetails(value: string){
+  async getSearchDetails(value: string){
 
+
+    this.plant_details = await this.getDetails()
     let plantList: any[] = []
     let searchName = value.toLowerCase()
     let NoResultsFound = false
@@ -62,7 +77,7 @@ export class PlantsInfoService {
         const plantName = plant.Name.toLowerCase()
         if(plantName.startsWith(searchName))
         {
-          plantList = [plant]
+          plantList.push(plant)
           NoResultsFound = false
           break
         }
@@ -75,7 +90,8 @@ export class PlantsInfoService {
     else{
       plantList = this.plant_details;
     }
-    return {plant_List: plantList, no_Results_found: NoResultsFound}
+    console.log(plantList)
+    return {"plant_list": plantList, "no_Results_Found": NoResultsFound}
   }
 
   quantityInc(name: String){
@@ -92,22 +108,6 @@ export class PlantsInfoService {
     for(let plant of this.plant_details){
       if(plant.Name == name && plant.Quantity != 1){
         plant.Quantity = plant.Quantity - 1
-        break
-      }
-    }
-  }
-
-  setAddCart(name: string){
-    for(let plant of this.plant_details){
-      if(plant.Name == name){
-        if(plant.Add_to_cart == "Add"){
-          console.log("add to added")
-          plant.Add_to_cart = "Added"
-        }
-        else{
-          plant.Add_to_cart = "Add"
-          console.log("added to add")
-        }
         break
       }
     }

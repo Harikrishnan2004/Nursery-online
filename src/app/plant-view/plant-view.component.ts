@@ -36,12 +36,12 @@ export class PlantViewComponent implements OnInit{
     for(let plant of this.plantService.plant_details){
       if(plant.Name == this.selectedPlant){
         this.plantScientificName = plant.Scientific_Name
-        this.plantProperties = plant.Properties
+        this.plantProperties = plant.Properties.split()
         this.plantRate = plant.Price
         this.plantType = plant.type
         this.plantQuantity = plant.Initial_quantity
         this.plantImg = plant.Img_path
-        console.log(this.plantImg)
+        console.log(this.plantProperties)
       }
     }
 
