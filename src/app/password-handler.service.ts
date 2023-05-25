@@ -11,7 +11,7 @@ export class PasswordHandlerService {
     this.password = password;
   }
 
-  getPassword() {
+  getPassword(){
     return this.password;
   }
 }
