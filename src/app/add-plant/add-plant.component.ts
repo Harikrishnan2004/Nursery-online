@@ -17,7 +17,7 @@ export class AddPlantComponent {
   InitialQuantity = ""
   Price = ""
   ScientificName = ""
-  Quantity = 0
+  Quantity = 1
   AddToCart = "Add"
   ImageBase64 = ""
   PlantServiceObj: any

@@ -17,6 +17,8 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { PlantViewComponent } from './plant-view/plant-view.component';
 import { CartViewComponent } from './cart-view/cart-view.component';
 import { AddPlantComponent } from './add-plant/add-plant.component';
+import { RazorpayComponent } from './razorpay/razorpay.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { AddPlantComponent } from './add-plant/add-plant.component';
     ForgotPasswordComponent,
     PlantViewComponent,
     CartViewComponent,
-    AddPlantComponent
+    AddPlantComponent,
+    RazorpayComponent,
   ],
   imports: [
     BrowserModule,
