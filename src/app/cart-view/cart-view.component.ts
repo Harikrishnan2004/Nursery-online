@@ -66,4 +66,5 @@ export class CartViewComponent {
     return Math.round(this.calcGrandTotal())
   }
 
+
 }
