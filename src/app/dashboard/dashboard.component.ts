@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { PlantsInfoService } from '../plants-info.service';
 import { Router } from "@angular/router"
 import { Plant } from '../plants-info.service';
+import { HttpClient } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,14 +13,15 @@ import { Plant } from '../plants-info.service';
 
 export class DashboardComponent {
 
-  cart_details: Plant[] = []
+  cart_details: any = {}
   plant_details: any
   plant_service_obj: any
   cartNumber = 0
   no_results_found = false
   selectedPlant = ""
 
-  constructor(private router: Router, plant_service: PlantsInfoService){
+  constructor(private router: Router, plant_service: PlantsInfoService, private http: HttpClient,
+    private cookieService: CookieService){
     this.plant_service_obj = plant_service;
   }
 
@@ -27,8 +30,9 @@ export class DashboardComponent {
       await this.plant_service_obj.getDatabaseDetails()
     }
     this.plant_details = this.plant_service_obj.getDetails();
-    console.log(this.plant_details)
-    this.cartNumber = this.plant_service_obj.getCartNumber()
+    this.plant_service_obj.setEmail(this.cookieService.get("email/phone"))
+    this.cart_details = await this.plant_service_obj.setCartDetails()
+    this.cartNumber = Object.keys(this.cart_details).length
   }
 
   dropDownSelect(value: string){
@@ -44,40 +48,40 @@ export class DashboardComponent {
     }
   }
 
-  addToCart(name: string, id: number){
-    this.cart_details = this.plant_service_obj.getCartDetails()
-    this.cartNumber = this.plant_service_obj.getCartNumber()
-    for(let plant of this.plant_details){
-      if(plant.Name == name && !this.cart_details.includes(plant)){
-        this.cartNumber = this.cartNumber + 1
-        this.cart_details.push(plant)
-        this.plant_service_obj.setAddCart(name, id)
-        this.plant_service_obj.setCartDetails(this.cart_details)
-        this.plant_service_obj.setCartNumber(this.cartNumber)
-        return
+  addToCart(id: number){
+    this.http.post("http://127.0.0.1:8000/auth/cartFunction/", {
+      function: "add",
+      email: this.plant_service_obj.getEmail(),
+      plant_id: id
+    }).subscribe({
+      next: async (response:any)=>{
+        console.log(response)
+        if(response["status"] == "plant added"){
+          this.cart_details = await this.plant_service_obj.setCartDetails()
+          this.cartNumber = Object.keys(this.cart_details).length
+        }
       }
-    }
+    })
   }
 
   getCartNumber(){
-    return this.plant_service_obj.getCartNumber()
+    return this.cartNumber
   }
 
-  async remove(name: string, id: number){
-    this.cart_details = this.plant_service_obj.getCartDetails()
-    this.cartNumber = this.plant_service_obj.getCartNumber()
-    for(let plant of this.cart_details){
-      if(plant.Name == name){
-        if(this.cartNumber != 0){
-          this.cartNumber = this.cartNumber - 1
-          this.plant_service_obj.setAddCart(name, id)
-          this.cart_details = this.cart_details.filter((plant) => plant.Name != name);
-          this.plant_service_obj.setCartDetails(this.cart_details)
-          this.plant_service_obj.setCartNumber(this.cartNumber)
-          return
+  async remove(id: number){
+    this.http.post("http://127.0.0.1:8000/auth/cartFunction/", {
+      function: "remove",
+      email: this.plant_service_obj.getEmail(),
+      plant_id: id
+    }).subscribe({
+      next: async (response: any)=>{
+        console.log(response)
+        if(response["status"] == "plant removed"){
+          this.cart_details = await this.plant_service_obj.setCartDetails()
+          this.cartNumber = Object.keys(this.cart_details).length
         }
       }
-    }
+    })
   }
 
   async handleEntryKey(value: string){
@@ -95,7 +99,7 @@ export class DashboardComponent {
 
   moveToCart(){
     const JsonCartDetails = JSON.stringify(this.cart_details)
-    this.router.navigate(['/cart-view'], {queryParams: {cartDetails: JSON.stringify(JsonCartDetails)}})
+    this.router.navigate(['/cart-view'])
   }
 
   setSelectedPlant(name: string){
@@ -103,12 +107,54 @@ export class DashboardComponent {
     this.router.navigate(["/plant-view"], { queryParams: {selectedPlant : name}}  );
   }
 
-  valueInc(name: string){
-    this.plant_service_obj.quantityInc(name)
+  async valueInc(id: string){
+    this.http.post("http://127.0.0.1:8000/auth/cartFunction/", {
+      function: "increment",
+      email: this.plant_service_obj.getEmail(),
+      plant_id: id
+    }).subscribe({
+      next: async (response: any)=>{
+        console.log(response)
+        if(response["status"] == "incremented"){
+          this.cart_details = await this.plant_service_obj.setCartDetails()
+        }
+      }
+    })
   }
 
-  valueDec(name: string){
-    this.plant_service_obj.quantityDec(name)
+  async valueDec(id: string){
+    if(this.cart_details[id] >= 1){
+      this.http.post("http://127.0.0.1:8000/auth/cartFunction/", {
+        function: "decrement",
+        email: this.plant_service_obj.getEmail(),
+        plant_id: id
+      }).subscribe({
+        next: async (response: any)=>{
+          console.log(response)
+          if(response["status"] == "decremented"){
+            this.cart_details = await this.plant_service_obj.setCartDetails()
+          }
+        }
+      })
+    }
+  }
+
+  getQuantity(id: string){
+    if(this.cart_details[id]){
+      return this.cart_details[id][0]
+    }
+    else{
+      return 1
+    }
+  }
+
+  addCartText(id: string){
+    if(this.cart_details[id]){
+      return this.cart_details[id][1]
+    }
+    else{
+      return "Add"
+    }
   }
 
   moveToHome(){
