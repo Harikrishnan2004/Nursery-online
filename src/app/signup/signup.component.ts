@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { CookieService } from 'ngx-cookie-service';
 import { PasswordHandlerService } from '../password-handler.service';
 import { Router } from "@angular/router"
+import { PlantsInfoService } from '../plants-info.service';
 
 @Component({
   selector: 'app-signup',
@@ -27,7 +28,7 @@ export class SignupComponent {
   userDetails: {}[] = []
 
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService,
-    private passwordHandlerService: PasswordHandlerService){
+    private passwordHandlerService: PasswordHandlerService, plantInfoObj: PlantsInfoService){
 
   }
 
@@ -92,6 +93,7 @@ export class SignupComponent {
           }
         }
         )
+
       }
       else{
         this.invalidCredText = "Passwords must match"

@@ -5,6 +5,7 @@ import { Router } from "@angular/router"
 import { OnInit } from '@angular/core'
 import { GetCsrfService } from '../get-csrf.service';
 import { CookieService } from 'ngx-cookie-service';
+import { PlantsInfoService } from '../plants-info.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   password: String = ""
   fieldsDisabled: boolean = false;
   invalidCred: boolean = false;
+  plantInfoService: any
 
   passwordType: String = "password"
   pass_check: Boolean = false
@@ -35,8 +37,8 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(private http: HttpClient, private router: Router, private csrfService: GetCsrfService,
-    private cookieService: CookieService){
-
+    private cookieService: CookieService, private plantService: PlantsInfoService){
+      this.plantInfoService = PlantsInfoService
   }
 
 

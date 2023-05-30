@@ -46,7 +46,7 @@ import { RazorpayComponent } from './razorpay/razorpay.component';
     PasswordHandlerService,
     GetCsrfService,
     DashboardComponent,
-    PlantViewComponent
+    PlantViewComponent,
   ],
   bootstrap: [AppComponent]
 })

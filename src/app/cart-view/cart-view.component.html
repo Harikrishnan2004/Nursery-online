@@ -6,13 +6,13 @@
 </div>
 
 <div id="plant-view-div">
-  <div id="container" *ngFor="let plant of cart_details">
+  <div id="container" *ngFor="let plant of plantDetails">
 
-    <div id="plant-img-div">
+    <div *ngIf="isPresent(plant.id)" id="plant-img-div">
       <img id="plant-img" src="{{ plant.Img_path }}">
     </div>
 
-    <div id="plant-info-div">
+    <div *ngIf="isPresent(plant.id)" id="plant-info-div">
       <div><h1 id="name">{{ plant.Name }}</h1></div>
       <div><h3 id="scientific-name">{{ plant.Scientific_Name }}</h3></div>
       <div><h3 id="type">Type: {{ plant.type }}</h3></div>
@@ -25,8 +25,8 @@
 
 <div id="overall-calculation">
   <h1 style="font-style: oblique; font-family: Georgia, 'Times New Roman', Times, serif;">Payment</h1>
-  <div *ngFor="let plant of cart_details">
-    <div class="details-div">
+  <div *ngFor="let plant of plantDetails">
+    <div *ngIf="isPresent(plant.id)" class="details-div">
       <span class="plant-name">{{ plant.Name }}</span>
       <span style="float: right" class="plant-total"> ₹{{ calcTotal(plant.Name) }} </span>
       <span style="float: right;  margin-right: 10px" class="plant-calc">{{ plant.Quantity }} x {{ plant.Price }} = </span>

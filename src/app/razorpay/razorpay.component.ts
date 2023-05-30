@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { CartViewComponent } from '../cart-view/cart-view.component';
 
 declare var Razorpay: any;
 
@@ -8,6 +9,12 @@ declare var Razorpay: any;
   styleUrls: ['./razorpay.component.css']
 })
 export class RazorpayComponent {
+
+  constructor(cartView: CartViewComponent){
+    this.cartViewComponent = cartView
+  }
+
+  cartViewComponent: any
 
   message:any = "Not yet stared";
   paymentId = "";
@@ -71,6 +78,7 @@ export class RazorpayComponent {
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event: any): void {
     this.message = "Success Payment";
+    this.cartViewComponent.setOrderDetails()
     console.log("success")
   }
 

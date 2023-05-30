@@ -15,6 +15,53 @@ export class PlantsInfoService {
   PlantDatabase: any
   plant_details : any
   dataFetched = false
+  Email = ""
+
+  setEmail(email: string){
+    this.Email = email
+    console.log(this.Email)
+  }
+
+  getEmail(){
+    return this.Email
+  }
+
+  setCartDetails(): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      this.http.post("http://127.0.0.1:8000/auth/cartFunction/", {
+        function: "send cart details",
+        email: this.getEmail()
+      }).subscribe({
+        next: (response: any) => {
+          console.log(response["cart_plants"])
+          this.cartDetails = response["cart_plants"]
+          resolve(this.cartDetails)
+        },
+        error: (error) => {
+          console.log(error)
+          reject(error);
+        }
+      })
+    })
+  }
+
+  getCartDetails(): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      this.http.post("http://127.0.0.1:8000/auth/cartFunction/", {
+        function: "send cart details",
+        email: this.getEmail()
+      }).subscribe({
+        next: (response: any) => {
+          console.log(response["cart_plants"])
+          resolve(response["cart_plants"])
+        },
+        error: (error) => {
+          console.log(error)
+          reject(error);
+        }
+      })
+    })
+  }
 
   getDatabaseDetails(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
@@ -93,58 +140,6 @@ export class PlantsInfoService {
     console.log(plantList)
     return {"plant_list": plantList, "no_Results_Found": NoResultsFound}
   }
-
-  quantityInc(name: String){
-    for(let plant of this.plant_details){
-      if(plant.Name == name){
-        console.log()
-        plant.Quantity = plant.Quantity + 1
-        break
-      }
-    }
-  }
-
-  quantityDec(name: String){
-    for(let plant of this.plant_details){
-      if(plant.Name == name && plant.Quantity != 1){
-        plant.Quantity = plant.Quantity - 1
-        break
-      }
-    }
-  }
-
-  setAddCart(name: string){
-    for(let plant of this.plant_details){
-      if(plant.Name == name){
-        if(plant.Add_to_cart == "Add"){
-          console.log("add to added")
-          plant.Add_to_cart = "Added"
-        }
-        else{
-          plant.Add_to_cart = "Add"
-          console.log("added to add")
-        }
-        break
-      }
-    }
-  }
-
-  setCartDetails(details: {}[]){
-    this.cartDetails = details
-    console.log(this.cartDetails)
-  }
-
-  getCartDetails(){
-    return this.cartDetails
-  }
-
-  setCartNumber(value: number){
-    this.cartNumber = value
-  }
-  getCartNumber(){
-    return this.cartNumber
-  }
-
 }
 
 export interface Plant {
