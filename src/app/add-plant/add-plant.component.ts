@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PlantsInfoService } from '../plants-info.service';
 import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http"
@@ -8,8 +8,13 @@ import { HttpClient } from "@angular/common/http"
   templateUrl: './add-plant.component.html',
   styleUrls: ['./add-plant.component.css']
 })
-export class AddPlantComponent {
+export class AddPlantComponent implements OnInit {
 // Inside your component
+
+  public addNewProduct: boolean = true;
+  public modifyExistingProduct: boolean = false;
+
+  public allPlantsData: any;
 
   Type = ""
   Name = ""
@@ -23,8 +28,24 @@ export class AddPlantComponent {
   PlantServiceObj: any
 
 
-  constructor(plant_service: PlantsInfoService, private router: Router, private http: HttpClient){
+  constructor(private plant_service: PlantsInfoService, private router: Router, private http: HttpClient){
     this.PlantServiceObj = plant_service
+  }
+
+  ngOnInit(): void {
+    this.plant_service.getDatabaseDetails().then(data => {
+      data.forEach((element: any) => {
+        element.editable = false;
+      });
+      this.allPlantsData = data;
+      console.log(data);
+    });
+
+  }
+
+  public hideAllTabs(): void {
+    this.addNewProduct = false;
+    this.modifyExistingProduct = false;
   }
 
   handleFileInput(event: any) {
@@ -37,7 +58,6 @@ export class AddPlantComponent {
       reader.onloadend = () => {
         const base64String = reader.result as string;
         this.ImageBase64 = base64String
-        console.log(base64String)
       };
 
       reader.readAsDataURL(file);
@@ -84,7 +104,6 @@ export class AddPlantComponent {
           console.log(err)
         }
       })
-      this.PlantServiceObj.getDatabaseDetails()
       this.router.navigate(["/dash"])
 
       this.InitialQuantity = ""

@@ -1,0 +1,40 @@
+<button (click)="hideAllTabs(); showManageProductsDiv = true">Manage Products</button>
+<button (click)="hideAllTabs(); showPendingOrdersDiv = true">Pending Orders</button>
+<button (click)="hideAllTabs(); showOrderHistoryDiv = true">Order History</button>
+<button (click)="hideAllTabs(); showInsightsDiv = true">Insights</button>
+
+<div *ngIf="showManageProductsDiv">
+    <app-add-plant></app-add-plant>
+</div>
+
+<div *ngIf="showPendingOrdersDiv">
+    {{ getPendingOrders() }}
+
+    <div *ngIf="PendingOrdersLoader">
+        <img src="/assets/images/Hourglass.gif">
+    </div>
+    
+    <div *ngIf="!PendingOrdersLoader">
+        <div *ngFor="let order of pendingOrders">
+            {{ order }}
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showOrderHistoryDiv">
+    {{ getOrderHistory() }}
+
+    <div *ngIf="OrderHistoryLoader">
+        <img src="/assets/images/Hourglass.gif">
+    </div>
+
+    <div *ngIf="!OrderHistoryLoader">
+        <div *ngFor="let order of orderHistory">
+            {{ order }}
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showInsightsDiv">
+    Insights
+</div>

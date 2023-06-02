@@ -78,6 +78,11 @@ export class LoginComponent implements OnInit {
           if (response["authToken"] != "") {
             this.cookieService.set("authToken", response["authToken"]);
           }
+          console.log(this.cookieService.get("email/phone").toString());
+          if (this.cookieService.get("email/phone").toString() === "tatwamasi.admin") {
+            this.router.navigate(['/admin']);
+            return;
+          }
           this.router.navigate(['/dash']);
         } else {
           this.invalidCred = true;
@@ -101,6 +106,11 @@ export class LoginComponent implements OnInit {
         if (response["authAPILogin-response"] == "Success") {
           if (response["authToken"] != "") {
             this.cookieService.set("authToken", response["authToken"]);
+          }
+          console.log(this.cookieService.get("email/phone").toString());
+          if (this.cookieService.get("email/phone").toString() === "tatwamasi.admin") {
+            this.router.navigate(['/admin']);
+            return;
           }
           this.router.navigate(['/dash']);
         }

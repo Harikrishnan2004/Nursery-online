@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { PlantViewComponent } from './plant-view/plant-view.component';
 import { CartViewComponent } from './cart-view/cart-view.component';
 import { AddPlantComponent } from './add-plant/add-plant.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {path: "otp", component: OtpComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: "forgotpassword", component: ForgotPasswordComponent},
   {path: "plant-view", component: PlantViewComponent},
   {path: "cart-view", component: CartViewComponent},
-  {path: "add-plant", component: AddPlantComponent}
+  {path: "add-plant", component: AddPlantComponent},
+  {path: "admin", component: AdminComponent},
 ];
 
 @NgModule({

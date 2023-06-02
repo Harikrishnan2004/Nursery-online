@@ -18,6 +18,7 @@ import { PlantViewComponent } from './plant-view/plant-view.component';
 import { CartViewComponent } from './cart-view/cart-view.component';
 import { AddPlantComponent } from './add-plant/add-plant.component';
 import { RazorpayComponent } from './razorpay/razorpay.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { RazorpayComponent } from './razorpay/razorpay.component';
     CartViewComponent,
     AddPlantComponent,
     RazorpayComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
