@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PlantsInfoService } from '../plants-info.service';
 import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http"
+import { GetCsrfService } from '../get-csrf.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-add-plant',
@@ -28,7 +30,7 @@ export class AddPlantComponent implements OnInit {
   PlantServiceObj: any
 
 
-  constructor(private plant_service: PlantsInfoService, private router: Router, private http: HttpClient){
+  constructor(private plant_service: PlantsInfoService,private cookieService: CookieService, private csrfService: GetCsrfService, private router: Router, private http: HttpClient){
     this.PlantServiceObj = plant_service
   }
 
@@ -139,18 +141,29 @@ export class AddPlantComponent implements OnInit {
   }
 
   setUpdatedInfo(type: String, name: string, price: string, properties: string, sname: string, id: string){
-
-    this.http.post("http://127.0.0.1:8000/details/update/", {
-      admin_mail: this.PlantServiceObj.getEmail(),
-      id: id,
-      up_name: name,
-      up_type: type,
-      up_properties: properties,
-      up_sname: sname,
-      up_price: parseInt(price)
-    }).subscribe({
-      next: (response)=>{
-        console.log(response)
+    let csrfToken: any
+    this.csrfService.getNewCsrf().subscribe({
+      next: (response: any) => {
+        csrfToken = response["csrf"]
+        console.log(csrfToken)
+        this.http.post("http://127.0.0.1:8000/details/update/", {
+          admin_mail: this.PlantServiceObj.getEmail(),
+          id: id,
+          csrf: csrfToken,
+          auth: this.cookieService.get("authToken"),
+          update_name: name,
+          update_type: type,
+          update_properties: properties,
+          update_sname: sname,
+          update_price: parseInt(price),
+        }).subscribe({
+          next: (response)=>{
+            console.log(response)
+          }
+        })
+      },
+      error: (error: any) => {
+        console.log(error);
       }
     })
   }

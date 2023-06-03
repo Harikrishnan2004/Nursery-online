@@ -62,8 +62,6 @@
         <h6 class="card-title">{{ plant.id }}</h6>
         <h5 class="card-title" #plantName [contentEditable]="plant.editable">
           {{ plant.Name }}
-          <div class="float-right" style="display: inline;">
-          </div>
         </h5>
         <h6 class="card-title" #plantSname [contentEditable]="plant.editable">{{ plant.Scientific_Name }}</h6>
         <p class="card-text" #plantProperties [contentEditable]="plant.editable">{{ plant.Properties }}</p>
