@@ -60,19 +60,19 @@
       <img class="card-img-top" src="{{ plant.Img_path }}" alt="Card image cap">
       <div class="card-body">
         <h6 class="card-title">{{ plant.id }}</h6>
-        <h5 class="card-title" [contentEditable]="plant.editable">
+        <h5 class="card-title" #plantName [contentEditable]="plant.editable">
           {{ plant.Name }}
           <div class="float-right" style="display: inline;">
           </div>
         </h5>
-        <h6 class="card-title" [contentEditable]="plant.editable">{{ plant.Scientific_Name }}</h6>
-        <p class="card-text" [contentEditable]="plant.editable">{{ plant.Properties }}</p>
+        <h6 class="card-title" #plantSname [contentEditable]="plant.editable">{{ plant.Scientific_Name }}</h6>
+        <p class="card-text" #plantProperties [contentEditable]="plant.editable">{{ plant.Properties }}</p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item" [contentEditable]="plant.editable">{{ plant.type }}</li>
-        <li class="list-group-item">₹<span [contentEditable]="plant.editable">{{ plant.Price }}</span></li>
+        <li class="list-group-item" #plantType [contentEditable]="plant.editable">{{ plant.type }}</li>
+        <li class="list-group-item">₹<span #plantPrice [contentEditable]="plant.editable">{{ plant.Price }}</span></li>
       </ul>
     </div>
-    <button [disabled]="!plant.editable">Commit</button>
+    <button [disabled]="!plant.editable" (click)="setUpdatedInfo(plantType.innerHTML, plantName.innerHTML, plantPrice.innerHTML, plantProperties.innerHTML, plantSname.innerHTML, plant.id)">Commit</button>
   </div>
 </div>

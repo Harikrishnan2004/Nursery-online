@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { HttpClient } from '@angular/common/http'
 
 export class PlantsInfoService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   plant_selected = "";
   cartDetails: {}[] = []
@@ -23,6 +24,8 @@ export class PlantsInfoService {
   }
 
   getEmail(){
+    let email = this.cookieService.get("email/phone")
+    this.setEmail(email)
     return this.Email
   }
 

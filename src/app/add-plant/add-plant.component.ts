@@ -138,4 +138,21 @@ export class AddPlantComponent implements OnInit {
     this.Properties = value
   }
 
+  setUpdatedInfo(type: String, name: string, price: string, properties: string, sname: string, id: string){
+
+    this.http.post("http://127.0.0.1:8000/details/update/", {
+      admin_mail: this.PlantServiceObj.getEmail(),
+      id: id,
+      up_name: name,
+      up_type: type,
+      up_properties: properties,
+      up_sname: sname,
+      up_price: parseInt(price)
+    }).subscribe({
+      next: (response)=>{
+        console.log(response)
+      }
+    })
+  }
+
 }
