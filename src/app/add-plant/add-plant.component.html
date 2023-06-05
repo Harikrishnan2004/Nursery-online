@@ -1,7 +1,7 @@
-<button (click)="hideAllTabs(); addNewProduct = true;">Add new Product</button>
-<button (click)="hideAllTabs(); modifyExistingProduct = true;">Modify Existing Product</button>
+<button class="btn btn-primary m-1" (click)="hideAllTabs(); addNewProduct = true;">Add new Product</button>
+<button class="btn btn-primary m-1" (click)="hideAllTabs(); modifyExistingProduct = true;">Modify Existing Product</button>
 
-<div class="container" *ngIf="addNewProduct">
+<div *ngIf="addNewProduct">
   <div id="add-plant-div">
     <div class="input-type-div input-info">
       <p style="float: left;">Planting option</p>
@@ -50,29 +50,28 @@
 <div *ngIf="modifyExistingProduct">
   Modify Existing Product
   <br>
-  <div *ngFor="let plant of allPlantsData" style="display: inline-block;" data-editable="false" id="plant-div-{{ plant.id }}">
-    <a (click)="plant.editable = !plant.editable;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" [attr.fill]="plant.editable ? 'red' : 'green'" class="bi bi-pen" viewBox="0 0 16 16">
-        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
-      </svg>
-    </a>
-    <div class="card" style="width: 18rem;">
-      <img class="card-img-top" src="{{ plant.Img_path }}" alt="Card image cap">
-      <div class="card-body">
-        <h6 class="card-title">{{ plant.id }}</h6>
-        <h5 class="card-title" #plantName [contentEditable]="plant.editable">
-          {{ plant.Name }}
-          <div class="float-right" style="display: inline;">
-          </div>
-        </h5>
-        <h6 class="card-title" #plantSname [contentEditable]="plant.editable">{{ plant.Scientific_Name }}</h6>
-        <p class="card-text" #plantProperties [contentEditable]="plant.editable">{{ plant.Properties }}</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item" #plantType [contentEditable]="plant.editable">{{ plant.type }}</li>
-        <li class="list-group-item">₹<span #plantPrice [contentEditable]="plant.editable">{{ plant.Price }}</span></li>
-      </ul>
+  <div class="card-group">
+    <div class="card" style="min-width: 18rem; max-width: 20rem; display: inline-block" *ngFor="let plant of allPlantsData" [style]="'margin: 2px; padding: 2px;'" data-editable="false" id="plant-div-{{ plant.id }}">
+        <img class="card-img-top" style="height: 14rem; object-fit: cover;" src="{{ plant.Img_path }}">
+        <h6 *ngIf="plant.updateSuccessBanner" class="alert alert-success">Updated Succesfully</h6>
+        <h6 class="alert alert-secondary" *ngIf="!plant.updateSuccessBanner">{{ plant.id }}</h6>
+        <div class="card-body">
+          <h5 style="display: inline-block" class="card-title" #plantName [contentEditable]="plant.editable">
+            {{ plant.Name }}
+          </h5>
+          <a class="m-3" style="cursor: pointer;" (click)="plant.editable = !plant.editable;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" [attr.fill]="plant.editable ? 'red' : 'green'" class="bi bi-pen" viewBox="0 0 16 16">
+              <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+            </svg>
+          </a>
+          <i>
+            <h6 class="card-title" #plantSname [contentEditable]="plant.editable">{{ plant.Scientific_Name }}</h6>
+          </i>
+          <p style="height: 10rem;" class="card-text" #plantProperties [contentEditable]="plant.editable">{{ plant.Properties }}</p>
+          <span class="card-text" #plantType [contentEditable]="plant.editable">{{ plant.type }}</span  >
+          <h4 class="card-text">₹<span #plantPrice [contentEditable]="plant.editable">{{ plant.Price }}</span></h4>
+          <button class="btn btn-danger" [disabled]="!plant.editable" (click)="setUpdatedInfo(plantType.innerText, plantName.innerText, plantPrice.innerText, plantProperties.innerText, plantSname.innerText, plant.id)">Commit</button>
+        </div>
     </div>
-    <button [disabled]="!plant.editable" (click)="setUpdatedInfo(plantType.innerHTML, plantName.innerHTML, plantPrice.innerHTML, plantProperties.innerHTML, plantSname.innerHTML, plant.id)">Commit</button>
   </div>
 </div>

@@ -1,7 +1,7 @@
-<button (click)="hideAllTabs(); showManageProductsDiv = true">Manage Products</button>
-<button (click)="hideAllTabs(); showPendingOrdersDiv = true">Pending Orders</button>
-<button (click)="hideAllTabs(); showOrderHistoryDiv = true">Order History</button>
-<button (click)="hideAllTabs(); showInsightsDiv = true">Insights</button>
+<button class="btn btn-success m-1" (click)="hideAllTabs(); showManageProductsDiv = true">Manage Products</button>
+<button class="btn btn-success m-1" (click)="hideAllTabs(); showPendingOrdersDiv = true">Pending Orders</button>
+<button class="btn btn-success m-1" (click)="hideAllTabs(); showOrderHistoryDiv = true">Order History</button>
+<button class="btn btn-success m-1" (click)="hideAllTabs(); showInsightsDiv = true">Insights</button>
 
 <div *ngIf="showManageProductsDiv">
     <app-add-plant></app-add-plant>

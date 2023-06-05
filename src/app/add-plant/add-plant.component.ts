@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PlantsInfoService } from '../plants-info.service';
 import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http"
+import { CookieService } from 'ngx-cookie-service';
+import { GetCsrfService } from '../get-csrf.service';
 
 @Component({
   selector: 'app-add-plant',
@@ -26,21 +28,23 @@ export class AddPlantComponent implements OnInit {
   AddToCart = "Add"
   ImageBase64 = ""
   PlantServiceObj: any
+  csrfToken: any;
 
 
-  constructor(private plant_service: PlantsInfoService, private router: Router, private http: HttpClient){
+  constructor(private plant_service: PlantsInfoService, private router: Router, private http: HttpClient,
+    private cookie: CookieService, private csrf: GetCsrfService){
     this.PlantServiceObj = plant_service
   }
 
-  ngOnInit(): void {
-    this.plant_service.getDatabaseDetails().then(data => {
+  async ngOnInit() {
+    await this.plant_service.getDatabaseDetails().then(data => {
       data.forEach((element: any) => {
         element.editable = false;
+        element.borderColor = 'black';
+        element.updateSuccessBanner = false;
       });
       this.allPlantsData = data;
-      console.log(data);
     });
-
   }
 
   public hideAllTabs(): void {
@@ -138,21 +142,38 @@ export class AddPlantComponent implements OnInit {
     this.Properties = value
   }
 
-  setUpdatedInfo(type: String, name: string, price: string, properties: string, sname: string, id: string){
-
-    this.http.post("http://127.0.0.1:8000/details/update/", {
-      admin_mail: this.PlantServiceObj.getEmail(),
-      id: id,
-      up_name: name,
-      up_type: type,
-      up_properties: properties,
-      up_sname: sname,
-      up_price: parseInt(price)
-    }).subscribe({
-      next: (response)=>{
-        console.log(response)
+  async setUpdatedInfo(type: String, name: string, price: string, properties: string, sname: string, id: string){
+    this.csrf.getNewCsrf().subscribe({
+      next: (response: any) => {
+        this.csrfToken = response["csrf"];
+        this.http.post("http://127.0.0.1:8000/details/update/", {
+          'csrf': this.csrfToken,
+          'auth': this.cookie.get("authToken"),
+          admin_mail: this.PlantServiceObj.getEmail(),
+          id: id,
+          update_name: name,
+          update_type: type,
+          update_properties: properties,
+          update_sname: sname,
+          update_price: parseInt(price)
+        }).subscribe({
+          next: async (response)=>{
+            await this.ngOnInit();
+            for (let plant of this.allPlantsData) {
+              if (plant.id == id) {
+                plant.editable = false;
+                plant.updateSuccessBanner = true;
+                plant.borderColor = 'green';
+                setTimeout(() => {
+                  plant.updateSuccessBanner = false
+                }, 5000);
+                break;
+              }
+            }
+          }
+        })
       }
-    })
+    });
   }
 
 }
