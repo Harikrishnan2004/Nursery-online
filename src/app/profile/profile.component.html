@@ -1,0 +1,47 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<div class="container">
+  <!-- <div id="welcome-div"><h1 class="welcome">Welcome to Online Nursery</h1></div> -->
+  <div class="overall-container">
+  <div id="img-div">
+    <img src="assets/images/istockphoto-1018703724-612x612.jpg" alt="">
+  </div>
+  <div class="signup-container" style="min-width: 23%;">
+    <div class="heading">
+      <h1>Profile</h1>
+    </div>
+    <div class="form-container">
+
+      <table>
+        <tr class="firstname-div">
+          <td>
+            <p>Username: </p>
+          </td>
+          <td>
+            <p #user_name_id style="display: inline-block;" [innerHTML]="user_name" [contentEditable]="edit_bool"></p>
+          </td>
+        </tr>
+
+        <tr class="email-div">
+          <td>
+            <p>Email: </p>
+          </td>
+          <td>
+            <p #user_mail_id style="display: inline-block;" [innerHTML]="user_mail"></p>
+          </td>
+        </tr>
+      </table>
+
+      <div>
+        <button type="button" class="btn btn-success" (click)="makeEditable()" [innerHTML]="edit_innerHTML"></button>
+        <button type="button" class="btn btn-primary" (click)="saveChanges(user_name_id.innerHTML, user_mail_id.innerHTML)" [innerHTML]="save_innerHTML"></button>
+        <br/><button type="button" class="btn btn-danger" (click)="logOut()">Log-out</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+

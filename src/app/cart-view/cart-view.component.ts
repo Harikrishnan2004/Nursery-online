@@ -26,7 +26,7 @@ export class CartViewComponent {
     this.plant_info_obj = plant_service
   }
 
-  cart_details: Plant[] = []
+  cart_details: any = {}
   plant_info_obj: any
 
   async ngOnInit(){
@@ -52,7 +52,7 @@ export class CartViewComponent {
     let total = 0;
     for(let plant of this.plantDetails){
       if(plant.Name == name && this.isPresent(plant.id)){
-        total = plant.Quantity * plant.Price
+        total = this.getQuantity(plant.id) * plant.Price
         this.EachProductPrice[plant.Name] = plant.Price
         this.EachProductTotal[plant.Name] = total
         return total
@@ -66,8 +66,8 @@ export class CartViewComponent {
     try{
       for(let plant of this.plantDetails){
         if(this.isPresent(plant.id)){
-        total = total + plant.Quantity
-        this.EachProductQuantity[plant.Name] = plant.Quantity
+        total = total + this.getQuantity(plant.id)
+        this.EachProductQuantity[plant.Name] = this.getQuantity(plant.id)
       }
       }
     }
@@ -81,7 +81,7 @@ export class CartViewComponent {
     try{
     for(let plant of this.plantDetails){
       if(this.isPresent(plant.id)){
-      total = total + Number(plant.Price) * Number(plant.Quantity)
+      total = total + Number(plant.Price) * Number(this.getQuantity(plant.id))
     }}}catch(error){}
     return total + this.calcGST()
   }
@@ -92,7 +92,7 @@ export class CartViewComponent {
     try{
     for(let plant of this.plantDetails){
       if(this.isPresent(plant.id)){
-      total = total + Number(plant.Price) * Number(plant.Quantity)
+      total = total + Number(plant.Price) * Number(this.getQuantity(plant.id))
     }}}catch(error){}
     return total * GST_Percent
   }
@@ -100,6 +100,21 @@ export class CartViewComponent {
   calcInvoiceTotal(){
     this.InvoiceTotal = Math.round(this.calcGrandTotal())
     return this.InvoiceTotal
+  }
+
+  getQuantity(id: string){
+    if(this.cart_details[id]){
+      return this.cart_details[id][0]
+    }
+  }
+
+  getStringQuantity(id: string){
+    if(this.cart_details[id]){
+      return "Quantity: ".concat(this.cart_details[id][0].toString())
+    }
+    else{
+      return "Quantity: "
+    }
   }
 }
 

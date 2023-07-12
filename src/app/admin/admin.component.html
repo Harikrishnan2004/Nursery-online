@@ -1,7 +1,9 @@
-<button class="btn btn-success m-1" (click)="hideAllTabs(); showManageProductsDiv = true">Manage Products</button>
-<button class="btn btn-success m-1" (click)="hideAllTabs(); showPendingOrdersDiv = true">Pending Orders</button>
-<button class="btn btn-success m-1" (click)="hideAllTabs(); showOrderHistoryDiv = true">Order History</button>
-<button class="btn btn-success m-1" (click)="hideAllTabs(); showInsightsDiv = true">Insights</button>
+<div style="text-align: center;">
+  <button class="btn btn-success m-1" (click)="hideAllTabs(); showManageProductsDiv = true">Manage Products</button>
+  <button class="btn btn-success m-1" (click)="hideAllTabs(); showPendingOrdersDiv = true">Pending Orders</button>
+  <button class="btn btn-success m-1" (click)="hideAllTabs(); showOrderHistoryDiv = true">Order History</button>
+  <button class="btn btn-success m-1" (click)="hideAllTabs(); showInsightsDiv = true">Insights</button>
+</div>
 
 <div *ngIf="showManageProductsDiv">
     <app-add-plant></app-add-plant>
@@ -13,7 +15,7 @@
     <div *ngIf="PendingOrdersLoader">
         <img src="/assets/images/Hourglass.gif">
     </div>
-    
+
     <div *ngIf="!PendingOrdersLoader">
         <div *ngFor="let order of pendingOrders">
             {{ order }}

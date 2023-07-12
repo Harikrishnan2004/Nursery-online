@@ -53,7 +53,7 @@ export class RazorpayComponent {
   paynow() {
     this.paymentId = '';
     this.error = '';
-    this.options.amount = "200"; //paise
+    this.options.amount = "500"; //paise
     this.options.prefill.name = "Hari";
     this.options.prefill.email = "abijash2731@gmail.com";
     this.options.prefill.contact = "9999999999";
@@ -78,7 +78,6 @@ export class RazorpayComponent {
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event: any): void {
     this.message = "Success Payment";
-    this.cartViewComponent.setOrderDetails()
     console.log("success")
   }
 

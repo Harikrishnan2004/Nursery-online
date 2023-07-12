@@ -16,7 +16,7 @@
       <div><h1 id="name">{{ plant.Name }}</h1></div>
       <div><h3 id="scientific-name">{{ plant.Scientific_Name }}</h3></div>
       <div><h3 id="type">Type: {{ plant.type }}</h3></div>
-      <div><h3>Quantity: {{ plant.Quantity }}</h3></div>
+      <div><h3 [innerHTML]="getStringQuantity(plant.id)"></h3></div>
       <div><h2 id="price">Price:  ₹{{ plant.Price }}</h2></div>
     </div>
 
@@ -29,7 +29,7 @@
     <div *ngIf="isPresent(plant.id)" class="details-div">
       <span class="plant-name">{{ plant.Name }}</span>
       <span style="float: right" class="plant-total"> ₹{{ calcTotal(plant.Name) }} </span>
-      <span style="float: right;  margin-right: 10px" class="plant-calc">{{ plant.Quantity }} x {{ plant.Price }} = </span>
+      <span style="float: right;  margin-right: 10px" class="plant-calc"><span [innerHTML]="getQuantity(plant.id)"></span> x {{ plant.Price }} = </span>
     </div>
   </div>
 

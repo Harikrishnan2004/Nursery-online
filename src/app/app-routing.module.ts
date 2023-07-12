@@ -10,6 +10,7 @@ import { PlantViewComponent } from './plant-view/plant-view.component';
 import { CartViewComponent } from './cart-view/cart-view.component';
 import { AddPlantComponent } from './add-plant/add-plant.component';
 import { AdminComponent } from './admin/admin.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {path: "otp", component: OtpComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: "cart-view", component: CartViewComponent},
   {path: "add-plant", component: AddPlantComponent},
   {path: "admin", component: AdminComponent},
+  {path: "profile", component: ProfileComponent},
 ];
 
 @NgModule({

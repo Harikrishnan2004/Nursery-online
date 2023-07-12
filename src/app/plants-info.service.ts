@@ -29,6 +29,43 @@ export class PlantsInfoService {
     return this.Email
   }
 
+  saveprofile(user_name: string, user_mail: string): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      this.http.post("http://127.0.0.1:8000/auth/userFunction/", {
+        function: "save changes",
+        email: user_mail,
+        username: user_name
+      }).subscribe({
+        next: (response: any) => {
+          console.log(response)
+          resolve(response)
+        },
+        error: (err: any) => {
+          console.log(err)
+          reject(err)
+        }
+      })
+    })
+  }
+
+  getUserDetails(email: string): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      this.http.post("http://127.0.0.1:8000/auth/userFunction/", {
+        function: "send user details",
+        email: this.getEmail()
+      }).subscribe({
+        next: (response: any) => {
+          console.log(response)
+          resolve(response)
+        },
+        error: (err: any) => {
+          console.log(err)
+          reject(err)
+        }
+      })
+    })
+  }
+
   setCartDetails(): Promise<any>{
     return new Promise<any>((resolve, reject) => {
       this.http.post("http://127.0.0.1:8000/auth/cartFunction/", {
@@ -143,6 +180,8 @@ export class PlantsInfoService {
     console.log(plantList)
     return {"plant_list": plantList, "no_Results_Found": NoResultsFound}
   }
+
+
 }
 
 export interface Plant {

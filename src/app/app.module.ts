@@ -19,6 +19,7 @@ import { CartViewComponent } from './cart-view/cart-view.component';
 import { AddPlantComponent } from './add-plant/add-plant.component';
 import { RazorpayComponent } from './razorpay/razorpay.component';
 import { AdminComponent } from './admin/admin.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { AdminComponent } from './admin/admin.component';
     AddPlantComponent,
     RazorpayComponent,
     AdminComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
