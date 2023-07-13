@@ -18,8 +18,9 @@ export class CartViewComponent {
   EachProductQuantity: any = {}
   TotalQuantity = 0
   EachProductPrice: any = {}
-  Orders: any =  []
   plantDetails: any
+
+  payment_bool: any
 
   constructor(private route: ActivatedRoute, plant_service: PlantsInfoService,
     private router: Router, private http: HttpClient,private cookieService: CookieService){
@@ -53,8 +54,8 @@ export class CartViewComponent {
     for(let plant of this.plantDetails){
       if(plant.Name == name && this.isPresent(plant.id)){
         total = this.getQuantity(plant.id) * plant.Price
-        this.EachProductPrice[plant.Name] = plant.Price
-        this.EachProductTotal[plant.Name] = total
+        this.EachProductPrice[plant.id] = plant.Price
+        this.EachProductTotal[plant.id] = total
         return total
       }
     }
@@ -67,7 +68,7 @@ export class CartViewComponent {
       for(let plant of this.plantDetails){
         if(this.isPresent(plant.id)){
         total = total + this.getQuantity(plant.id)
-        this.EachProductQuantity[plant.Name] = this.getQuantity(plant.id)
+        this.EachProductQuantity[plant.id] = this.getQuantity(plant.id)
       }
       }
     }
@@ -118,22 +119,5 @@ export class CartViewComponent {
   }
 }
 
-//   setOrderDetails(){
-//     let email = this.plant_info_obj.getEmail()
-//     this.http.post("http://127.0.0.1:8000/details/setOrderDetails/",{
-//       Orders: this.Orders,
-//       Quantity: this.EachProductQuantity,
-//       Username: email,
-//       Price_Each: this.EachProductPrice,
-//       Total_Price: this.InvoiceTotal,
-//       Total_Quantity: this.TotalQuantity,
-//     }).subscribe({
-//       next: (response)=>{
-//         console.log(response)
-//       },
-//       error: (error)=>{
-//         console.log(error)
-//       }
-//     })
-//   }
-// }
+
+
