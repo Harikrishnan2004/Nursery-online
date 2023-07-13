@@ -20,6 +20,8 @@ import { AddPlantComponent } from './add-plant/add-plant.component';
 import { RazorpayComponent } from './razorpay/razorpay.component';
 import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { PlantsInfoService } from './plants-info.service';
 
 
 @NgModule({
@@ -38,6 +40,7 @@ import { ProfileComponent } from './profile/profile.component';
     RazorpayComponent,
     AdminComponent,
     ProfileComponent,
+    MyOrdersComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,7 @@ import { ProfileComponent } from './profile/profile.component';
     GetCsrfService,
     DashboardComponent,
     PlantViewComponent,
+    PlantsInfoService
   ],
   bootstrap: [AppComponent]
 })

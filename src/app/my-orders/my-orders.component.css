@@ -1,0 +1,15 @@
+.product-image{
+    width: 10em;
+    height: 10em;
+}
+
+.order-card{
+    width: 50em;
+    justify-content: center;
+    position: relative;
+    transform: translate(+50%, 0%);
+}
+
+.order-container{
+    position: relative;
+}

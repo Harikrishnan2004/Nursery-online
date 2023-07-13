@@ -11,12 +11,14 @@ export class PlantsInfoService {
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   plant_selected = "";
-  cartDetails: {}[] = []
+  cartDetails: {[key: string]: any} = {}
   cartNumber = 0;
   PlantDatabase: any
   plant_details : any
   dataFetched = false
   Email = ""
+  payment_bool = false
+  order_details: {[key: string]: {[key: string]: any}} = {}
 
   setEmail(email: string){
     this.Email = email
@@ -179,6 +181,45 @@ export class PlantsInfoService {
     }
     console.log(plantList)
     return {"plant_list": plantList, "no_Results_Found": NoResultsFound}
+  }
+
+  async isPresent(id: number){
+    this.cartDetails = await this.getCartDetails()
+    for(let plant_id of Object.keys(this.cartDetails)){
+      if(parseInt(plant_id) == id){
+        return true
+      }
+    }
+    return false
+  }
+
+  placeOrder(order_details: any){
+    this.http.post("http://127.0.0.1:8000/auth/userFunction/",{
+      function: "place order",
+      orders: order_details,
+      email: this.getEmail() 
+    }).subscribe({
+      next: (response)=>{
+        console.log(response)
+      },
+      error: (error)=>{
+        console.log(error)
+      }
+    })
+  }
+
+  async updatePaymentSuccess(){
+    this.payment_bool = true
+    console.log(this.plant_details)
+    this.cartDetails = await this.getCartDetails()
+    for(let plant of this.plant_details){
+      if(await this.isPresent(plant.id)){
+        this.order_details[plant.id] = {
+          "quantity": this.cartDetails[plant.id][0]
+        } 
+      }
+    }
+    this.placeOrder(this.order_details)
   }
 
 

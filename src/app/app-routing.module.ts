@@ -11,6 +11,7 @@ import { CartViewComponent } from './cart-view/cart-view.component';
 import { AddPlantComponent } from './add-plant/add-plant.component';
 import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 const routes: Routes = [
   {path: "otp", component: OtpComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: "add-plant", component: AddPlantComponent},
   {path: "admin", component: AdminComponent},
   {path: "profile", component: ProfileComponent},
+  {path: "my-orders", component: MyOrdersComponent}
 ];
 
 @NgModule({
