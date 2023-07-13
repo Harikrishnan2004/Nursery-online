@@ -68,6 +68,25 @@ export class PlantsInfoService {
     })
   }
 
+  
+  getOrderList(email: string): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      this.http.post("http://127.0.0.1:8000/auth/userFunction/", {
+        function: "send order list",
+        email: this.getEmail()
+      }).subscribe({
+        next: (response: any) => {
+          console.log(response)
+          resolve(response["order_list"])
+        },
+        error: (err: any) => {
+          console.log(err)
+          reject(err)
+        }
+      })
+    })
+  }
+
   setCartDetails(): Promise<any>{
     return new Promise<any>((resolve, reject) => {
       this.http.post("http://127.0.0.1:8000/auth/cartFunction/", {
