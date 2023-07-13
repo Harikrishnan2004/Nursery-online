@@ -20,8 +20,12 @@ export class MyOrdersComponent {
 
   plant_info_obj: any
   plant_details: any
-  orders: {[key: string]: any} = {}
+  orders: any[] = []
   order_details: any
+
+  isDelivered = false;
+  isReady = false;
+  isPending = true;
 
   async ngOnInit(){
     this.plant_info_obj.setEmail(this.cookieService.get("email/phone"))
@@ -43,11 +47,13 @@ export class MyOrdersComponent {
   
 
   placeOrder(){
+    let count = 0
     for (let order of this.order_details){
-      this.orders[order["order_no"]] = []
+      this.orders.push([{"order_no": order["order_no"]},{"order_date": order["order_date"]}, {"details": []}, {"total_price": 0}, {"invoice_amount": 0}])
       for (let id of Object.keys(order["order_details"])){
         if(this.isPresent(id) || this.isPresent(id) == 0){
-          this.orders[order["order_no"]].push({
+          this.orders[count][3]["total_price"] = this.orders[count][3]["total_price"] + order["order_details"][id]["quantity"] * this.plant_details[this.isPresent(id)].Price
+          this.orders[count][2]["details"].push({
             "name": this.plant_details[this.isPresent(id)].Name,
             "price": this.plant_details[this.isPresent(id)].Price,
             "quantity": order["order_details"][id]["quantity"],
@@ -57,6 +63,8 @@ export class MyOrdersComponent {
           })
         }
       }
+      this.orders[count][4]["invoice_amount"] = Math.round((this.orders[count][3]["total_price"] * 0.05) + this.orders[count][3]["total_price"])
+      count = count + 1
     }
     console.log(this.orders)
   }

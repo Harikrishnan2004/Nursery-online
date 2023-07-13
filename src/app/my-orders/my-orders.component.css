@@ -1,15 +1,34 @@
+@media( max-width: 640px ){
+    #product-img{
+        width: 5em;
+        height: 5em;
+    }
+    #order-no-id{
+        font-size: 13px;
+    }
+    #order-date-id{
+        float: left;
+    }
+}
 .product-image{
-    width: 10em;
-    height: 10em;
+    width: 12.5em;
+    height: 13em;
 }
 
 .order-card{
-    width: 50em;
     justify-content: center;
     position: relative;
-    transform: translate(+50%, 0%);
+    margin: 2em;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
-.order-container{
+#order-container{
     position: relative;
+}
+
+.order-no{
+    background-color: rgb(67, 176, 85);
+    padding: 0.5em;
+    color: aliceblue;
+    border-radius: 1em;
 }
