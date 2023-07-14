@@ -3,16 +3,17 @@
 .input-info p{
   margin-right: 1em;
 }
+table {
+  margin: 1em;
+}
+table, tr, td {
+  padding: 5px;
+  padding-right: 4em;
+}
 
 #add-plant-div {
   padding: 1em;
-  background-color: rgba(252, 255, 255, 0.5);
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   width: 60%;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .input-info {

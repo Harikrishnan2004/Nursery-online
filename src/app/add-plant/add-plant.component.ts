@@ -142,6 +142,24 @@ export class AddPlantComponent implements OnInit {
     this.Properties = value
   }
 
+  deletePlant(plantid: number) {
+    this.csrf.getNewCsrf().subscribe({
+      next: (response: any) => {
+        this.csrfToken = response["csrf"];
+        this.http.post("http://127.0.0.1:8000/details/delete/", {
+          "csrf": this.csrfToken,
+          "auth": this.cookie.get("authToken"),
+          "user": this.cookie.get("email/phone"),
+          "id": plantid
+        }).subscribe({
+          next: (response: any) => {
+            this.ngOnInit();
+          }
+        })
+      }
+    })  
+  }
+
   async setUpdatedInfo(type: String, name: string, price: string, properties: string, sname: string, id: string){
     this.csrf.getNewCsrf().subscribe({
       next: (response: any) => {
