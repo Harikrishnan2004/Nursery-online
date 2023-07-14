@@ -1,5 +1,7 @@
-<button class="btn btn-primary m-1" (click)="hideAllTabs(); addNewProduct = true;">Add new Product</button>
-<button class="btn btn-primary m-1" (click)="hideAllTabs(); modifyExistingProduct = true;">Modify Existing Product</button>
+<div style="text-align: center;">
+  <button class="btn btn-primary m-1" (click)="hideAllTabs(); addNewProduct = true;">Add new Product</button>
+  <button class="btn btn-primary m-1" (click)="hideAllTabs(); modifyExistingProduct = true;">Modify Existing Product</button>
+</div>
 
 <div *ngIf="addNewProduct">
   <table>
@@ -70,8 +72,8 @@
     <!-- Add more input fields here -->
   </div>
 
-<div *ngIf="modifyExistingProduct">
-  Modify Existing Product
+<div style=" text-align: center;" *ngIf="modifyExistingProduct">
+  <div style="font-family:'Times New Roman', Times, serif; padding-top: 1em; font-size: larger;"> Modify Existing Product </div>
   <br>
   <div class="card-group">
     <div class="card" style="min-width: 18rem; max-width: 20rem; display: inline-block" *ngFor="let plant of allPlantsData" [style]="'margin: 2px; padding: 2px;'" data-editable="false" id="plant-div-{{ plant.id }}">

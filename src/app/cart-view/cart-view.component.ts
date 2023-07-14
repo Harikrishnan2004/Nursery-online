@@ -18,15 +18,16 @@ export class CartViewComponent {
   EachProductQuantity: any = {}
   TotalQuantity = 0
   EachProductPrice: any = {}
-  Orders: any =  []
   plantDetails: any
+
+  payment_bool: any
 
   constructor(private route: ActivatedRoute, plant_service: PlantsInfoService,
     private router: Router, private http: HttpClient,private cookieService: CookieService){
     this.plant_info_obj = plant_service
   }
 
-  cart_details: Plant[] = []
+  cart_details: any = {}
   plant_info_obj: any
 
   async ngOnInit(){
@@ -52,9 +53,9 @@ export class CartViewComponent {
     let total = 0;
     for(let plant of this.plantDetails){
       if(plant.Name == name && this.isPresent(plant.id)){
-        total = plant.Quantity * plant.Price
-        this.EachProductPrice[plant.Name] = plant.Price
-        this.EachProductTotal[plant.Name] = total
+        total = this.getQuantity(plant.id) * plant.Price
+        this.EachProductPrice[plant.id] = plant.Price
+        this.EachProductTotal[plant.id] = total
         return total
       }
     }
@@ -66,8 +67,8 @@ export class CartViewComponent {
     try{
       for(let plant of this.plantDetails){
         if(this.isPresent(plant.id)){
-        total = total + plant.Quantity
-        this.EachProductQuantity[plant.Name] = plant.Quantity
+        total = total + this.getQuantity(plant.id)
+        this.EachProductQuantity[plant.id] = this.getQuantity(plant.id)
       }
       }
     }
@@ -81,7 +82,7 @@ export class CartViewComponent {
     try{
     for(let plant of this.plantDetails){
       if(this.isPresent(plant.id)){
-      total = total + Number(plant.Price) * Number(plant.Quantity)
+      total = total + Number(plant.Price) * Number(this.getQuantity(plant.id))
     }}}catch(error){}
     return total + this.calcGST()
   }
@@ -92,7 +93,7 @@ export class CartViewComponent {
     try{
     for(let plant of this.plantDetails){
       if(this.isPresent(plant.id)){
-      total = total + Number(plant.Price) * Number(plant.Quantity)
+      total = total + Number(plant.Price) * Number(this.getQuantity(plant.id))
     }}}catch(error){}
     return total * GST_Percent
   }
@@ -101,24 +102,22 @@ export class CartViewComponent {
     this.InvoiceTotal = Math.round(this.calcGrandTotal())
     return this.InvoiceTotal
   }
+
+  getQuantity(id: string){
+    if(this.cart_details[id]){
+      return this.cart_details[id][0]
+    }
+  }
+
+  getStringQuantity(id: string){
+    if(this.cart_details[id]){
+      return "Quantity: ".concat(this.cart_details[id][0].toString())
+    }
+    else{
+      return "Quantity: "
+    }
+  }
 }
 
-//   setOrderDetails(){
-//     let email = this.plant_info_obj.getEmail()
-//     this.http.post("http://127.0.0.1:8000/details/setOrderDetails/",{
-//       Orders: this.Orders,
-//       Quantity: this.EachProductQuantity,
-//       Username: email,
-//       Price_Each: this.EachProductPrice,
-//       Total_Price: this.InvoiceTotal,
-//       Total_Quantity: this.TotalQuantity,
-//     }).subscribe({
-//       next: (response)=>{
-//         console.log(response)
-//       },
-//       error: (error)=>{
-//         console.log(error)
-//       }
-//     })
-//   }
-// }
+
+

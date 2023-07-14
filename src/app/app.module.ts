@@ -19,6 +19,9 @@ import { CartViewComponent } from './cart-view/cart-view.component';
 import { AddPlantComponent } from './add-plant/add-plant.component';
 import { RazorpayComponent } from './razorpay/razorpay.component';
 import { AdminComponent } from './admin/admin.component';
+import { ProfileComponent } from './profile/profile.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { PlantsInfoService } from './plants-info.service';
 
 
 @NgModule({
@@ -36,6 +39,8 @@ import { AdminComponent } from './admin/admin.component';
     AddPlantComponent,
     RazorpayComponent,
     AdminComponent,
+    ProfileComponent,
+    MyOrdersComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +54,7 @@ import { AdminComponent } from './admin/admin.component';
     GetCsrfService,
     DashboardComponent,
     PlantViewComponent,
+    PlantsInfoService
   ],
   bootstrap: [AppComponent]
 })

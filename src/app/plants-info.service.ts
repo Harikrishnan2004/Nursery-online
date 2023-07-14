@@ -11,12 +11,14 @@ export class PlantsInfoService {
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   plant_selected = "";
-  cartDetails: {}[] = []
+  cartDetails: {[key: string]: any} = {}
   cartNumber = 0;
   PlantDatabase: any
   plant_details : any
   dataFetched = false
   Email = ""
+  payment_bool = false
+  order_details: {[key: string]: {[key: string]: any}} = {}
 
   setEmail(email: string){
     this.Email = email
@@ -27,6 +29,62 @@ export class PlantsInfoService {
     let email = this.cookieService.get("email/phone")
     this.setEmail(email)
     return this.Email
+  }
+
+  saveprofile(user_name: string, user_mail: string): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      this.http.post("http://127.0.0.1:8000/auth/userFunction/", {
+        function: "save changes",
+        email: user_mail,
+        username: user_name
+      }).subscribe({
+        next: (response: any) => {
+          console.log(response)
+          resolve(response)
+        },
+        error: (err: any) => {
+          console.log(err)
+          reject(err)
+        }
+      })
+    })
+  }
+
+  getUserDetails(email: string): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      this.http.post("http://127.0.0.1:8000/auth/userFunction/", {
+        function: "send user details",
+        email: this.getEmail()
+      }).subscribe({
+        next: (response: any) => {
+          console.log(response)
+          resolve(response)
+        },
+        error: (err: any) => {
+          console.log(err)
+          reject(err)
+        }
+      })
+    })
+  }
+
+  
+  getOrderList(email: string): Promise<any>{
+    return new Promise<any>((resolve, reject) => {
+      this.http.post("http://127.0.0.1:8000/auth/userFunction/", {
+        function: "send order list",
+        email: this.getEmail()
+      }).subscribe({
+        next: (response: any) => {
+          console.log(response)
+          resolve(response["order_list"])
+        },
+        error: (err: any) => {
+          console.log(err)
+          reject(err)
+        }
+      })
+    })
   }
 
   setCartDetails(): Promise<any>{
@@ -143,6 +201,47 @@ export class PlantsInfoService {
     console.log(plantList)
     return {"plant_list": plantList, "no_Results_Found": NoResultsFound}
   }
+
+  async isPresent(id: number){
+    this.cartDetails = await this.getCartDetails()
+    for(let plant_id of Object.keys(this.cartDetails)){
+      if(parseInt(plant_id) == id){
+        return true
+      }
+    }
+    return false
+  }
+
+  placeOrder(order_details: any){
+    this.http.post("http://127.0.0.1:8000/auth/userFunction/",{
+      function: "place order",
+      orders: order_details,
+      email: this.getEmail() 
+    }).subscribe({
+      next: (response)=>{
+        console.log(response)
+      },
+      error: (error)=>{
+        console.log(error)
+      }
+    })
+  }
+
+  async updatePaymentSuccess(){
+    this.payment_bool = true
+    console.log(this.plant_details)
+    this.cartDetails = await this.getCartDetails()
+    for(let plant of this.plant_details){
+      if(await this.isPresent(plant.id)){
+        this.order_details[plant.id] = {
+          "quantity": this.cartDetails[plant.id][0]
+        } 
+      }
+    }
+    this.placeOrder(this.order_details)
+  }
+
+
 }
 
 export interface Plant {

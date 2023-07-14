@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { CartViewComponent } from '../cart-view/cart-view.component';
+import { PlantsInfoService } from '../plants-info.service';
 
 declare var Razorpay: any;
 
@@ -10,10 +11,12 @@ declare var Razorpay: any;
 })
 export class RazorpayComponent {
 
-  constructor(cartView: CartViewComponent){
+  constructor(cartView: CartViewComponent, plant_info_service: PlantsInfoService){
     this.cartViewComponent = cartView
+    this.plant_info_service_obj = plant_info_service
   }
 
+  plant_info_service_obj: any
   cartViewComponent: any
 
   message:any = "Not yet stared";
@@ -53,7 +56,7 @@ export class RazorpayComponent {
   paynow() {
     this.paymentId = '';
     this.error = '';
-    this.options.amount = "200"; //paise
+    this.options.amount = "500"; //paise
     this.options.prefill.name = "Hari";
     this.options.prefill.email = "abijash2731@gmail.com";
     this.options.prefill.contact = "9999999999";
@@ -78,7 +81,7 @@ export class RazorpayComponent {
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event: any): void {
     this.message = "Success Payment";
-    this.cartViewComponent.setOrderDetails()
+    this.plant_info_service_obj.updatePaymentSuccess()
     console.log("success")
   }
 

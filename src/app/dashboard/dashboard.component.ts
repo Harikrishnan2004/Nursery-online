@@ -19,6 +19,7 @@ export class DashboardComponent {
   cartNumber = 0
   no_results_found = false
   selectedPlant = ""
+  account_name = ""
 
   constructor(private router: Router, plant_service: PlantsInfoService, private http: HttpClient,
     private cookieService: CookieService){
@@ -62,6 +63,10 @@ export class DashboardComponent {
         }
       }
     })
+  }
+
+  moveToProfile(){
+    this.router.navigate(['/profile'])
   }
 
   getCartNumber(){
@@ -159,5 +164,10 @@ export class DashboardComponent {
 
   moveToHome(){
     this.router.navigate(['/home'])
+  }
+
+  getAccountName(){
+    this.account_name = this.cookieService.get("email/phone")
+    return this.account_name[0].toUpperCase()
   }
 }

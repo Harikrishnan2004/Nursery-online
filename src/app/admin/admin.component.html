@@ -1,4 +1,3 @@
-
 <div>
     <span id="heading"><img id="logo" style="width: 12em;" src="/assets/images/logo.jpg"></span>  
 </div>
@@ -17,7 +16,7 @@
     <div *ngIf="PendingOrdersLoader">
         <img src="/assets/images/Hourglass.gif">
     </div>
-    
+
     <div *ngIf="!PendingOrdersLoader">
         <div *ngFor="let order of pendingOrders">
             {{ order }}
