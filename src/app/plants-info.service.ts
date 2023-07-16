@@ -17,7 +17,6 @@ export class PlantsInfoService {
   plant_details : any
   dataFetched = false
   Email = ""
-  payment_bool = false
   order_details: {[key: string]: {[key: string]: any}} = {}
 
   setEmail(email: string){
@@ -36,7 +35,8 @@ export class PlantsInfoService {
       this.http.post("http://127.0.0.1:8000/auth/userFunction/", {
         function: "save changes",
         email: user_mail,
-        username: user_name
+        username: user_name,
+        auth: this.cookieService.get("auth")
       }).subscribe({
         next: (response: any) => {
           console.log(response)
@@ -216,7 +216,8 @@ export class PlantsInfoService {
     this.http.post("http://127.0.0.1:8000/auth/userFunction/",{
       function: "place order",
       orders: order_details,
-      email: this.getEmail() 
+      email: this.getEmail(), 
+      auth: this.cookieService.get("auth")
     }).subscribe({
       next: (response)=>{
         console.log(response)
@@ -228,8 +229,6 @@ export class PlantsInfoService {
   }
 
   async updatePaymentSuccess(){
-    this.payment_bool = true
-    console.log(this.plant_details)
     this.cartDetails = await this.getCartDetails()
     for(let plant of this.plant_details){
       if(await this.isPresent(plant.id)){

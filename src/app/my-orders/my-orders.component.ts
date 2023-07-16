@@ -22,6 +22,7 @@ export class MyOrdersComponent {
   plant_details: any
   orders: any[] = []
   order_details: any
+  userdetails: any
 
   isDelivered = false;
   isReady = false;
@@ -31,7 +32,8 @@ export class MyOrdersComponent {
     this.plant_info_obj.setEmail(this.cookieService.get("email/phone"))
     this.plant_details = await this.plant_info_obj.getDatabaseDetails()
     this.order_details = await this.plant_info_obj.getOrderList()
-    console.log(this.order_details)
+    this.userdetails = await this.plant_info_obj.getUserDetails()
+    console.log(this.userdetails.user_details.username)
     this.placeOrder()
   }
 

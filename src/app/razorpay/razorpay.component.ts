@@ -19,7 +19,7 @@ export class RazorpayComponent {
   plant_info_service_obj: any
   cartViewComponent: any
 
-  message:any = "Not yet stared";
+  message:string = "Not yet stared";
   paymentId = "";
   error = "";
   title = 'Tatwamasi Plants and Seeds';
@@ -62,8 +62,8 @@ export class RazorpayComponent {
     this.options.prefill.contact = "9999999999";
     var rzp1 = new Razorpay(this.options);
     rzp1.open();
-    rzp1.on('payment.failed', function (response: any) {
-      //this.message = "Payment Failed";
+    rzp1.on('payment.failed',  (response: any) => {
+      this.message = "Payment Failed";
       // Todo - store this information in the server
       console.log(response.error.code);
       console.log(response.error.description);

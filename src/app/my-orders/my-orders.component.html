@@ -5,9 +5,10 @@
     <div *ngFor="let order of orders" class="card order-card">
         <div class="card-header">
             <p class="order-no" id="order-no-id" style="float:left; font-weight: bold; font-family:monospace">Order-No: {{ order[0].order_no }}</p>
-            <p id="order-date-id" style="float: right;">Order-Date: {{ order[1].order_date }}</p>
+            <p id="order-date-id" style="float: right; font-weight: bold;">Order-Date: {{ order[1].order_date }}</p><br/>
         </div>
         <div class="card-body">
+            <div style="color: rgb(40, 154, 40)">Order Placed By: <div style="display: inline-block" [innerHTML]="userdetails.user_details.username"></div></div><br/>
             <table *ngFor="let plant of order[2].details" class="table">
                 <tbody>
                     <tr>
@@ -15,7 +16,7 @@
                             <img class="product-image" id="product-img" src="{{ plant.img }}">
                         </td>
                         <td id="plant_details" class="info-space">
-                            <h3>{{ plant.name }}</h3>
+                            <h3>{{ plant.name }}</h3><br/>
                             <p>Plant Quantity: {{ plant.quantity }}</p>
                             <p>Plant Price ₹{{ plant.price }}</p>
                             <p>Total Plant Price: ₹{{ plant.total_price }}</p>

@@ -50,6 +50,7 @@
   color: white;
   padding-right: 2em;
   text-decoration: none;
+  cursor: pointer
 }
 
 .link:hover{

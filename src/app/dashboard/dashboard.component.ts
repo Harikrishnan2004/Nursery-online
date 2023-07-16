@@ -128,7 +128,7 @@ export class DashboardComponent {
   }
 
   async valueDec(id: string){
-    if(this.cart_details[id] >= 1){
+    if(this.cart_details[id][0] >= 1){
       this.http.post("http://127.0.0.1:8000/auth/cartFunction/", {
         function: "decrement",
         email: this.plant_service_obj.getEmail(),

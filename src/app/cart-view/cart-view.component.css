@@ -55,9 +55,7 @@
 }
 
 #goback-div{
-  float: right;
-  margin-right: 2em;
-  margin-bottom: 1em;
+  margin: 1em;
 }
 #goback-button{
   background-color: rgb(79, 125, 79);
@@ -67,6 +65,8 @@
   font-size: large;
   outline: none;
   border-style: none;
+  float: left;
+  margin-bottom: 1em;
 }
 
 #goback-button:hover{
