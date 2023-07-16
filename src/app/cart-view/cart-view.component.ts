@@ -46,7 +46,7 @@ export class CartViewComponent {
   }
 
   goToDash(){
-    this.router.navigate(['\dash'])
+    this.router.navigate(['\\dash'])
   }
 
   calcTotal(name: string){

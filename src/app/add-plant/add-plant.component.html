@@ -4,51 +4,73 @@
 </div>
 
 <div *ngIf="addNewProduct">
-
-  <div id="add-plant-div">
-    <div class="input-type-div input-info">
-      <p style="float: left;">Planting option</p>
-      <input (input)="getType(type.value)" [value]="Type" #type class="input-box" type="text" style="float: left;">
-      <div style="clear: both;"></div>
-    </div>
-    <div class="input-name-div input-info">
-      <p style="float: left;">Name</p>
-      <input (input)="getName(name.value)" [value]="Name" #name class="input-box" type="text" style="float: left;">
-      <div style="clear: both;"></div>
-    </div>
-    <div class="input-scientific-name-div input-info">
-      <p style="float: left;">Scientific name</p>
-      <input (input)="getSname(scientificName.value)" [value]="ScientificName" #scientificName class="input-box" type="text" style="float: left;">
-      <div style="clear: both;"></div>
-    </div>
-    <div class="input-price-div input-info">
-      <p style="float: left;">Price</p>
-      <input (input)="getPrice(price.value)" [value]="Price"  #price class="input-box" type="number" style="float: left;">
-      <div style="clear: both;"></div>
-    </div>
-    <div class="input-img-path-div input-info">
-      <p style="float: left;">Image path</p>
-      <input class="input-box" (change)="handleFileInput($event)" type="file" style="float: left;">
-      <div style="clear: both;"></div>
-    </div>
-    <div class="input-plant-properties-div input-info">
-      <p style="float: left;">Properties</p>
-      <textarea (input)="getProperties(properties.value)" [value]="Properties" #properties type="text" style="float: left;"></textarea>
-      <div style="clear: both;"></div>
-    </div>
-    <div class="input-initial-quantity-div input-info">
-      <p style="float: left;">Initial Quantity</p>
-      <input  (input)="getInitialQ(initialQ.value)" [value]="InitialQuantity" #initialQ class="input-box" type="number" style="float: left;">
-      <div style="clear: both;"></div>
-    </div>
-
-    <div id="submit-div">
-      <button class="btn btn-success m-1" #quantity id=submit-button (click)="getDetails(type.value, name.value, scientificName.value, price.value, properties.value, initialQ.value)">Submit</button>
-    </div>
+  <table>
+    <tr>
+      <td>
+        <p>Planting option</p>
+      </td>
+      <td>
+        <input (input)="getType(type.value)" [value]="Type" #type class="input-box" type="text">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Name</p>
+      </td>
+      <td>
+        <input (input)="getName(name.value)" [value]="Name" #name class="input-box" type="text">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Scientific name</p>
+      </td>
+      <td>
+        <input (input)="getSname(scientificName.value)" [value]="ScientificName" #scientificName class="input-box" type="text">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Price (INR)</p>
+      </td>
+      <td>
+        <input (input)="getPrice(price.value)" [value]="Price" #price class="input-box" type="number">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Image path</p>
+      </td>
+      <td>
+        <input class="input-box" (change)="handleFileInput($event)" type="file">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Properties</p>
+      </td>
+      <td>
+        <textarea (input)="getProperties(properties.value)" [value]="Properties" #properties type="text"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Initial Quantity</p>
+      </td>
+      <td>
+        <input (input)="getInitialQ(initialQ.value)" [value]="InitialQuantity" #initialQ class="input-box" type="number">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <br><br>
+        <div id="submit-div">
+        <button #quantity id=submit-button (click)="getDetails(type.value, name.value, scientificName.value, price.value, properties.value, initialQ.value)">Submit</button>
+      </div></td>
+    </tr>
+  </table>
     <!-- Add more input fields here -->
   </div>
-</div>
-
 
 <div style=" text-align: center;" *ngIf="modifyExistingProduct">
   <div style="font-family:'Times New Roman', Times, serif; padding-top: 1em; font-size: larger;"> Modify Existing Product </div>
@@ -73,7 +95,8 @@
           <p style="height: 10rem;" class="card-text" #plantProperties [contentEditable]="plant.editable">{{ plant.Properties }}</p>
           <span class="card-text" #plantType [contentEditable]="plant.editable">{{ plant.type }}</span  >
           <h4 class="card-text">₹<span #plantPrice [contentEditable]="plant.editable">{{ plant.Price }}</span></h4>
-          <button class="btn btn-danger" [disabled]="!plant.editable" (click)="setUpdatedInfo(plantType.innerText, plantName.innerText, plantPrice.innerText, plantProperties.innerText, plantSname.innerText, plant.id)">Commit</button>
+          <button class="btn btn-success" [disabled]="!plant.editable" (click)="setUpdatedInfo(plantType.innerText, plantName.innerText, plantPrice.innerText, plantProperties.innerText, plantSname.innerText, plant.id)">Commit</button>
+          <button class="btn btn-danger m-3" [disabled]="!plant.editable" (click)="deletePlant(plant.id)">Delete</button>
         </div>
     </div>
   </div>
