@@ -18,10 +18,19 @@ export class PlantsInfoService {
   dataFetched = false
   Email = ""
   order_details: {[key: string]: {[key: string]: any}} = {}
+  InvoiceTotal = 0
 
   setEmail(email: string){
     this.Email = email
     console.log(this.Email)
+  }
+
+  setInvoiceTotal(total: number){
+    this.InvoiceTotal = total
+  }
+
+  getInvoiceTotal(){
+    return this.InvoiceTotal
   }
 
   getEmail(){

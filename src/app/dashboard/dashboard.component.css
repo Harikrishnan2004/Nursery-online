@@ -53,14 +53,19 @@
   }
 
   #account{
-    background-color: rgb(16, 197, 16);
-    margin-left: 10em;
-    padding-right: 1em;
-    padding-left: 0.3em;
-    border-radius: 1em;
-    color: #f1f1f1;
+    color: #447e4a;
+    float: right;
+    font-size: smaller;
+    margin-top: 15px;
   }
 }
+
+@media(min-width: 640px){
+  #account-icon{
+    display: none;
+  }
+}
+
 
 /*text styling */
 
@@ -234,6 +239,24 @@ span:nth-child(18) {
   margin-top: 0.5em;
   float: left;
   margin-right: 0.5em;
+}
+
+#order-id{
+  width: 10em;
+  height: 2.2em;
+  background-color: rgba(4, 4, 4, 0.5);
+  font-size: 15px;
+  text-align: center;
+  border-color: #fff;
+  color: white;
+  float: left;
+  margin-left: 2em;
+}
+
+#order-id:hover{
+  background-color: #fff;
+  color: black;
+  cursor: pointer;
 }
 
 #search-div{

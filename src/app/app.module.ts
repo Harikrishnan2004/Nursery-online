@@ -22,6 +22,7 @@ import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { PlantsInfoService } from './plants-info.service';
+import { LocationComponent } from './location/location.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { PlantsInfoService } from './plants-info.service';
     AdminComponent,
     ProfileComponent,
     MyOrdersComponent,
+    LocationComponent,
   ],
   imports: [
     BrowserModule,

@@ -46,7 +46,7 @@ export class CartViewComponent {
   }
 
   goToDash(){
-    this.router.navigate(['\\dash'])
+    this.router.navigate(['\dash'])
   }
 
   calcTotal(name: string){
@@ -60,6 +60,21 @@ export class CartViewComponent {
       }
     }
     return 0
+  }
+
+  async remove(id: number){
+    this.http.post("http://127.0.0.1:8000/auth/cartFunction/", {
+      function: "remove",
+      email: this.plant_info_obj.getEmail(),
+      plant_id: id
+    }).subscribe({
+      next: async (response: any)=>{
+        console.log(response)
+        if(response["status"] == "plant removed"){
+          this.cart_details = await this.plant_info_obj.setCartDetails()
+        }
+      }
+    })
   }
 
   calcTotalQuantity(){
@@ -100,6 +115,7 @@ export class CartViewComponent {
 
   calcInvoiceTotal(){
     this.InvoiceTotal = Math.round(this.calcGrandTotal())
+    this.plant_info_obj.setInvoiceTotal(this.InvoiceTotal)
     return this.InvoiceTotal
   }
 

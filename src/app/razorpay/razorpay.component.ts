@@ -28,7 +28,7 @@ export class RazorpayComponent {
     "amount": "200",
     "name": "Tatwamasi Plants and Seeds",
     "description": "Online-Nursery",
-    "image": "https://www.abhijitgatade.com/assets/img/favicon.png",
+    "image": "/assets/images/logo.jpg",
     "order_id": "",
     "handler": function (response: any) {
       var event = new CustomEvent("payment.success",
@@ -56,7 +56,7 @@ export class RazorpayComponent {
   paynow() {
     this.paymentId = '';
     this.error = '';
-    this.options.amount = "500"; //paise
+    this.options.amount = (this.plant_info_service_obj.getInvoiceTotal() * 100).toString(); //paise
     this.options.prefill.name = "Hari";
     this.options.prefill.email = "abijash2731@gmail.com";
     this.options.prefill.contact = "9999999999";

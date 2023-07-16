@@ -47,7 +47,7 @@
 }
 
 #name{
-  background-color: rgb(51, 247, 51);
+  background-color: rgb(84, 130, 84);
   color: white;
   padding: 0.5em;
   font-style: oblique;
@@ -55,7 +55,7 @@
 
 #scientific-name{
   font-size:x-large;
-  color: rgb(5, 240, 5);
+  color: rgb(109, 160, 109);
 }
 
 #properties{

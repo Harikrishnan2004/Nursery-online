@@ -22,12 +22,39 @@
  justify-content: center;
 }
 
+#remove{
+  background-color: white;
+  color: rgb(239, 91, 91);
+  border-style: block;
+  border-color: rgb(244, 110, 110);
+  padding: 0.5em;
+  border-radius: 0.5em;
+  float: right;
+  font-style: oblique;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#remove-icon{
+  padding-left: 5px;
+}
+
+#remove:hover{
+  background-color: rgb(244, 110, 110);
+  color: white;
+  border-style: block;
+  border-color: white;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  float: right;
+  outline: none;
+}
+
 #container{
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
   margin-top: 5%;
-  background-color: rgb(222, 247, 228);
+  background-color: rgb(240, 250, 242);
 }
 
 #plant-img-div{

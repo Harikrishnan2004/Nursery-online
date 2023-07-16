@@ -22,6 +22,10 @@ export class HomepageComponent {
 
   }
 
+  moveToLocation(){
+    this.router.navigate(['/location'])
+  }
+
   moveToDash(){
     this.router.navigate(['/dash'])
   }

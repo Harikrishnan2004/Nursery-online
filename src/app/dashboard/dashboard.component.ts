@@ -162,6 +162,10 @@ export class DashboardComponent {
     }
   }
 
+  moveToOrders(){
+    this.router.navigate(["/my-orders"])
+  }
+
   moveToHome(){
     this.router.navigate(['/home'])
   }
