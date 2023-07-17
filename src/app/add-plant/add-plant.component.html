@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div>
   <button class="btn btn-primary m-1" (click)="hideAllTabs(); addNewProduct = true;">Add new Product</button>
   <button class="btn btn-primary m-1" (click)="hideAllTabs(); modifyExistingProduct = true;">Modify Existing Product</button>
 </div>
@@ -63,7 +63,7 @@
     </tr>
     <tr>
       <td>
-        <br><br>
+        <br>
         <div id="submit-div">
         <button #quantity id=submit-button (click)="getDetails(type.value, name.value, scientificName.value, price.value, properties.value, initialQ.value)">Submit</button>
       </div></td>

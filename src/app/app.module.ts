@@ -22,6 +22,7 @@ import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { PlantsInfoService } from './plants-info.service';
+import { PaymentService } from './payment.service';
 import { LocationComponent } from './location/location.component';
 
 
@@ -56,7 +57,8 @@ import { LocationComponent } from './location/location.component';
     GetCsrfService,
     DashboardComponent,
     PlantViewComponent,
-    PlantsInfoService
+    PlantsInfoService,
+    PaymentService
   ],
   bootstrap: [AppComponent]
 })
