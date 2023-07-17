@@ -1,43 +1,54 @@
-<div>
-    <span id="heading"><img id="logo" style="width: 12em;" src="/assets/images/logo.jpg"></span>  
-</div>
-<button class="btn btn-info m-1" (click)="hideAllTabs(); showManageProductsDiv = true">Manage Products</button>
-<button class="btn btn-info m-1" (click)="hideAllTabs(); showPendingOrdersDiv = true">Pending Orders</button>
-<button class="btn btn-info m-1" (click)="hideAllTabs(); showOrderHistoryDiv = true">Order History</button>
-<button class="btn btn-info m-1" (click)="hideAllTabs(); showInsightsDiv = true">Insights</button>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">  
 
-<div *ngIf="showManageProductsDiv">
-    <app-add-plant></app-add-plant>
+<div *ngIf="!verification_bool">
+    <div class="alert alert-danger" role="alert">
+      You are not the admin
+    </div>
 </div>
 
-<div *ngIf="showPendingOrdersDiv">
-    {{ getPendingOrders() }}
+<div *ngIf="verification_bool">
+ <div>
+        <span id="heading"><img id="logo" style="width: 12em;" src="/assets/images/logo.jpg"></span>  
+    </div>
+    <button class="btn btn-info m-1" (click)="hideAllTabs(); showManageProductsDiv = true">Manage Products</button>
+    <button class="btn btn-info m-1" (click)="hideAllTabs(); showPendingOrdersDiv = true">Pending Orders</button>
+    <button class="btn btn-info m-1" (click)="hideAllTabs(); showOrderHistoryDiv = true">Order History</button>
+    <button class="btn btn-info m-1" (click)="hideAllTabs(); showInsightsDiv = true">Insights</button>
 
-    <div *ngIf="PendingOrdersLoader">
-        <img src="/assets/images/Hourglass.gif">
+    <div *ngIf="showManageProductsDiv">
+        <app-add-plant></app-add-plant>
     </div>
 
-    <div *ngIf="!PendingOrdersLoader">
-        <div *ngFor="let order of pendingOrders">
-            {{ order }}
+    <div *ngIf="showPendingOrdersDiv">
+        {{ getPendingOrders() }}
+
+        <div *ngIf="PendingOrdersLoader">
+            <img src="/assets/images/Hourglass.gif">
+        </div>
+
+        <div *ngIf="!PendingOrdersLoader">
+            <div *ngFor="let order of pendingOrders">
+                {{ order }}
+            </div>
         </div>
     </div>
-</div>
 
-<div *ngIf="showOrderHistoryDiv">
-    {{ getOrderHistory() }}
+    <div *ngIf="showOrderHistoryDiv">
+        {{ getOrderHistory() }}
 
-    <div *ngIf="OrderHistoryLoader">
-        <img src="/assets/images/Hourglass.gif">
-    </div>
+        <div *ngIf="OrderHistoryLoader">
+            <img src="/assets/images/Hourglass.gif">
+        </div>
 
-    <div *ngIf="!OrderHistoryLoader">
-        <div *ngFor="let order of orderHistory">
-            {{ order }}
+        <div *ngIf="!OrderHistoryLoader">
+            <div *ngFor="let order of orderHistory">
+                {{ order }}
+            </div>
         </div>
     </div>
-</div>
 
-<div *ngIf="showInsightsDiv">
-    Insights
+    <div *ngIf="showInsightsDiv">
+        Insights
+    </div>
 </div>

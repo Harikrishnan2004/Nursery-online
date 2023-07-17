@@ -23,6 +23,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { PlantsInfoService } from './plants-info.service';
 import { LocationComponent } from './location/location.component';
+import { InfoFooterComponent } from './info-footer/info-footer.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { LocationComponent } from './location/location.component';
     ProfileComponent,
     MyOrdersComponent,
     LocationComponent,
+    InfoFooterComponent,
   ],
   imports: [
     BrowserModule,
