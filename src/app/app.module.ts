@@ -25,6 +25,8 @@ import { PlantsInfoService } from './plants-info.service';
 import { PaymentService } from './payment.service';
 import { LocationComponent } from './location/location.component';
 import { InfoFooterComponent } from './info-footer/info-footer.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 
 @NgModule({
@@ -46,6 +48,8 @@ import { InfoFooterComponent } from './info-footer/info-footer.component';
     MyOrdersComponent,
     LocationComponent,
     InfoFooterComponent,
+    PrivacyPolicyComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,
