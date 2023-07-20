@@ -34,6 +34,7 @@ export class MyOrdersComponent {
     this.order_details = await this.plant_info_obj.getOrderList()
     this.userdetails = await this.plant_info_obj.getUserDetails()
     console.log(this.userdetails.user_details.username)
+    console.log(this.plant_details)
     this.placeOrder()
   }
 
@@ -54,6 +55,7 @@ export class MyOrdersComponent {
       this.orders.push([{"order_no": order["order_no"]},{"order_date": order["order_date"]}, {"details": []}, {"total_price": 0}, {"invoice_amount": 0}])
       for (let id of Object.keys(order["order_details"])){
         if(this.isPresent(id) || this.isPresent(id) == 0){
+          console.log(id)
           this.orders[count][3]["total_price"] = this.orders[count][3]["total_price"] + order["order_details"][id]["quantity"] * this.plant_details[this.isPresent(id)].Price
           this.orders[count][2]["details"].push({
             "name": this.plant_details[this.isPresent(id)].Name,

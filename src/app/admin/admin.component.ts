@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlantsInfoService } from '../plants-info.service';
-import { HttpClient } from '@angular/common/http'
 import { CookieService } from 'ngx-cookie-service';
+import { GetCsrfService } from '../get-csrf.service';
 
 
 @Component({
@@ -22,7 +22,11 @@ export class AdminComponent implements OnInit {
   PendingOrdersLoader: boolean = true;
   OrderHistoryLoader: boolean = true;
   
-  constructor (private http: HttpClient, private plantInfo: PlantsInfoService, private cookie: CookieService) {}
+  constructor (
+    private plantInfo: PlantsInfoService,
+    private cookie: CookieService,
+    private csrf: GetCsrfService
+  ) {}
 
   ngOnInit() {
     this.plantInfo.getDatabaseDetails().then(data => {
@@ -46,8 +50,13 @@ export class AdminComponent implements OnInit {
     let user: string = this.cookie.get("email/phone");
     if (user !== "tatwamasi.admin") return;
     let authToken: string = this.cookie.get("authToken");
-    // !! get csrf before any transactions
-    // http get request using admin privileges
+
+    // this.csrf.getNewCsrf().subscribe({
+    //   next: (response: any) => {
+    //     if (response[""])
+    //   }
+    // })
+
     this.orderHistory = [{"dummy": "data"}];
     this.OrderHistoryLoader = false;
   }

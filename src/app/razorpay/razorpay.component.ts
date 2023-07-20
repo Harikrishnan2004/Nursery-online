@@ -41,7 +41,11 @@ export class RazorpayComponent {
         this.razorpay.verifyPaymentStatus(response)
           .subscribe(async (data: any) => {
             if (data["status"] === "razorpay-payment-signature-verified") {
-              await this.plantsInfo.updatePaymentSuccess();
+              await this.plantsInfo.updatePaymentSuccess(
+                response["razorpay_order_id"],
+                response["razorpay_payment_id"],
+                response["razorpay_signature"]
+              );
               this.router.navigate(['/my-orders']);
             }
           })
