@@ -45,7 +45,7 @@ export class PlantsInfoService {
         function: "save changes",
         email: user_mail,
         username: user_name,
-        auth: this.cookieService.get("auth")
+        auth: this.cookieService.get("authToken")
       }).subscribe({
         next: (response: any) => {
           console.log(response)

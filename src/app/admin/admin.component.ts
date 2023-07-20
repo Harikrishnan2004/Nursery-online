@@ -21,6 +21,7 @@ export class AdminComponent implements OnInit {
 
   PendingOrdersLoader: boolean = true;
   OrderHistoryLoader: boolean = true;
+  verification_bool: boolean = false;
   
   constructor (
     private plantInfo: PlantsInfoService,
@@ -29,6 +30,13 @@ export class AdminComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    const user = this.cookie.get("email/phone") 
+    if (user == "tatwamasi.admin"){
+      this.verification_bool = true
+    }
+    else{
+      this.verification_bool = false
+    }
     this.plantInfo.getDatabaseDetails().then(data => {
       this.allPlantsData = data;
     });

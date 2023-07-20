@@ -13,6 +13,8 @@ import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { LocationComponent } from './location/location.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 const routes: Routes = [
   {path: "otp", component: OtpComponent},
@@ -27,7 +29,9 @@ const routes: Routes = [
   {path: "admin", component: AdminComponent},
   {path: "profile", component: ProfileComponent},
   {path: "my-orders", component: MyOrdersComponent},
-  {path: "location", component: LocationComponent}
+  {path: "location", component: LocationComponent},
+  {path: "privacy-policy", component: PrivacyPolicyComponent},
+  {path: "about-us", component: AboutUsComponent}
 ];
 
 @NgModule({

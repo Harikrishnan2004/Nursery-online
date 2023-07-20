@@ -30,6 +30,8 @@ export class AddPlantComponent implements OnInit {
   PlantServiceObj: any
   csrfToken: any;
 
+  verification_bool = false
+
 
   constructor(private plant_service: PlantsInfoService, private router: Router, private http: HttpClient,
     private cookie: CookieService, private csrf: GetCsrfService){
@@ -37,6 +39,13 @@ export class AddPlantComponent implements OnInit {
   }
 
   async ngOnInit() {
+    const user = this.cookie.get("email/phone") 
+    if (user == "tatwamasi.admin"){
+      this.verification_bool = true
+    }
+    else{
+      this.verification_bool = false
+    }
     await this.plant_service.getDatabaseDetails().then(data => {
       data.forEach((element: any) => {
         element.editable = false;
@@ -91,6 +100,8 @@ export class AddPlantComponent implements OnInit {
 
       console.log(type, name, properties, price, initialQ, sname)
       this.http.post("http://127.0.0.1:8000/details/setDetails/", {
+        "admin_mail": this.PlantServiceObj.getEmail(),
+        "auth": this.cookie.get("authToken"),
         "type": this.Type,
         "name": this.Name,
         "sname": this.ScientificName,
