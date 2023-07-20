@@ -34,6 +34,7 @@ export class MyOrdersComponent {
     this.order_details = await this.plant_info_obj.getOrderList()
     this.userdetails = await this.plant_info_obj.getUserDetails()
     console.log(this.userdetails.user_details.username)
+    console.log(this.plant_details)
     this.placeOrder()
   }
 
