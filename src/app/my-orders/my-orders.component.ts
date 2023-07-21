@@ -52,10 +52,11 @@ export class MyOrdersComponent {
   placeOrder(){
     let count = 0
     for (let order of this.order_details){
-      this.orders.push([{"order_no": order["order_no"]},{"order_date": order["order_date"]}, {"details": []}, {"total_price": 0}, {"invoice_amount": 0}])
+      this.orders.push([{"order_no": order["order_no"]},{"order_date": order["order_date"]}, {"details": []}, {"total_price": 0}, {"invoice_amount": 0}, {"address": order["address"]}])
       for (let id of Object.keys(order["order_details"])){
         if(this.isPresent(id) || this.isPresent(id) == 0){
           console.log(id)
+          if(Number(id)){
           this.orders[count][3]["total_price"] = this.orders[count][3]["total_price"] + order["order_details"][id]["quantity"] * this.plant_details[this.isPresent(id)].Price
           this.orders[count][2]["details"].push({
             "name": this.plant_details[this.isPresent(id)].Name,
@@ -65,7 +66,7 @@ export class MyOrdersComponent {
             "img": this.plant_details[this.isPresent(id)].Img_path,
             "type": this.plant_details[this.isPresent(id)].type,
           })
-        }
+        }}
       }
       this.orders[count][4]["invoice_amount"] = Math.round((this.orders[count][3]["total_price"] * 0.05) + this.orders[count][3]["total_price"])
       count = count + 1

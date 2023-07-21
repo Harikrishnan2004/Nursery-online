@@ -5,6 +5,7 @@ import { PlantsInfoService } from '../plants-info.service';
 import { Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http'
 import { CookieService } from 'ngx-cookie-service';
+import { concat } from 'rxjs';
 
 @Component({
   selector: 'app-cart-view',
@@ -19,6 +20,8 @@ export class CartViewComponent {
   TotalQuantity = 0
   EachProductPrice: any = {}
   plantDetails: any
+  addressBool: Boolean = false;
+  address: string = ""
 
   payment_bool: any
 
@@ -60,6 +63,17 @@ export class CartViewComponent {
       }
     }
     return 0
+  }
+
+  getAddress(address: string){
+    this.address = address
+    this.plant_info_obj.setAddress(this.address)
+    if(this.address){
+      this.addressBool = true
+    }
+    else{
+      this.addressBool = false
+    }
   }
 
   async remove(id: number){

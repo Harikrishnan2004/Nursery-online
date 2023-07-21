@@ -19,6 +19,7 @@ export class PlantsInfoService {
   Email = ""
   order_details: {[key: string]: {[key: string]: any} | string} = {}
   InvoiceTotal = 0
+  address: string = "";
 
   setEmail(email: string){
     this.Email = email
@@ -226,7 +227,8 @@ export class PlantsInfoService {
       function: "place order",
       orders: order_details,
       email: this.getEmail(), 
-      auth: this.cookieService.get("authToken")
+      auth: this.cookieService.get("authToken"),
+      address: this.getAddress(),
     }).subscribe({
       next: (response)=>{
         console.log(response)
@@ -235,6 +237,14 @@ export class PlantsInfoService {
         console.log(error)
       }
     })
+  }
+
+  setAddress(address: string){
+    this.address = address
+  }
+
+  getAddress(){
+    return this.address
   }
 
   async updatePaymentSuccess(order_id: string, payment_id: string, sign: string){
@@ -250,6 +260,18 @@ export class PlantsInfoService {
     this.order_details["razorpay_payment_id"] = payment_id;
     this.order_details["razorpay_signature"] = sign;
     this.placeOrder(this.order_details)
+    this.http.post("http://127.0.0.1:8000/auth/userFunction/", {
+      auth: this.cookieService.get("authToken"),
+      function: "clear cart",
+      email: this.cookieService.get("email/phone"),
+    }).subscribe({
+      next: (response: any) => {
+        console.log(response)
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   }
 
 
