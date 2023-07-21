@@ -12,7 +12,7 @@
         <span id="heading"><img id="logo" style="width: 12em;" src="/assets/images/logo.jpg"></span>  
     </div>
     <button class="btn btn-info m-1" (click)="hideAllTabs(); showManageProductsDiv = true">Manage Products</button>
-    <button class="btn btn-info m-1" (click)="hideAllTabs(); showPendingOrdersDiv = true">Pending Orders</button>
+    <button class="btn btn-info m-1" (click)="hideAllTabs(); showPendingOrdersDiv = true; getPendingOrders();">Pending Orders</button>
     <button class="btn btn-info m-1" (click)="hideAllTabs(); showOrderHistoryDiv = true">Order History</button>
     <button class="btn btn-info m-1" (click)="hideAllTabs(); showInsightsDiv = true">Insights</button>
 
@@ -21,7 +21,6 @@
     </div>
 
     <div *ngIf="showPendingOrdersDiv">
-        {{ getPendingOrders() }}
 
         <div *ngIf="PendingOrdersLoader">
             <img src="/assets/images/Hourglass.gif">
@@ -29,10 +28,16 @@
 
         <div *ngIf="!PendingOrdersLoader">
             <div *ngFor="let order of pendingOrders">
-                {{ order }}
+                <h3>Order No: {{ order.order_no }}</h3>
+                <p>Date: {{ order.order_date }}</p>
+                <p>Status: {{ order.status }}</p>
+                <p>User: {{ order.user }}</p>
+
+                <div *ngFor="let item of getOrderItems(order.order_details)">
+                    Product Name: {{ item.name }} - Quantity: {{ item.quantity }}
+                </div>
             </div>
         </div>
-    </div>
 
     <div *ngIf="showOrderHistoryDiv">
         {{ getOrderHistory() }}

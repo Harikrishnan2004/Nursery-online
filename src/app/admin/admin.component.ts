@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { PlantsInfoService } from '../plants-info.service';
 import { CookieService } from 'ngx-cookie-service';
-import { GetCsrfService } from '../get-csrf.service';
+import { AdminService } from '../admin.service';
 
+interface OrderDetails {
+  [productId: string]: {
+    quantity: number;
+    name: string;
+  };
+}
 
 @Component({
   selector: 'app-admin',
@@ -16,8 +22,8 @@ export class AdminComponent implements OnInit {
   showInsightsDiv: boolean = false;
 
   allPlantsData: any = null;
-  pendingOrders: any = null;
   orderHistory: any = null;
+  pendingOrders: any = null;
 
   PendingOrdersLoader: boolean = true;
   OrderHistoryLoader: boolean = true;
@@ -26,8 +32,12 @@ export class AdminComponent implements OnInit {
   constructor (
     private plantInfo: PlantsInfoService,
     private cookie: CookieService,
-    private csrf: GetCsrfService
+    private admin: AdminService
   ) {}
+
+  getOrderItems(orderDetails: OrderDetails): { name: string; quantity: number }[] {
+    return Object.values(orderDetails);
+  }
 
   ngOnInit() {
     const user = this.cookie.get("email/phone") 
@@ -47,10 +57,15 @@ export class AdminComponent implements OnInit {
     let user: string = this.cookie.get("email/phone");
     if (user !== "tatwamasi.admin") return;
     let authToken: string = this.cookie.get("authToken");
-    // !! get csrf before any transactions
-    // http get request using admin privileges
-    this.pendingOrders = [{"dummy": "data"}];
-    this.PendingOrdersLoader = false;
+
+    this.admin.pendingOrderService(user, authToken).subscribe({
+      next: (response: any) => {
+        this.pendingOrders = response["pending-orders"];
+        console.log(this.pendingOrders)
+        this.PendingOrdersLoader = false;
+      }
+    })
+
   }
 
   public getOrderHistory(): void {
@@ -59,11 +74,7 @@ export class AdminComponent implements OnInit {
     if (user !== "tatwamasi.admin") return;
     let authToken: string = this.cookie.get("authToken");
 
-    // this.csrf.getNewCsrf().subscribe({
-    //   next: (response: any) => {
-    //     if (response[""])
-    //   }
-    // })
+
 
     this.orderHistory = [{"dummy": "data"}];
     this.OrderHistoryLoader = false;

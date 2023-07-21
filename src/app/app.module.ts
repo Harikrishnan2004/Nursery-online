@@ -27,6 +27,7 @@ import { LocationComponent } from './location/location.component';
 import { InfoFooterComponent } from './info-footer/info-footer.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { AdminService } from './admin.service';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
     DashboardComponent,
     PlantViewComponent,
     PlantsInfoService,
-    PaymentService
+    PaymentService,
+    AdminService
   ],
   bootstrap: [AppComponent]
 })
