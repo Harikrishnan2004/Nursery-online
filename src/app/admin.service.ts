@@ -15,4 +15,12 @@ export class AdminService {
     });
   }
 
+  public orderHistoryService(user: string, authToken: string, segment: number) {
+    return this.http.post("http://127.0.0.1:8000/tatadmin/getAllOrders/", {
+      "user": user,
+      "auth": authToken,
+      "segment": segment
+    });
+  }
+
 }

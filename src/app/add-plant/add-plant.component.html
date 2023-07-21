@@ -96,7 +96,8 @@
             <span class="card-text" #plantType [contentEditable]="plant.editable">{{ plant.type }}</span  >
             <h4 class="card-text">₹<span #plantPrice [contentEditable]="plant.editable">{{ plant.Price }}</span></h4>
             <button class="btn btn-success" [disabled]="!plant.editable" (click)="setUpdatedInfo(plantType.innerText, plantName.innerText, plantPrice.innerText, plantProperties.innerText, plantSname.innerText, plant.id)">Commit</button>
-            <button class="btn btn-danger m-3" [disabled]="!plant.editable" (click)="deletePlant(plant.id)">Delete</button>
+            <button *ngIf="plant.hidden === '0'" class="btn btn-warning m-3" [disabled]="!plant.editable" (click)="toggleVisibility(plant.id)">Hide</button>
+            <button *ngIf="plant.hidden === '1'" class="btn btn-warning m-3" [disabled]="!plant.editable" (click)="toggleVisibility(plant.id)">Unhide</button>
           </div>
       </div>
     </div>

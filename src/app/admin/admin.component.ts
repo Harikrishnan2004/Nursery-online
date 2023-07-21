@@ -61,7 +61,6 @@ export class AdminComponent implements OnInit {
     this.admin.pendingOrderService(user, authToken).subscribe({
       next: (response: any) => {
         this.pendingOrders = response["pending-orders"];
-        console.log(this.pendingOrders)
         this.PendingOrdersLoader = false;
       }
     })
@@ -69,15 +68,19 @@ export class AdminComponent implements OnInit {
   }
 
   public getOrderHistory(): void {
+    console.log("Hello");
     this.OrderHistoryLoader = true;
     let user: string = this.cookie.get("email/phone");
     if (user !== "tatwamasi.admin") return;
     let authToken: string = this.cookie.get("authToken");
 
-
-
-    this.orderHistory = [{"dummy": "data"}];
-    this.OrderHistoryLoader = false;
+    this.admin.orderHistoryService(user, authToken, 1).subscribe({
+      next: (response: any) => {
+        this.orderHistory = response["order-history"];
+        console.log(this.orderHistory)
+        this.OrderHistoryLoader = false;
+      }
+    })
   }
 
   hideAllTabs() {
