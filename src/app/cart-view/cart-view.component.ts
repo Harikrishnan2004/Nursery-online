@@ -128,7 +128,7 @@ export class CartViewComponent {
   }
 
   calcInvoiceTotal(){
-    this.InvoiceTotal = Math.round(this.calcGrandTotal())
+    this.InvoiceTotal = Math.round(this.calcGrandTotal() + 30)
     this.plant_info_obj.setInvoiceTotal(this.InvoiceTotal)
     return this.InvoiceTotal
   }

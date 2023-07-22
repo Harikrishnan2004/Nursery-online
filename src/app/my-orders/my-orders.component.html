@@ -1,5 +1,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     
 <div id="order-container">
     <div *ngFor="let order of orders" class="card order-card">
@@ -8,7 +12,7 @@
             <p id="order-date-id" style="float: right; font-weight: bold;">Order-Date: {{ order[1].order_date }}</p><br/>
         </div>
         <div class="card-body">
-            <div style="color: rgb(40, 154, 40)">Order Placed By: <div style="display: inline-block" [innerHTML]="userdetails.user_details.username"></div></div><br/>
+            <div style="color: rgb(40, 154, 40)">Order Placed By: <div style="display: inline-block" [innerHTML]="userdetails.user_details.username"></div><div style="float: right; padding: 1em" class="badge badge-pill badge-success">Payment Succesfull</div></div><br/>
             <table *ngFor="let plant of order[2].details" class="table">
                 <tbody>
                     <tr>
@@ -27,17 +31,15 @@
             </table>
         <div style="font-weight: bold; font-family:monospace">
             <p>Grand Total: ₹{{ order[3].total_price }}</p>
-            <p>Invoice Amount: ₹{{ order[4].invoice_amount }}</p>
+            <p>Delivery Charges: ₹30</p>
+            <p>Invoice Amount: ₹{{ order[4].invoice_amount + 30}} (including 5% GST)</p>
             <p>Delivery Address: {{ order[5].address }}</p>
         </div>
-        <div class="alert alert-primary" role="alert" *ngIf="isReady">
-            The order is ready
+        <div class="alert alert-success" role="alert" *ngIf="isReady">
+            Your order is ready and would be delivered soon
         </div>
-        <div class="alert alert-success" role="alert" *ngIf="isDelivered">
-            Delivered
-        </div>
-        <div class="alert alert-danger" role="alert" *ngIf="isPending">
-            Pending
+        <div class="alert alert-primary" role="alert" *ngIf="isPending">
+            The order is being processed
         </div>
         </div>
     </div>

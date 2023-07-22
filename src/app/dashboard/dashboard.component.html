@@ -60,8 +60,8 @@
   <div>
 
   <div id="products" class="products">
-    <div  *ngFor="let plant of plant_details" class="flip-card">
-      <div class="flip-card-inner">
+    <div *ngFor="let plant of plant_details" class="flip-card">
+      <div *ngIf="isHidden(plant.id)" class="flip-card-inner">
         <div class="flip-card-front">
           <img src="{{ plant.Img_path }}" alt="Avatar" style="width:19em;height:300px;border-top-left-radius: 1em; border-top-right-radius: 1em ;">
         </div>
@@ -71,7 +71,7 @@
           <h3 style="margin-top: 0.5em; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Initial Quantity: {{ plant.Initial_quantity }}</h3>
         </div>
       </div>
-      <div class="bottom-card">
+      <div *ngIf="isHidden(plant.id)" class="bottom-card">
 
         <p #plant_name class="name">{{ plant.Name }}</p>
         <div class="fill-button"><button class="btn" (click)="setSelectedPlant(plant_name.innerHTML)">View</button></div>

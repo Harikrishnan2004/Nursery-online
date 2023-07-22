@@ -49,6 +49,15 @@ export class DashboardComponent {
     }
   }
 
+  isHidden(id: string){
+    for(let plant of this.plant_details){
+      if(plant.id == id && plant.hidden == "0"){
+        return true
+      }
+    } 
+    return false
+  }
+
   addToCart(id: number){
     this.http.post("http://127.0.0.1:8000/auth/cartFunction/", {
       function: "add",
