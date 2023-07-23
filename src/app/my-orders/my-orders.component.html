@@ -29,14 +29,8 @@
             <p>Grand Total: ₹{{ order[3].total_price }}</p>
             <p>Invoice Amount: ₹{{ order[4].invoice_amount }}</p>
         </div>
-        <div class="alert alert-primary" role="alert" *ngIf="isReady">
-            The order is ready
-        </div>
-        <div class="alert alert-success" role="alert" *ngIf="isDelivered">
-            Delivered
-        </div>
-        <div class="alert alert-danger" role="alert" *ngIf="isPending">
-            Pending
+        <div class="alert alert-success" role="alert">
+            {{ order[5].status }}
         </div>
         </div>
     </div>

@@ -237,7 +237,7 @@ export class PlantsInfoService {
     })
   }
 
-  async updatePaymentSuccess(order_id: string, payment_id: string, sign: string){
+  async updatePaymentSuccess(order_id: string, payment_id: string, sign: string, amount_paid: string){
     this.cartDetails = await this.getCartDetails()
     for(let plant of this.plant_details){
       if(await this.isPresent(plant.id)){
@@ -249,7 +249,8 @@ export class PlantsInfoService {
     this.order_details["razorpay_order_id"] = order_id;
     this.order_details["razorpay_payment_id"] = payment_id;
     this.order_details["razorpay_signature"] = sign;
-    this.placeOrder(this.order_details)
+    this.order_details["amount_paid"] = amount_paid;
+    this.placeOrder(this.order_details);
   }
 
 

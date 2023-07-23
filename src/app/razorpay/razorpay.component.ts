@@ -44,7 +44,8 @@ export class RazorpayComponent {
               await this.plantsInfo.updatePaymentSuccess(
                 response["razorpay_order_id"],
                 response["razorpay_payment_id"],
-                response["razorpay_signature"]
+                response["razorpay_signature"],
+                this.plantsInfo.getInvoiceTotal().toString()
               );
               this.router.navigate(['/my-orders']);
             }

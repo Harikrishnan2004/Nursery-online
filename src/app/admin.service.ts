@@ -23,4 +23,13 @@ export class AdminService {
     });
   }
 
+  public changeStatus(user: string, authToken: string, ord_no: string, msg: string) {
+    return this.http.post("http://127.0.0.1:8000/tatadmin/updateStatus/", {
+      "user": user,
+      "auth": authToken,
+      "order_no": ord_no,
+      "update_message": msg
+    });
+  }
+
 }

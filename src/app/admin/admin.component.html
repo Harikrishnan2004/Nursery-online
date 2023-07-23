@@ -14,7 +14,6 @@
     <button class="btn btn-info m-1" (click)="hideAllTabs(); showManageProductsDiv = true">Manage Products</button>
     <button class="btn btn-info m-1" (click)="hideAllTabs(); showPendingOrdersDiv = true; getPendingOrders();">Pending Orders</button>
     <button class="btn btn-info m-1" (click)="hideAllTabs(); showOrderHistoryDiv = true; getOrderHistory();">Order History</button>
-    <button class="btn btn-info m-1" (click)="hideAllTabs(); showInsightsDiv = true">Insights</button>
 
     <div *ngIf="showManageProductsDiv">
         <app-add-plant></app-add-plant>
@@ -27,16 +26,46 @@
         </div>
 
         <div *ngIf="!PendingOrdersLoader">
-            <div *ngFor="let order of pendingOrders">
-                <h3>Order No: {{ order.order_no }}</h3>
-                <p>Date: {{ order.order_date }}</p>
-                <p>Status: {{ order.status }}</p>
-                <p>User: {{ order.user }}</p>
+            <!-- Add a custom class "order-card" to the outer div for styling -->
+            <div *ngFor="let order of pendingOrders" class="order-card">
+                <br>
+                <h2 style="font-family: consolas">{{ order.order_no }}</h2>
+                <h3 style="font-family: consolas">{{ order.order_date }}</h3>
+                <p>
+                    {{ order.name }}<br>
+                    {{ order.user }}
+                </p>
 
-                <div *ngFor="let item of getOrderItems(order.order_details)">
-                    Product Name: {{ item.name }} - Quantity: {{ item.quantity }}
+                <div class="alert alert-success">
+                    ₹{{ order.amount_paid }} Paid using Razorpay
                 </div>
+                
+                <!-- Use Bootstrap's "list-group" class to group the product items -->
+                ORDER
+                <div class="list-group">
+                    <div *ngFor="let item of getOrderItems(order.order_details)" class="list-group-item">
+                        {{ item.name }}<br>{{ item.quantity }}
+                    </div>
+                </div>
+            
+                <!-- Apply custom styles to input and buttons -->
+                <div class="alert alert-secondary">Current Status: {{ order.status }}</div>
+                <hr>
+                <div class="form-group">
+                <label for="custom-msg">Custom Message for Customer:</label>
+                <input #msg type="text" class="form-control" id="custom-msg">
+                </div>
+            
+                <div class="form-group">
+                <label for="delivery-date">Estimated Date of Delivery:</label>
+                <input #etd type="text" class="form-control" id="delivery-date" placeholder="DD/MM/YYYY">
+                </div>
+            
+                <!-- Use Bootstrap's "btn" and "btn-primary" classes for styling the buttons -->
+                <button (click)="setMSG(order.order_no, msg.value + ' Estimated Delivery By: ' + etd.value)" class="btn btn-primary">Save</button>
+                <button (click)="setMSG(order.order_no, 'Order Fulfilled')" class="btn btn-success m-3">Move to Order History</button>
             </div>
+  
         </div>
     </div>
 
@@ -45,17 +74,24 @@
             <img src="/assets/images/Hourglass.gif">
         </div>
 
-        <div *ngIf="!OrderHistoryLoader">
-            <div *ngFor="let order of orderHistory">
-                <h3>Order No: {{ order.order_no }}</h3>
-                <p>Date: {{ order.order_date }}</p>
-                <p>Status: {{ order.status }}</p>
-                <p>User: {{ order.user }}</p>
-
-                <div *ngFor="let item of getOrderItems(order.order_details)">
-                    Product Name: {{ item.name }} - Quantity: {{ item.quantity }}
+        <div id="orderHistoryDiv" class="order-history" *ngIf="!OrderHistoryLoader">
+            <!-- Wrap the entire content in a Bootstrap card -->
+            <div *ngFor="let order of orderHistory" class="card mb-4">
+                <div class="card-body">
+                <!-- Use Bootstrap typography classes for headings and paragraphs -->
+                <h3 class="card-title">{{ order.order_no }}</h3>
+                <p class="card-text"><strong>Date:</strong> {{ order.order_date }}</p>
+                <p class="card-text"><strong>Status:</strong> {{ order.status }}</p>
+                <p class="card-text"><strong>User:</strong> {{ order.user }}</p>
+            
+                <!-- Use Bootstrap list-group to group the order items -->
+                <ul class="list-group">
+                    <li *ngFor="let item of getOrderItems(order.order_details)" class="list-group-item">
+                    {{ item.name }} - Quantity: {{ item.quantity }}
+                    </li>
+                </ul>
                 </div>
-            </div>
+            </div>  
         </div>
     </div>
 
