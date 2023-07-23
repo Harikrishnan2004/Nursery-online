@@ -28,9 +28,10 @@
         <div style="font-weight: bold; font-family:monospace">
             <p>Grand Total: ₹{{ order[3].total_price }}</p>
             <p>Invoice Amount: ₹{{ order[4].invoice_amount }}</p>
+            <p>Delivery Address: {{ order[5].address }}</p>
         </div>
         <div class="alert alert-success" role="alert">
-            {{ order[5].status }}
+            {{ order[6].status }}
         </div>
         </div>
     </div>
