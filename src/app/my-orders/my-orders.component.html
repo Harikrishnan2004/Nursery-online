@@ -35,11 +35,8 @@
             <p>Invoice Amount: ₹{{ order[4].invoice_amount + 30}} (including 5% GST)</p>
             <p>Delivery Address: {{ order[5].address }}</p>
         </div>
-        <div class="alert alert-success" role="alert" *ngIf="isReady">
-            Your order is ready and would be delivered soon
-        </div>
-        <div class="alert alert-primary" role="alert" *ngIf="isPending">
-            The order is being processed
+        <div class="alert alert-success" role="alert">
+            {{ order[6].status }}
         </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { PlantsInfoService } from '../plants-info.service';
 import { CookieService } from 'ngx-cookie-service';
 import { AdminService } from '../admin.service';
@@ -20,9 +20,11 @@ export class AdminComponent implements OnInit {
   showPendingOrdersDiv: boolean = false;
   showOrderHistoryDiv: boolean = false;
   showInsightsDiv: boolean = false;
+  
+  segment: number = 0;
 
   allPlantsData: any = null;
-  orderHistory: any = null;
+  orderHistory: any = Array();
   pendingOrders: any = null;
 
   PendingOrdersLoader: boolean = true;
@@ -67,17 +69,26 @@ export class AdminComponent implements OnInit {
 
   }
 
+  public setMSG(order_no: string, msg: string) {
+    this.admin.changeStatus(this.cookie.get("email/phone"),this.cookie.get("authToken"), order_no, msg).subscribe({
+      next: (response: any) => {
+        this.getPendingOrders();
+      },
+      error: (response: any) => {
+        alert("error");
+      }
+    });
+  }
+
   public getOrderHistory(): void {
-    console.log("Hello");
     this.OrderHistoryLoader = true;
     let user: string = this.cookie.get("email/phone");
     if (user !== "tatwamasi.admin") return;
     let authToken: string = this.cookie.get("authToken");
 
-    this.admin.orderHistoryService(user, authToken, 1).subscribe({
+    this.admin.orderHistoryService(user, authToken, this.segment).subscribe({
       next: (response: any) => {
-        this.orderHistory = response["order-history"];
-        console.log(this.orderHistory)
+        this.orderHistory = this.orderHistory.concat(response["order-history"]);
         this.OrderHistoryLoader = false;
       }
     })
@@ -88,5 +99,6 @@ export class AdminComponent implements OnInit {
     this.showPendingOrdersDiv = false;
     this.showInsightsDiv = false;
     this.showOrderHistoryDiv = false;
+    this.segment = 0;
   }
 }

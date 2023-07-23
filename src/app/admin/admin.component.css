@@ -1,2 +1,53 @@
 @import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+/* Custom styles for the order card */
+.order-card {
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Custom styles for the product items list */
+  .list-group-item {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+  }
+  
+  /* Custom styles for the buttons */
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #565e64;
+    border-color: #565e64;
+  }
+  
+  /* Custom styles for the input fields */
+  .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+  
+  /* Custom font family and font size for the entire div */
+  .order-card,
+  .order-card h3,
+  .order-card p,
+  .order-card input,
+  .order-card button {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+  }
   

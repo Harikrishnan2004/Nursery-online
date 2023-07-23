@@ -52,7 +52,7 @@ export class MyOrdersComponent {
   placeOrder(){
     let count = 0
     for (let order of this.order_details){
-      this.orders.push([{"order_no": order["order_no"]},{"order_date": order["order_date"]}, {"details": []}, {"total_price": 0}, {"invoice_amount": 0}, {"address": order["address"]}])
+      this.orders.push([{"order_no": order["order_no"]},{"order_date": order["order_date"]}, {"details": []}, {"total_price": 0}, {"invoice_amount": 0}, {"address": order["address"]}, {"status": order["status"]}])
       for (let id of Object.keys(order["order_details"])){
         if(this.isPresent(id) || this.isPresent(id) == 0){
           console.log(id)
